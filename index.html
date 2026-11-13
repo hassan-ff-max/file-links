@@ -132,20 +132,30 @@
                 </button>
             </div>
 
-            <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl">
-                <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mx-auto mb-4 text-cyan-400 text-2xl">
+            <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl space-y-4">
+                <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 text-2xl">
                     <i class="fa-solid fa-file-arrow-down"></i>
                 </div>
                 <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider">
                     Verified File Ready
                 </span>
-                <h2 id="pub-file-name" class="text-lg font-extrabold text-white mt-3 break-all">Loading file...</h2>
-                <div class="flex items-center justify-center gap-4 mt-2 text-xs text-slate-400">
+                <h2 id="pub-file-name" class="text-lg font-extrabold text-white break-all">Loading file...</h2>
+                <div class="flex items-center justify-center gap-4 text-xs text-slate-400">
                     <span><i class="fa-solid fa-hard-drive text-cyan-400 mr-1"></i> <strong id="pub-file-size" class="text-slate-200">--</strong></span>
                     <span><i class="fa-solid fa-user text-amber-400 mr-1"></i> <strong id="pub-file-owner" class="text-slate-200">--</strong></span>
                 </div>
 
-                <div class="mt-6 space-y-3">
+                <!-- Code / Text Content Preview Box -->
+                <div id="pub-code-preview-box" class="hidden text-left bg-slate-950 p-3.5 rounded-2xl border border-slate-800 max-h-48 overflow-y-auto no-scrollbar">
+                    <pre class="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap"><code id="pub-code-preview-text"></code></pre>
+                </div>
+
+                <!-- LIVE PREVIEW BUTTON -->
+                <button id="pub-live-preview-btn" onclick="openLivePreviewFromPublic()" class="hidden w-full py-3 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-eye"></i> Live Preview
+                </button>
+
+                <div class="space-y-3 pt-2">
                     <a id="pub-download-btn" href="#" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2">
                         <i class="fa-solid fa-download"></i> Download File Now
                     </a>
@@ -153,12 +163,25 @@
                         <i class="fa-solid fa-copy text-cyan-400"></i> Copy Share Link
                     </button>
                 </div>
+
+                <!-- PORTFOLIO & TOOLKIT BUTTONS RIGHT UNDER SHARED LINKS -->
+                <div class="pt-3 border-t border-slate-800/80 space-y-2">
+                    <p class="text-[10px] uppercase font-bold text-slate-400">Developer Hub</p>
+                    <div class="grid grid-cols-2 gap-2">
+                        <a href="https://hassan-portfolio-v1-one.vercel.app" target="_blank" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-cyan-300 text-xs font-bold flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-address-card"></i> Portfolio
+                        </a>
+                        <a href="https://hassan-toolkit-pro.vercel.app" target="_blank" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-amber-300 text-xs font-bold flex items-center justify-center gap-2 transition">
+                            <i class="fa-solid fa-toolbox"></i> Toolkit
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <p class="text-center text-[11px] text-slate-500 py-2">Powered by HASSAN X FILES LINKS</p>
         </div>
 
-        <!-- Google Account Quick Fallback Modal (for Sandboxed/Unauthorized Preview Environments) -->
+        <!-- Google Account Quick Fallback Modal -->
         <div id="google-fallback-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
             <div class="glass-card rounded-3xl p-6 w-full max-w-[360px] border border-cyan-500/30 shadow-2xl">
                 <div class="flex items-center justify-between mb-3">
@@ -185,7 +208,6 @@
         <!-- 2. AUTHENTICATION SCREEN (LOGIN / SIGN UP)                -->
         <!-- ========================================================= -->
         <div id="auth-screen" class="flex-1 flex flex-col justify-center p-5">
-            <!-- Brand Header -->
             <div class="text-center mb-6">
                 <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl shadow-cyan-500/30">
                     <i class="fa-solid fa-cloud-bolt text-white text-2xl"></i>
@@ -196,9 +218,7 @@
                 <p class="text-xs text-slate-400 mt-1">Instant Cloud File-to-Link Generator</p>
             </div>
 
-            <!-- Auth Card -->
             <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 shadow-2xl">
-                <!-- Toggle Login / Sign Up -->
                 <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-950/90 border border-slate-800 mb-5">
                     <button id="tab-btn-login" onclick="setAuthMode('login')" class="py-2.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition">
                         Sign In
@@ -208,7 +228,6 @@
                     </button>
                 </div>
 
-                <!-- Google Sign-In Button -->
                 <button onclick="loginWithGoogle()" class="w-full py-3 rounded-2xl bg-white text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-md active:scale-98 transition mb-4">
                     <svg class="w-4 h-4" viewBox="0 0 24 24">
                         <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
@@ -225,7 +244,6 @@
                     <div class="h-px bg-slate-800 flex-1"></div>
                 </div>
 
-                <!-- Form Inputs -->
                 <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
                     <div id="signup-username-group" class="hidden">
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
@@ -271,7 +289,6 @@
         <!-- ========================================================= -->
         <div id="main-app-view" class="hidden flex-1 flex flex-col pb-20">
             
-            <!-- Sticky Top App Header -->
             <header class="sticky top-0 z-30 glass-card border-b border-cyan-500/20 px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-2.5" onclick="navigateTo('dashboard')">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
@@ -350,11 +367,10 @@
             </div>
 
             <!-- ===================================================== -->
-            <!-- VIEW A: DASHBOARD & FILE TO LINK GENERATOR            -->
+            <!-- VIEW A: DASHBOARD & DUAL GENERATOR (DRAG & DROP / MANUAL CODE) -->
             <!-- ===================================================== -->
             <section id="view-dashboard" class="app-section p-4 space-y-4">
                 
-                <!-- Live Storage & Active Plan Card -->
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/25">
                     <div class="flex items-center justify-between mb-2">
                         <div>
@@ -369,7 +385,6 @@
                         </button>
                     </div>
 
-                    <!-- Progress Bar -->
                     <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
                         <div id="dash-storage-bar" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-300" style="width: 0%"></div>
                     </div>
@@ -380,42 +395,62 @@
                     </div>
                 </div>
 
-                <!-- Drag & Drop File-to-Link Generator -->
-                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25">
-                    <h3 class="text-sm font-extrabold text-white mb-1 flex items-center gap-2">
-                        <i class="fa-solid fa-link text-cyan-400"></i> File to Link Generator
-                    </h3>
-                    <p class="text-[11px] text-slate-400 mb-3">Drop any file below to generate an instant shareable link.</p>
-
-                    <!-- Optional Custom Slug Input -->
-                    <div class="mb-3">
-                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Custom URL Slug (Optional)</label>
-                        <input type="text" id="custom-file-slug" placeholder="make url like ?file=my-website" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400">
-                    </div>
-
-                    <!-- Dropzone -->
-                    <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 bg-slate-950/70 rounded-2xl p-6 text-center cursor-pointer transition">
-                        <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0]); this.value='';">
-                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-2.5 text-xl">
-                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                <!-- Dual File/Code Generator Box -->
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-link text-cyan-400"></i> File / Code Link Generator
+                        </h3>
+                        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+                            <button id="gen-tab-file" onclick="switchGenMode('file')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 transition">File Upload</button>
+                            <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">Manual Code/Text</button>
                         </div>
-                        <p class="text-xs font-bold text-slate-200">Tap to Select or Drag & Drop File</p>
-                        <p class="text-[10px] text-slate-400 mt-1">Supports .py, .zip, .html, .apk, images, docs & more</p>
                     </div>
 
-                    <!-- Upload Progress Indicator -->
+                    <!-- Custom URL Slug -->
+                    <div>
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Make URL / Custom Slug</label>
+                        <input type="text" id="custom-file-slug" placeholder="make url like ?file=my-website" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono">
+                    </div>
+
+                    <!-- TAB 1: Drag & Drop File Upload -->
+                    <div id="gen-mode-file-section" class="space-y-3">
+                        <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 bg-slate-950/70 rounded-2xl p-6 text-center cursor-pointer transition">
+                            <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0], 'file'); this.value='';">
+                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-2.5 text-xl">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                            </div>
+                            <p class="text-xs font-bold text-slate-200">Tap to Select or Drag & Drop File</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Supports python, zip, html, media & documents</p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Manual Code / Text Creator -->
+                    <div id="gen-mode-code-section" class="space-y-3 hidden">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Project / File Name</label>
+                            <input type="text" id="manual-proj-name" placeholder="Hassan_MD.py or my-website" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Paste Code or Text Content</label>
+                            <textarea id="manual-proj-content" rows="5" placeholder="Type or paste python codes, HTML, scripts or text notes here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-400"></textarea>
+                        </div>
+                        <button onclick="submitManualCodeSnippet()" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                            Generate Code Link
+                        </button>
+                    </div>
+
                     <div id="upload-progress-box" class="hidden mt-3 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
                         <p id="upload-progress-text" class="text-xs font-bold text-cyan-300 animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Generating Secure Link...</p>
                     </div>
 
-                    <!-- Latest Generated Link Box -->
                     <div id="latest-link-box" class="hidden mt-4 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2.5">
                         <div class="flex items-center justify-between">
                             <span class="text-[10px] font-bold text-emerald-300 uppercase"><i class="fa-solid fa-circle-check mr-1"></i> Shareable Link Ready</span>
                             <span id="latest-file-size" class="text-[10px] text-slate-300">0 KB</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="latest-link-url" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-cyan-300 focus:outline-none">
+                            <input type="text" id="latest-link-url" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-cyan-300 focus:outline-none font-mono">
                             <button onclick="copyTextValue(document.getElementById('latest-link-url').value, 'File link copied!')" class="px-3.5 py-2 rounded-xl btn-cyan text-xs font-bold text-white shrink-0">
                                 Copy
                             </button>
@@ -426,7 +461,7 @@
                     </div>
                 </div>
 
-                <!-- User's Uploaded Files List (Starts Empty until User Uploads) -->
+                <!-- My Generated Links List -->
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/20">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="text-xs font-extrabold text-cyan-300 uppercase tracking-wider">
@@ -435,7 +470,7 @@
                     </div>
                     <div id="user-files-list" class="space-y-2.5">
                         <div class="text-center py-6 text-slate-500 text-xs">
-                            No files uploaded yet. Upload a file above to create your first link!
+                            No files uploaded yet. Create your first link above!
                         </div>
                     </div>
                 </div>
@@ -451,7 +486,6 @@
                     <p class="text-[11px] text-slate-400">Redeem instantly with Referral Points or Pay via Easypaisa/JazzCash</p>
                 </div>
 
-                <!-- 1. Free Plan -->
                 <div class="glass-card rounded-3xl p-5 border border-slate-800">
                     <div class="flex items-center justify-between mb-3">
                         <div>
@@ -466,15 +500,10 @@
                         <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
                         <li class="flex justify-between"><span>200MB Storage</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>❌</span></li>
-                        <li class="flex justify-between"><span>High-Speed Priority CDN</span> <span>❌</span></li>
                     </ul>
-                    <button disabled class="w-full py-2.5 rounded-xl bg-slate-800/80 text-slate-400 text-xs font-bold">
-                        Default Starter Tier
-                    </button>
+                    <button disabled class="w-full py-2.5 rounded-xl bg-slate-800/80 text-slate-400 text-xs font-bold">Default Starter Tier</button>
                 </div>
 
-                <!-- 2. Weekly Plan -->
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/35">
                     <div class="flex items-center justify-between mb-3">
                         <div>
@@ -489,20 +518,13 @@
                         <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
                         <li class="flex justify-between"><span>600MB Storage</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Ad-Free Downloads</span> <span>✔️</span></li>
                     </ul>
                     <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Weekly Plan', 190, 600)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">
-                            190 Points
-                        </button>
-                        <button onclick="openPaymentModal('Weekly Plan', '100 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">
-                            Get Now
-                        </button>
+                        <button onclick="redeemPlanPoints('Weekly Plan', 190, 600)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">190 Points</button>
+                        <button onclick="openPaymentModal('Weekly Plan', '100 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
                     </div>
                 </div>
 
-                <!-- 3. Monthly Plan -->
                 <div class="glass-gold rounded-3xl p-5 relative">
                     <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-extrabold uppercase">Most Popular</span>
                     <div class="flex items-center justify-between mb-3">
@@ -518,20 +540,13 @@
                         <li class="flex justify-between"><span>Unlimited Links</span> <span>✔️</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>1000MB Storage</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Priority Fast Servers</span> <span>✔️</span></li>
                     </ul>
                     <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Monthly Plan', 380, 1000)" class="py-2.5 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 text-xs font-bold">
-                            380 Points
-                        </button>
-                        <button onclick="openPaymentModal('Monthly Plan', '300 PKR')" class="py-2.5 rounded-xl btn-gold text-xs font-extrabold">
-                            Get Now
-                        </button>
+                        <button onclick="redeemPlanPoints('Monthly Plan', 380, 1000)" class="py-2.5 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 text-xs font-bold">380 Points</button>
+                        <button onclick="openPaymentModal('Monthly Plan', '300 PKR')" class="py-2.5 rounded-xl btn-gold text-xs font-extrabold">Get Now</button>
                     </div>
                 </div>
 
-                <!-- 4. Yearly Plan -->
                 <div class="glass-card rounded-3xl p-5 border border-purple-500/40">
                     <div class="flex items-center justify-between mb-3">
                         <div>
@@ -546,16 +561,10 @@
                         <li class="flex justify-between"><span>Unlimited Links Access</span> <span>✔️</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>2048MB Storage</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>VIP Support & Custom Slugs</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Permanent Link Retention</span> <span>✔️</span></li>
                     </ul>
                     <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Yearly Plan', 700, 2048)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">
-                            700 Points
-                        </button>
-                        <button onclick="openPaymentModal('Yearly Plan', '700 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">
-                            Get Now
-                        </button>
+                        <button onclick="redeemPlanPoints('Yearly Plan', 700, 2048)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">700 Points</button>
+                        <button onclick="openPaymentModal('Yearly Plan', '700 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
                     </div>
                 </div>
             </section>
@@ -627,7 +636,6 @@
                         <i class="fa-solid fa-user-pen text-cyan-400"></i> Edit Profile
                     </h2>
 
-                    <!-- Avatar Preview + Upload from Gallery or Link -->
                     <div class="flex items-center gap-3.5">
                         <img id="prof-avatar-img" src="https://placehold.co/100x100/0f172a/00f2fe?text=U" class="w-16 h-16 rounded-full object-cover border-2 border-cyan-400 shrink-0">
                         <div class="flex-1 space-y-2">
@@ -654,7 +662,6 @@
                     </button>
                 </div>
 
-                <!-- Change Password Card -->
                 <div class="glass-card rounded-3xl p-5 border border-amber-500/25 space-y-3">
                     <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
                         <i class="fa-solid fa-key"></i> Change Password
@@ -689,7 +696,6 @@
                     <i class="fa-solid fa-shield-halved text-2xl text-amber-400"></i>
                 </div>
 
-                <!-- 1. Broadcast Message to All Users -->
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/25 space-y-3">
                     <h3 class="text-xs font-extrabold text-cyan-300 uppercase tracking-wider">
                         <i class="fa-solid fa-bullhorn mr-1.5"></i> Send Global Broadcast to All Users
@@ -700,7 +706,6 @@
                     </button>
                 </div>
 
-                <!-- 2. Grant / Change User Rank by Username or Gmail -->
                 <div class="glass-card rounded-3xl p-4 border border-amber-500/25 space-y-3">
                     <h3 class="text-xs font-extrabold text-amber-300 uppercase tracking-wider">
                         <i class="fa-solid fa-crown mr-1.5"></i> Assign Plan Rank to User
@@ -724,7 +729,6 @@
                     </button>
                 </div>
 
-                <!-- 3. Submitted Payment Messages & Screenshots -->
                 <div class="glass-card rounded-3xl p-4 border border-emerald-500/25 space-y-3">
                     <h3 class="text-xs font-extrabold text-emerald-300 uppercase tracking-wider">
                         <i class="fa-solid fa-receipt mr-1.5"></i> Payment Proofs (<span id="admin-payments-count">0</span>)
@@ -772,11 +776,9 @@
                 <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase">Plan Activation</span>
                 <h3 id="pay-modal-heading" class="text-base font-extrabold text-white mt-1.5">Weekly Plan — 100 PKR</h3>
 
-                <!-- Select Method with Authentic Logos -->
                 <div class="mt-4">
                     <label class="block text-[11px] font-bold text-slate-300 mb-2">Select Payment Method Sent From:</label>
                     <div class="grid grid-cols-3 gap-2">
-                        <!-- Easypaisa -->
                         <button type="button" onclick="choosePayMethod('Easypaisa')" id="pm-btn-Easypaisa" class="p-2.5 rounded-2xl border-2 border-emerald-500 bg-emerald-500/15 flex flex-col items-center gap-1.5 transition">
                             <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
                                 <circle cx="24" cy="24" r="22" fill="#00A859"/>
@@ -785,7 +787,6 @@
                             <span class="text-[10px] font-extrabold text-emerald-300">Easypaisa</span>
                         </button>
 
-                        <!-- JazzCash -->
                         <button type="button" onclick="choosePayMethod('JazzCash')" id="pm-btn-JazzCash" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
                             <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
                                 <rect x="2" y="2" width="44" height="44" rx="12" fill="#D71920"/>
@@ -795,7 +796,6 @@
                             <span class="text-[10px] font-extrabold text-slate-300">JazzCash</span>
                         </button>
 
-                        <!-- Bank -->
                         <button type="button" onclick="choosePayMethod('Bank')" id="pm-btn-Bank" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
                             <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm">
                                 <i class="fa-solid fa-building-columns"></i>
@@ -805,7 +805,6 @@
                     </div>
                 </div>
 
-                <!-- Receiver Account Info -->
                 <div class="mt-4 p-3.5 rounded-2xl bg-slate-950 border border-emerald-500/30 space-y-1">
                     <p class="text-[11px] font-extrabold text-emerald-400">Only Easypaisa account</p>
                     <div class="flex items-center justify-between text-xs">
@@ -815,7 +814,6 @@
                     <p class="text-xs text-slate-300">Acc Holder Name: <strong class="text-amber-300">ANSARIQBAL</strong></p>
                 </div>
 
-                <!-- Sender Details & Screenshot -->
                 <div class="mt-4 space-y-3">
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Account Holder Name</label>
@@ -829,12 +827,12 @@
 
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">
-                            Payment Screenshot <span id="screenshot-req-label" class="text-red-400">* (Required)</span>
+                            Payment Screenshot <span class="text-red-400">* (Mandatory Screenshot Required)</span>
                         </label>
                         <div id="pay-ss-dropzone" onclick="document.getElementById('pay-ss-input').click()" class="border-2 border-dashed border-amber-500/40 rounded-2xl p-4 text-center bg-slate-950 cursor-pointer">
-                            <input type="file" id="pay-ss-input" accept="image/*" class="hidden" onchange="handlePaymentProofFile(this.files[0])">
+                            <input type="file" id="pay-ss-input" accept="image/*" required class="hidden" onchange="handlePaymentProofFile(this.files[0])">
                             <p id="pay-ss-status" class="text-xs text-slate-400">
-                                <i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot
+                                <i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot (Required)
                             </p>
                         </div>
                     </div>
@@ -843,6 +841,28 @@
                         Sent Payment Message
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 5. LIVE CODE / TEXT PREVIEW MODAL                         -->
+        <!-- ========================================================= -->
+        <div id="live-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
+            <div class="glass-card rounded-3xl p-5 w-full max-w-lg h-[80vh] flex flex-col border border-cyan-500/40 relative">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <h3 class="text-sm font-extrabold text-emerald-300 flex items-center gap-2">
+                        <i class="fa-solid fa-eye"></i> Live Code / Text Preview
+                    </h3>
+                    <button onclick="closeLivePreviewModal()" class="w-8 h-8 rounded-xl bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="live-preview-content" class="flex-1 bg-slate-950 p-4 rounded-2xl border border-slate-800/80 my-3 overflow-auto font-mono text-xs text-cyan-300 whitespace-pre-wrap">
+                    <!-- Dynamic preview content -->
+                </div>
+                <button onclick="closeLivePreviewModal()" class="w-full py-3 rounded-xl btn-cyan text-xs font-bold text-white uppercase tracking-wider">
+                    Close Preview
+                </button>
             </div>
         </div>
 
@@ -897,7 +917,6 @@
             appId: "1:884697637857:web:3ce57c93c49eb1cbca68a0"
         };
 
-        // Initialize Firebase Services Safely
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
@@ -916,8 +935,9 @@
         let selectedPlanPrice = "";
         let selectedPayMethod = "Easypaisa";
         let selectedScreenshotFile = null;
+        let currentGenMode = "file"; // 'file' or 'code'
+        let activePublicFileRecord = null;
 
-        // Plan Storage Capacities in Bytes
         const PLAN_LIMITS = {
             "Free Plan": 200 * 1024 * 1024,
             "Weekly Plan": 600 * 1024 * 1024,
@@ -925,7 +945,6 @@
             "Yearly Plan": 2048 * 1024 * 1024
         };
 
-        // Helper: Modal Notification
         window.showAppModal = function(title, text, iconHtml = '<i class="fa-solid fa-circle-info"></i>') {
             document.getElementById("app-modal-title").innerText = title;
             document.getElementById("app-modal-text").innerText = text;
@@ -937,7 +956,6 @@
             document.getElementById("app-modal").classList.add("hidden");
         };
 
-        // Helper: Clipboard Copy (iFrame safe)
         window.copyTextValue = function(text, msg = "Copied to clipboard!") {
             const tempInput = document.createElement("textarea");
             tempInput.value = text;
@@ -948,7 +966,6 @@
             showAppModal("Copied!", msg, '<i class="fa-solid fa-clipboard-check text-emerald-400"></i>');
         };
 
-        // Helper: Format Bytes (e.g., 70.71 KB, 199.93 MB)
         function formatSize(bytes) {
             if (!bytes || bytes <= 0) return "0 KB";
             const k = 1024;
@@ -957,14 +974,34 @@
             return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
         }
 
-        // Generate custom referral code from username (e.g., hassan_ff -> hassanff1789)
         function generateReferralCode(username) {
             const clean = (username || "user").toLowerCase().replace(/[^a-z0-9]/g, "");
             const rand = Math.floor(1000 + Math.random() * 9000);
             return `${clean}${rand}`;
         }
 
-        // Open Public File Download Page for a given slug
+        // Switch generator mode between file upload and manual code creator
+        window.switchGenMode = function(mode) {
+            currentGenMode = mode;
+            const fileBtn = document.getElementById("gen-tab-file");
+            const codeBtn = document.getElementById("gen-tab-code");
+            const fileSec = document.getElementById("gen-mode-file-section");
+            const codeSec = document.getElementById("gen-mode-code-section");
+
+            if (mode === "file") {
+                fileBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 transition";
+                codeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+                fileSec.classList.remove("hidden");
+                codeSec.classList.add("hidden");
+            } else {
+                codeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 transition";
+                fileBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition";
+                codeSec.classList.remove("hidden");
+                fileSec.classList.add("hidden");
+            }
+        };
+
+        // Open Public File Download Page
         async function loadPublicFileBySlug(fileSlug) {
             document.getElementById("auth-screen").classList.add("hidden");
             document.getElementById("main-app-view").classList.add("hidden");
@@ -990,18 +1027,40 @@
                 } catch (_) {}
             }
 
+            activePublicFileRecord = matchedFile;
+
             if (matchedFile) {
                 const resolvedName = matchedFile.fileName || fileSlug;
                 const resolvedSize = matchedFile.size || matchedFile.fileSize || 0;
                 const resolvedOwner = matchedFile.uploaderName || matchedFile.ownerUsername || "User";
                 const resolvedUrl = matchedFile.downloadURL || matchedFile.fileData || "";
+                const codeContent = matchedFile.codeContent || "";
 
                 document.getElementById("pub-file-name").innerText = resolvedName;
                 document.getElementById("pub-file-size").innerText = formatSize(resolvedSize);
                 document.getElementById("pub-file-owner").innerText = resolvedOwner;
+
+                const codeBox = document.getElementById("pub-code-preview-box");
+                const codeText = document.getElementById("pub-code-preview-text");
+                const liveBtn = document.getElementById("pub-live-preview-btn");
+
+                if (codeContent) {
+                    codeText.innerText = codeContent;
+                    codeBox.classList.remove("hidden");
+                    liveBtn.classList.remove("hidden");
+                } else {
+                    codeBox.classList.add("hidden");
+                    liveBtn.classList.add("hidden");
+                }
+
                 const dlBtn = document.getElementById("pub-download-btn");
                 if (resolvedUrl) {
                     dlBtn.href = resolvedUrl;
+                    dlBtn.setAttribute("download", resolvedName);
+                    dlBtn.classList.remove("hidden");
+                } else if (codeContent) {
+                    const blob = new Blob([codeContent], { type: "text/plain" });
+                    dlBtn.href = URL.createObjectURL(blob);
                     dlBtn.setAttribute("download", resolvedName);
                     dlBtn.classList.remove("hidden");
                 } else {
@@ -1012,8 +1071,21 @@
                 document.getElementById("pub-file-size").innerText = "--";
                 document.getElementById("pub-file-owner").innerText = "--";
                 document.getElementById("pub-download-btn").classList.add("hidden");
+                document.getElementById("pub-code-preview-box").classList.add("hidden");
+                document.getElementById("pub-live-preview-btn").classList.add("hidden");
             }
         }
+
+        window.openLivePreviewFromPublic = function() {
+            if (activePublicFileRecord && activePublicFileRecord.codeContent) {
+                document.getElementById("live-preview-content").innerText = activePublicFileRecord.codeContent;
+                document.getElementById("live-preview-modal").classList.remove("hidden");
+            }
+        };
+
+        window.closeLivePreviewModal = function() {
+            document.getElementById("live-preview-modal").classList.add("hidden");
+        };
 
         window.openGeneratedPreview = function(e) {
             e.preventDefault();
@@ -1030,7 +1102,6 @@
             }
         };
 
-        // Check URL Parameters on Startup (?file= or ?ref= or /refcode)
         async function checkUrlParamsOnLoad() {
             const params = new URLSearchParams(window.location.search);
             const fileSlug = params.get("file");
@@ -1063,7 +1134,6 @@
             }
         };
 
-        // Switch Login vs Sign Up Mode
         window.setAuthMode = function(mode) {
             authMode = mode;
             const loginBtn = document.getElementById("tab-btn-login");
@@ -1087,7 +1157,6 @@
             }
         };
 
-        // Email / Password Login or Sign Up
         window.handleAuthSubmit = async function(e) {
             e.preventDefault();
             const email = document.getElementById("auth-email").value.trim().toLowerCase();
@@ -1117,7 +1186,6 @@
             }
         };
 
-        // Google Sign-In (With Seamless Fallback for Sandboxed / Unauthorized Preview Domains)
         window.loginWithGoogle = async function() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
@@ -1145,7 +1213,6 @@
             }
         };
 
-        // Fallback Google Gmail Sign-In Handler when running inside sandboxed preview
         window.submitGoogleFallback = async function(e) {
             e.preventDefault();
             const gmail = document.getElementById("google-fallback-email").value.trim().toLowerCase();
@@ -1163,8 +1230,7 @@
                 try {
                     const cred = await createUserWithEmailAndPassword(auth, gmail, derivedPass);
                     await initializeUserDocument(cred.user, derivedUser, refCode);
-                } catch (createErr) {
-                    // Activate local session if Firebase Auth email-password provider is disabled
+                } catch (_) {
                     activateLocalUserSession(gmail, derivedUser, isAdm);
                 }
             }
@@ -1193,7 +1259,6 @@
             document.getElementById("main-app-view").classList.remove("hidden");
         }
 
-        // Create User Profile in Firestore + Handle Referral Rewards (+30 Points to Both)
         async function initializeUserDocument(user, username, referredByCode) {
             const emailLower = (user.email || "").toLowerCase();
             const isAdmin = emailLower === ADMIN_EMAIL;
@@ -1249,7 +1314,6 @@
             }
         }
 
-        // Firebase Auth State Listener
         onAuthStateChanged(auth, async (user) => {
             const params = new URLSearchParams(window.location.search);
             const hasFileParam = Boolean(params.get("file"));
@@ -1264,7 +1328,6 @@
                     await initializeUserDocument(user, isAdm ? "hassan_admin" : user.email.split("@")[0], "");
                 }
 
-                // Real-time listener on User Profile
                 onSnapshot(userRef, (docSnap) => {
                     if (docSnap.exists()) {
                         userProfile = docSnap.data();
@@ -1275,7 +1338,6 @@
                     }
                 });
 
-                // Real-time listener on User's Uploaded Files
                 onSnapshot(collection(db, "files"), (snapshot) => {
                     userFiles = [];
                     let totalBytes = 0;
@@ -1289,7 +1351,6 @@
                     renderFilesList(totalBytes);
                 });
 
-                // Real-time listener on Inbox Notifications & Broadcasts
                 setupInboxListeners(user.uid);
 
                 if (!hasFileParam) {
@@ -1306,7 +1367,6 @@
             }
         });
 
-        // Sync User Profile Data to UI
         function syncProfileUI() {
             if (!userProfile) return;
             const limitBytes = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
@@ -1316,7 +1376,6 @@
             document.getElementById("dash-active-plan").innerText = userProfile.plan;
             document.getElementById("dash-storage-total").innerText = formatSize(limitBytes);
 
-            // Drawer & Profile Inputs
             document.getElementById("drawer-avatar").src = userProfile.avatar;
             document.getElementById("drawer-username").innerText = userProfile.username;
             document.getElementById("drawer-email").innerText = userProfile.email;
@@ -1327,29 +1386,22 @@
             document.getElementById("prof-username").value = userProfile.username;
             document.getElementById("prof-email").value = userProfile.email;
 
-            // Referral Section
             const baseOrigin = window.location.origin + window.location.pathname;
             document.getElementById("my-referral-link").value = `${baseOrigin}?ref=${userProfile.referralCode}`;
             document.getElementById("ref-total-count").innerText = userProfile.referralCount || 0;
             document.getElementById("ref-total-points").innerText = `${userProfile.points || 0} Pts`;
 
-            // Admin Access Controls
             const isAdmin = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL;
             if (isAdmin) {
                 document.getElementById("drawer-admin-btn").classList.remove("hidden");
-                document.getElementById("screenshot-req-label").innerText = "(Optional for Admin)";
-                document.getElementById("screenshot-req-label").className = "text-emerald-400";
                 loadAdminData();
             } else {
                 document.getElementById("drawer-admin-btn").classList.add("hidden");
-                document.getElementById("screenshot-req-label").innerText = "* (Required)";
-                document.getElementById("screenshot-req-label").className = "text-red-400";
             }
 
             renderFilesList(userProfile.usedStorage || 0);
         }
 
-        // Render Uploaded Files & Calculate Live Storage Deduction
         function renderFilesList(usedBytes) {
             const listEl = document.getElementById("user-files-list");
             const countEl = document.getElementById("files-count-label");
@@ -1364,7 +1416,6 @@
             document.getElementById("dash-storage-remaining").innerText = formatSize(remainingBytes);
             document.getElementById("dash-storage-bar").style.width = `${pct}%`;
 
-            // Show expiry alert when 0 MB remaining
             const expiredBanner = document.getElementById("storage-expired-banner");
             if (remainingBytes <= 0) {
                 expiredBanner.classList.remove("hidden");
@@ -1374,7 +1425,7 @@
             }
 
             if (userFiles.length === 0) {
-                listEl.innerHTML = `<div class="text-center py-6 text-slate-500 text-xs">No files uploaded yet. Upload a file above to create your first link!</div>`;
+                listEl.innerHTML = `<div class="text-center py-6 text-slate-500 text-xs">No files uploaded yet. Create your first link above!</div>`;
                 return;
             }
 
@@ -1399,7 +1450,6 @@
             }).join("");
         }
 
-        // Drag & Drop Events for File Upload
         const dropArea = document.getElementById("file-drop-area");
         ["dragenter", "dragover"].forEach((evt) => {
             dropArea.addEventListener(evt, (e) => {
@@ -1417,10 +1467,9 @@
         });
         dropArea.addEventListener("drop", (e) => {
             const file = e.dataTransfer && e.dataTransfer.files ? e.dataTransfer.files[0] : null;
-            if (file) processFileUpload(file);
+            if (file) processFileUpload(file, 'file');
         });
 
-        // Helper: Read file as Data URL for resilient direct fallback
         function readFileAsDataURL(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
@@ -1430,30 +1479,72 @@
             });
         }
 
-        // Upload File to Firebase Storage + Firestore (with resilient DataURL fallback so link generation never fails)
-        window.processFileUpload = async function(file) {
-            if (!file) return;
+        // Process File Upload or Manual Code
+        window.processFileUpload = async function(fileOrContent, mode, customFileName = "") {
             if (!currentUser || !userProfile) {
                 showAppModal("Sign In Required", "Please sign in to upload files and generate links.");
                 return;
             }
 
-            const totalLimit = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
-            const currentUsed = userFiles.reduce((acc, item) => acc + Number(item.size || 0), 0);
+            let fileName = "";
+            let fileSize = 0;
+            let fileType = "";
+            let codeContent = "";
+            let downloadURL = "";
+            let fileData = "";
+            let storagePath = "";
 
-            if (currentUsed + file.size > totalLimit) {
-                document.getElementById("storage-expired-banner").classList.remove("hidden");
-                showAppModal(
-                    "Storage Limit Reached",
-                    "Your Free Plan Has Expired Get Plans Through Plans",
-                    '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>'
-                );
-                return;
+            if (mode === "file") {
+                const file = fileOrContent;
+                if (!file) return;
+                fileName = file.name;
+                fileSize = file.size;
+                fileType = file.type || "application/octet-stream";
+                storagePath = `files/${currentUser.uid}/${Date.now()}_${file.name}`;
+
+                const totalLimit = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
+                const currentUsed = userFiles.reduce((acc, item) => acc + Number(item.size || 0), 0);
+
+                if (currentUsed + fileSize > totalLimit) {
+                    document.getElementById("storage-expired-banner").classList.remove("hidden");
+                    showAppModal("Storage Limit Reached", "Your Free Plan Has Expired Get Plans Through Plans");
+                    return;
+                }
+
+                try {
+                    const fileRef = ref(storage, storagePath);
+                    const uploadPromise = uploadBytes(fileRef, file).then(() => getDownloadURL(fileRef));
+                    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Timeout")), 8000));
+                    downloadURL = await Promise.race([uploadPromise, timeoutPromise]);
+                } catch (_) {}
+
+                if (!downloadURL || fileSize <= 850 * 1024) {
+                    try {
+                        const dataUrl = await readFileAsDataURL(file);
+                        if (fileSize <= 850 * 1024) fileData = dataUrl;
+                        if (!downloadURL) downloadURL = dataUrl;
+                    } catch (_) {}
+                }
+            } else {
+                // Manual Code Mode
+                codeContent = fileOrContent;
+                fileName = customFileName || "Hassan_MD.py";
+                fileSize = new Blob([codeContent]).size;
+                fileType = "text/plain";
+
+                const totalLimit = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
+                const currentUsed = userFiles.reduce((acc, item) => acc + Number(item.size || 0), 0);
+
+                if (currentUsed + fileSize > totalLimit) {
+                    document.getElementById("storage-expired-banner").classList.remove("hidden");
+                    showAppModal("Storage Limit Reached", "Your Free Plan Has Expired Get Plans Through Plans");
+                    return;
+                }
             }
 
             const progressBox = document.getElementById("upload-progress-box");
             const progressText = document.getElementById("upload-progress-text");
-            progressText.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Uploading ${file.name}...`;
+            progressText.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Generating Link...`;
             progressBox.classList.remove("hidden");
 
             try {
@@ -1461,104 +1552,67 @@
                 const randCode = Math.random().toString(36).substring(2, 9);
                 const slug = customSlugInput
                     ? customSlugInput.replace(/[^a-zA-Z0-9._-]/g, "-")
-                    : `${file.name.replace(/[^a-zA-Z0-9._-]/g, "_")}_${randCode}`;
-
-                const storagePath = `files/${currentUser.uid}/${Date.now()}_${file.name}`;
-                let downloadURL = "";
-                let fileData = "";
-
-                // 1. Attempt Firebase Storage Upload with a timeout safeguard
-                try {
-                    const fileRef = ref(storage, storagePath);
-                    const uploadPromise = uploadBytes(fileRef, file).then(() => getDownloadURL(fileRef));
-                    const timeoutPromise = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error("Storage upload timeout")), 8000)
-                    );
-                    downloadURL = await Promise.race([uploadPromise, timeoutPromise]);
-                } catch (storageErr) {
-                    console.warn("Firebase Storage fallback triggered:", storageErr.message);
-                }
-
-                // 2. If Storage failed/timed out OR file is <= 850KB, prepare direct DataURL payload
-                if (!downloadURL || file.size <= 850 * 1024) {
-                    try {
-                        const dataUrl = await readFileAsDataURL(file);
-                        if (file.size <= 850 * 1024) {
-                            fileData = dataUrl;
-                        }
-                        if (!downloadURL) {
-                            downloadURL = dataUrl;
-                        }
-                    } catch (readErr) {
-                        if (!downloadURL) throw readErr;
-                    }
-                }
+                    : `${fileName.replace(/[^a-zA-Z0-9._-]/g, "_")}_${randCode}`;
 
                 const fileRecord = {
                     ownerId: currentUser.uid,
                     ownerUid: currentUser.uid,
                     uploaderName: userProfile.username,
                     ownerUsername: userProfile.username,
-                    fileName: file.name,
-                    size: file.size,
-                    fileSize: file.size,
-                    fileType: file.type || "application/octet-stream",
+                    fileName: fileName,
+                    size: fileSize,
+                    fileSize: fileSize,
+                    fileType: fileType,
                     slug: slug,
                     storagePath: storagePath,
-                    downloadURL: file.size <= 850 * 1024 && downloadURL.startsWith("data:") ? "" : downloadURL,
+                    downloadURL: downloadURL,
                     fileData: fileData,
+                    codeContent: codeContent,
                     createdAt: serverTimestamp()
                 };
 
-                // Save metadata & payload to Firestore
                 const addedDoc = await addDoc(collection(db, "files"), fileRecord);
 
-                // Cache locally for instant offline/same-browser retrieval
                 try {
                     const cached = JSON.parse(localStorage.getItem("hxf_cached_files") || "[]");
-                    cached.unshift({
-                        id: addedDoc.id,
-                        fileName: file.name,
-                        size: file.size,
-                        slug: slug,
-                        uploaderName: userProfile.username,
-                        downloadURL: downloadURL || fileData,
-                        fileData: fileData
-                    });
+                    cached.unshift({ id: addedDoc.id, fileName, size: fileSize, slug, uploaderName: userProfile.username, codeContent });
                     localStorage.setItem("hxf_cached_files", JSON.stringify(cached.slice(0, 30)));
                 } catch (_) {}
 
-                // Deduct storage from user's active plan
+                const currentUsed = userFiles.reduce((acc, item) => acc + Number(item.size || 0), 0);
                 await updateDoc(doc(db, "users", currentUser.uid), {
-                    usedStorage: currentUsed + file.size
+                    usedStorage: currentUsed + fileSize
                 });
 
                 const generatedUrl = `${window.location.origin}${window.location.pathname}?file=${encodeURIComponent(slug)}`;
                 document.getElementById("latest-link-url").value = generatedUrl;
                 document.getElementById("latest-link-open").href = generatedUrl;
-                document.getElementById("latest-file-size").innerText = formatSize(file.size);
+                document.getElementById("latest-file-size").innerText = formatSize(fileSize);
                 document.getElementById("latest-link-box").classList.remove("hidden");
                 document.getElementById("custom-file-slug").value = "";
 
-                showAppModal(
-                    "Link Generated!",
-                    `Your shareable link for "${file.name}" is ready to copy and share!`,
-                    '<i class="fa-solid fa-link text-emerald-400"></i>'
-                );
+                showAppModal("Link Generated!", `Your secure shareable link for "${fileName}" is ready!`, '<i class="fa-solid fa-link text-emerald-400"></i>');
             } catch (err) {
-                showAppModal("Upload Failed", err.message, '<i class="fa-solid fa-circle-xmark text-red-400"></i>');
+                showAppModal("Error", err.message);
             } finally {
                 progressBox.classList.add("hidden");
             }
         };
 
-        // Delete File
+        window.submitManualCodeSnippet = function() {
+            const name = document.getElementById("manual-proj-name").value.trim() || "Hassan_MD.py";
+            const content = document.getElementById("manual-proj-content").value;
+            if (!content) {
+                showAppModal("Content Required", "Please enter some code or text content.");
+                return;
+            }
+            processFileUpload(content, 'code', name);
+        };
+
         window.deleteUploadedFile = async function(fileDocId, storagePath) {
             try {
                 if (storagePath) {
-                    try {
-                        await deleteObject(ref(storage, storagePath));
-                    } catch (_) {}
+                    try { await deleteObject(ref(storage, storagePath)); } catch (_) {}
                 }
                 await deleteDoc(doc(db, "files", fileDocId));
                 showAppModal("File Deleted", "File removed and storage restored.", '<i class="fa-solid fa-trash-can text-cyan-400"></i>');
@@ -1567,17 +1621,12 @@
             }
         };
 
-        // Redeem Plan Instantly with Referral Points
         window.redeemPlanPoints = async function(planName, requiredPts, storageMB) {
             if (!userProfile || !currentUser) return;
             const currentPts = Number(userProfile.points || 0);
 
             if (currentPts < requiredPts) {
-                showAppModal(
-                    "Not Enough Points",
-                    `You currently have ${currentPts} Points, but ${planName} requires ${requiredPts} Points. Share your referral link to earn +30 Points per invite!`,
-                    '<i class="fa-solid fa-coins text-amber-400"></i>'
-                );
+                showAppModal("Not Enough Points", `You have ${currentPts} Points, but ${planName} requires ${requiredPts} Points. Refer friends to earn +30 Points per invite!`);
                 return;
             }
 
@@ -1597,17 +1646,16 @@
                 showAppModal("Plan Upgraded!", `${planName} is now active on your account!`, '<i class="fa-solid fa-crown text-amber-400"></i>');
                 navigateTo("dashboard");
             } catch (err) {
-                showAppModal("Redemption Error", err.message);
+                showAppModal("Error", err.message);
             }
         };
 
-        // Payment Modal Controls
         window.openPaymentModal = function(planName, priceStr) {
             selectedPlanName = planName;
             selectedPlanPrice = priceStr;
             selectedScreenshotFile = null;
             document.getElementById("pay-modal-heading").innerText = `${planName} — ${priceStr}`;
-            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot`;
+            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot (Required)`;
             document.getElementById("payment-modal").classList.remove("hidden");
         };
 
@@ -1640,30 +1688,25 @@
             document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ${file.name}`;
         };
 
-        // Submit Payment Proof to Admin
         window.sendPaymentProofToAdmin = async function() {
             if (!currentUser || !userProfile) return;
             const holderName = document.getElementById("pay-holder-name").value.trim();
             const accNumber = document.getElementById("pay-account-number").value.trim();
-            const isAdmin = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL;
 
             if (!holderName || !accNumber) {
                 showAppModal("Missing Info", "Please enter your Account Holder Name and Account Number.");
                 return;
             }
 
-            if (!isAdmin && !selectedScreenshotFile) {
-                showAppModal("Screenshot Required", "Please upload a screenshot of your payment proof.");
+            if (!selectedScreenshotFile) {
+                showAppModal("Screenshot Required", "Payment screenshot is mandatory! Please upload or drop your payment screenshot.");
                 return;
             }
 
             try {
-                let screenshotURL = "";
-                if (selectedScreenshotFile) {
-                    const ssRef = ref(storage, `payments/${currentUser.uid}/${Date.now()}_${selectedScreenshotFile.name}`);
-                    await uploadBytes(ssRef, selectedScreenshotFile);
-                    screenshotURL = await getDownloadURL(ssRef);
-                }
+                const ssRef = ref(storage, `payments/${currentUser.uid}/${Date.now()}_${selectedScreenshotFile.name}`);
+                await uploadBytes(ssRef, selectedScreenshotFile);
+                const screenshotURL = await getDownloadURL(ssRef);
 
                 await addDoc(collection(db, "payments"), {
                     uid: currentUser.uid,
@@ -1680,17 +1723,12 @@
                 });
 
                 closePaymentModal();
-                showAppModal(
-                    "Payment Sent!",
-                    "Your payment message & proof have been sent to Admin. You will get an Inbox notification once approved!",
-                    '<i class="fa-solid fa-paper-plane text-emerald-400"></i>'
-                );
+                showAppModal("Payment Sent!", "Your payment screenshot and message have been sent to Admin successfully!", '<i class="fa-solid fa-paper-plane text-emerald-400"></i>');
             } catch (err) {
-                showAppModal("Submission Error", err.message);
+                showAppModal("Error", err.message);
             }
         };
 
-        // Inbox & Broadcasts Real-time Sync
         function setupInboxListeners(uid) {
             let personalMsgs = [];
             let globalMsgs = [];
@@ -1756,9 +1794,7 @@
             });
         }
 
-        // Admin Panel Functions
         function loadAdminData() {
-            // Load all users for Admin autocomplete selector
             onSnapshot(collection(db, "users"), (snap) => {
                 const datalist = document.getElementById("registered-users-datalist");
                 datalist.innerHTML = "";
@@ -1766,17 +1802,14 @@
                     const u = uDoc.data();
                     const opt1 = document.createElement("option");
                     opt1.value = u.username;
-                    opt1.label = `${u.username} (${u.email}) - ${u.plan}`;
                     datalist.appendChild(opt1);
 
                     const opt2 = document.createElement("option");
                     opt2.value = u.email;
-                    opt2.label = `${u.email} (${u.username})`;
                     datalist.appendChild(opt2);
                 });
             });
 
-            // Load Payment Submissions
             onSnapshot(collection(db, "payments"), (snap) => {
                 const listEl = document.getElementById("admin-payments-list");
                 const countEl = document.getElementById("admin-payments-count");
@@ -1805,7 +1838,7 @@
                             <p>Account #: <strong class="text-cyan-300">${p.accountNumber}</strong></p>
                         </div>
                         ${p.screenshotURL ? `<a href="${p.screenshotURL}" target="_blank" class="inline-block text-[11px] text-cyan-400 underline"><i class="fa-solid fa-image mr-1"></i> View Payment Screenshot</a>` : ""}
-                        <button onclick="approvePaymentProof('${p.id}', '${p.uid}', '${p.plan}')" class="w-full py-2.5 rounded-xl btn-gold text-xs font-extrabold uppercase">
+                        <button onclick="approvePaymentProof('${p.id}', '${p.uid}', '${p.plan}', '${p.username}')" class="w-full py-2.5 rounded-xl btn-gold text-xs font-extrabold uppercase">
                             Approve & Notify User
                         </button>
                     </div>
@@ -1813,7 +1846,6 @@
             });
         }
 
-        // Admin Broadcast to All Users
         window.sendAdminBroadcast = async function() {
             const msg = document.getElementById("admin-broadcast-text").value.trim();
             if (!msg) return;
@@ -1830,8 +1862,7 @@
             }
         };
 
-        // Admin Approve Payment Proof -> Sends Exact Requested Inbox Message
-        window.approvePaymentProof = async function(paymentId, targetUid, planName) {
+        window.approvePaymentProof = async function(paymentId, targetUid, planName, targetUsername) {
             try {
                 await updateDoc(doc(db, "payments", paymentId), { status: "approved" });
 
@@ -1844,23 +1875,22 @@
 
                     await addDoc(collection(db, "users", targetUid, "notifications"), {
                         title: "Payment Approved",
-                        message: "ADMIN IS NOW ONLINE. AND HE APPROVED YOUR PAYMENT MESSEGE. CHECK YOUR RANK NOW.",
+                        message: `YOU GOT ${planName.toUpperCase()} RANK BY ADMIN HASSAN (${targetUsername})`,
                         createdAt: serverTimestamp()
                     });
                 }
 
                 showAppModal("Approved!", "User notified in their Inbox & plan rank updated!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
             } catch (err) {
-                showAppModal("Approval Error", err.message);
+                showAppModal("Error", err.message);
             }
         };
 
-        // Admin Assign Plan Rank by Username or Gmail
         window.adminGrantUserRank = async function() {
             const identifier = document.getElementById("admin-target-user").value.trim().toLowerCase();
             const chosenPlan = document.getElementById("admin-target-plan").value;
             if (!identifier) {
-                showAppModal("Input Required", "Please enter a username or Gmail address.");
+                showAppModal("Input Required", "Please enter a username or Gmail.");
                 return;
             }
 
@@ -1887,7 +1917,7 @@
 
                 await addDoc(collection(db, "users", targetDoc.id, "notifications"), {
                     title: "Rank Updated by Admin",
-                    message: `ADMIN IS NOW ONLINE. AND HE APPROVED YOUR PAYMENT MESSEGE. CHECK YOUR RANK NOW. (${chosenPlan})`,
+                    message: `YOU GOT ${chosenPlan.toUpperCase()} RANK BY ADMIN HASSAN (${targetDoc.username})`,
                     createdAt: serverTimestamp()
                 });
 
@@ -1897,7 +1927,6 @@
             }
         };
 
-        // Profile Updates & Password Change
         window.handleAvatarGalleryUpload = async function(file) {
             if (!file || !currentUser) return;
             try {
@@ -1908,7 +1937,7 @@
                 document.getElementById("prof-avatar-img").src = url;
                 showAppModal("Image Ready", "Tap 'Save Profile Changes' to apply your new profile picture.");
             } catch (err) {
-                showAppModal("Upload Error", err.message);
+                showAppModal("Error", err.message);
             }
         };
 
@@ -1957,13 +1986,11 @@
             }
         };
 
-        // Navigation & Drawer Toggles
         window.navigateTo = function(sectionName) {
             document.querySelectorAll(".app-section").forEach((sec) => sec.classList.add("hidden"));
             const target = document.getElementById(`view-${sectionName}`);
             if (target) target.classList.remove("hidden");
 
-            // Highlight bottom nav item
             ["dashboard", "plans", "referral", "inbox", "profile"].forEach((tab) => {
                 const btn = document.getElementById(`bnav-${tab}`);
                 if (btn) {
@@ -1992,7 +2019,6 @@
             await signOut(auth);
         };
 
-        // Run startup URL inspection
         checkUrlParamsOnLoad();
     </script>
 </body>
