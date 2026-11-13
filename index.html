@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>HASSAN FILES TO LINKS — Instant File Hosting & Shareable Links</title>
   <link rel="icon" href="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -39,30 +39,31 @@
 
     header {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(7, 9, 14, 0.94); backdrop-filter: blur(16px);
+      background: rgba(7, 9, 14, 0.96); backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      width: 100%;
     }
     .nav-wrap {
-      max-width: 1200px; margin: 0 auto; padding: 12px 20px;
-      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      max-width: 1200px; margin: 0 auto; padding: 10px 16px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
     }
-    .nav-left { display: flex; align-items: center; gap: 14px; }
+    .nav-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
     .hamburger-btn {
       background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text);
-      font-size: 1.2rem; width: 38px; height: 38px; border-radius: 10px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: 0.2s;
+      font-size: 1.1rem; width: 36px; height: 36px; border-radius: 10px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0;
     }
     .hamburger-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1rem; }
-    .brand img { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; border: 1.5px solid var(--primary); }
+    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .brand img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 1.5px solid var(--primary); flex-shrink: 0; }
     .brand span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .nav-center-menu { display: flex; align-items: center; gap: 18px; font-size: 0.88rem; font-weight: 600; }
+    .nav-center-menu { display: flex; align-items: center; gap: 16px; font-size: 0.86rem; font-weight: 600; }
     .nav-center-menu a:hover { color: var(--primary); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
+    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
 
-    /* Clean Sidebar Drawer (Without broken app install) */
+    /* Clean Sidebar Drawer */
     .sidebar-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
       z-index: 1999; display: none; opacity: 0; transition: opacity 0.3s ease;
@@ -70,23 +71,23 @@
     .sidebar-overlay.active { display: block; opacity: 1; }
     .sidebar-drawer {
       position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: var(--bg-card-solid);
-      border-right: 1px solid var(--border); z-index: 2000; padding: 24px; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      border-right: 1px solid var(--border); z-index: 2000; padding: 20px; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex; flex-direction: column; justify-content: space-between;
     }
     .sidebar-drawer.active { left: 0; }
-    .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; padding-bottom: 14px; border-bottom: 1px solid var(--border); }
-    .sidebar-links { display: flex; flex-direction: column; gap: 12px; }
+    .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+    .sidebar-links { display: flex; flex-direction: column; gap: 10px; }
     .sidebar-links a {
-      display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 10px;
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border); font-weight: 600; font-size: 0.92rem; transition: 0.2s;
+      display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 10px;
+      background: rgba(255,255,255,0.02); border: 1px solid var(--border); font-weight: 600; font-size: 0.9rem; transition: 0.2s;
     }
     .sidebar-links a:hover { background: rgba(0, 242, 254, 0.08); border-color: var(--primary); color: var(--primary); }
     .sidebar-links a i { width: 20px; color: var(--primary); }
 
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 9px 16px; border-radius: 10px; font-weight: 600; font-size: 0.85rem;
-      cursor: pointer; border: 1px solid transparent; transition: 0.2s;
+      padding: 8px 14px; border-radius: 10px; font-weight: 600; font-size: 0.82rem;
+      cursor: pointer; border: 1px solid transparent; transition: 0.2s; white-space: nowrap;
     }
     .btn-primary { background: var(--gradient); color: #041019; font-weight: 700; }
     .btn-outline { background: rgba(255, 255, 255, 0.04); border-color: var(--border); color: var(--text); }
@@ -95,116 +96,119 @@
     .btn-admin { background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); color: #fcd34d; }
 
     .profile-chip {
-      display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px 5px 6px;
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 5px;
       border-radius: 999px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.35);
-      font-size: 0.84rem; font-weight: 600; cursor: pointer;
+      font-size: 0.8rem; font-weight: 600; cursor: pointer; max-width: 140px; overflow: hidden; text-overflow: ellipsis;
     }
-    .profile-chip img { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); }
+    .profile-chip img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); flex-shrink: 0; }
 
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-    section { padding: 54px 0; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+    section { padding: 40px 0; }
 
-    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-top: 40px; }
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 30px; align-items: center; padding-top: 30px; }
     .badge {
-      display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px;
       background: rgba(0, 242, 254, 0.09); border: 1px solid rgba(0, 242, 254, 0.25);
-      color: var(--primary); font-size: 0.82rem; font-weight: 600; margin-bottom: 16px;
+      color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 14px;
     }
-    .hero h1 { font-size: clamp(2rem, 4.2vw, 3.2rem); line-height: 1.14; font-weight: 800; margin-bottom: 16px; }
+    .hero h1 { font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.18; font-weight: 800; margin-bottom: 14px; }
     .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { color: var(--muted); font-size: 1.02rem; line-height: 1.62; margin-bottom: 24px; max-width: 550px; }
+    .hero p { color: var(--muted); font-size: 0.98rem; line-height: 1.6; margin-bottom: 20px; max-width: 550px; }
 
-    .mockup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.55); }
-    .win-dots { display: flex; align-items: center; gap: 7px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 14px; font-size: 0.8rem; color: var(--muted); }
-    .win-dots i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-    .drop-preview { border: 1.5px dashed rgba(0, 242, 254, 0.4); border-radius: 14px; padding: 26px 18px; text-align: center; background: rgba(0, 242, 254, 0.03); margin-bottom: 14px; }
-    .drop-preview i { font-size: 2rem; color: var(--primary); margin-bottom: 8px; }
-    .file-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-    .chip { font-size: 0.76rem; padding: 4px 9px; border-radius: 7px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
+    .mockup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.55); }
+    .win-dots { display: flex; align-items: center; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px; font-size: 0.78rem; color: var(--muted); }
+    .win-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .drop-preview { border: 1.5px dashed rgba(0, 242, 254, 0.4); border-radius: 12px; padding: 22px 14px; text-align: center; background: rgba(0, 242, 254, 0.03); margin-bottom: 12px; }
+    .drop-preview i { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
+    .file-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .chip { font-size: 0.74rem; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
     .chip b { color: var(--primary); }
-    .link-preview { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; border-radius: 9px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.85rem; }
+    .link-preview { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.82rem; }
 
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-    .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; text-align: center; }
-    .stat-box b { display: block; font-size: 1.7rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
-    .stat-box span { font-size: 0.86rem; color: var(--muted); }
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
+    .stat-box b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
+    .stat-box span { font-size: 0.82rem; color: var(--muted); }
 
-    .sec-head { text-align: center; max-width: 620px; margin: 0 auto 40px; }
-    .sec-head .tag { color: var(--primary); font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .sec-head h2 { font-size: clamp(1.6rem, 3vw, 2.3rem); margin: 6px 0 10px; }
-    .sec-head p { color: var(--muted); font-size: 0.96rem; line-height: 1.6; }
+    .sec-head { text-align: center; max-width: 600px; margin: 0 auto 30px; }
+    .sec-head .tag { color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .sec-head h2 { font-size: clamp(1.5rem, 2.8vw, 2.2rem); margin: 6px 0 8px; }
+    .sec-head p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
 
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 26px; }
-    .icon-box { width: 44px; height: 44px; border-radius: 11px; background: rgba(0, 242, 254, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; margin-bottom: 16px; }
-    .card h3 { font-size: 1.12rem; margin-bottom: 8px; }
-    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .icon-box { width: 40px; height: 40px; border-radius: 10px; background: rgba(0, 242, 254, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 14px; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 6px; }
+    .card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .plan-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; display: flex; flex-direction: column; position: relative; }
-    .plan-card.popular { border-color: var(--primary); box-shadow: 0 0 30px rgba(0, 242, 254, 0.14); }
-    .plan-ribbon { position: absolute; top: -11px; right: 16px; background: var(--gradient); color: #041019; font-size: 0.72rem; font-weight: 800; padding: 3px 10px; border-radius: 999px; }
-    .plan-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
-    .plan-price { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
-    .plan-price span { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
-    .plan-list { list-style: none; margin-bottom: 20px; flex: 1; }
-    .plan-list li { font-size: 0.88rem; color: var(--muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .plan-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; position: relative; }
+    .plan-card.popular { border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 242, 254, 0.12); }
+    .plan-ribbon { position: absolute; top: -10px; right: 14px; background: var(--gradient); color: #041019; font-size: 0.7rem; font-weight: 800; padding: 2px 9px; border-radius: 999px; }
+    .plan-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .plan-price { font-size: 1.8rem; font-weight: 800; margin-bottom: 14px; }
+    .plan-price span { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
+    .plan-list { list-style: none; margin-bottom: 16px; flex: 1; }
+    .plan-list li { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
     .plan-list li i { color: var(--accent); }
 
-    .faq-wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
-    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; }
-    summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 0.94rem; }
-    details p { margin-top: 12px; color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+    .faq-wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
+    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; }
+    summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 0.92rem; }
+    details p { margin-top: 10px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
 
-    .dev-card { max-width: 760px; margin: 0 auto; background: var(--bg-card); border: 1px solid rgba(0, 242, 254, 0.28); border-radius: 18px; padding: 28px; display: flex; align-items: center; gap: 26px; }
-    .dev-card img { width: 110px; height: 110px; border-radius: 16px; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0; }
-    .dev-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .dev-card { max-width: 720px; margin: 0 auto; background: var(--bg-card); border: 1px solid rgba(0, 242, 254, 0.28); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 22px; }
+    .dev-card img { width: 95px; height: 95px; border-radius: 14px; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0; }
+    .dev-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
-    .panel-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 26px; margin-bottom: 28px; }
-    .dash-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid var(--border); margin-bottom: 22px; }
-    .plan-pill { padding: 5px 12px; border-radius: 999px; font-size: 0.8rem; font-weight: 700; background: rgba(16, 185, 129, 0.16); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.35); }
-    .upload-zone { border: 2px dashed rgba(0, 242, 254, 0.45); border-radius: 16px; padding: 34px 20px; text-align: center; background: rgba(0, 242, 254, 0.03); cursor: pointer; transition: 0.2s; }
+    .panel-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
+    .dash-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
+    .plan-pill { padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.16); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.35); }
+    .upload-zone { border: 2px dashed rgba(0, 242, 254, 0.45); border-radius: 14px; padding: 30px 16px; text-align: center; background: rgba(0, 242, 254, 0.03); cursor: pointer; transition: 0.2s; }
     .upload-zone:hover { background: rgba(0, 242, 254, 0.07); }
-    .progress-wrap { margin-top: 16px; display: none; }
-    .progress-bar { height: 10px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-    .progress-fill { height: 100%; width: 0%; background: var(--gradient); transition: width 0.1s; }
-    .table-wrap { overflow-x: auto; margin-top: 20px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
-    th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); }
+    .progress-wrap { margin-top: 14px; display: none; }
+    .progress-bar { height: 9px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; margin-top: 6px; }
+    .progress-fill { height: 100%; width: 0%; background: var(--gradient); transition: width 0.15s ease; }
+    .table-wrap { overflow-x: auto; margin-top: 18px; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; }
 
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(3, 5, 10, 0.86); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 2500; padding: 16px; overflow-y: auto; }
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(3, 5, 10, 0.86); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 2500; padding: 14px; overflow-y: auto; }
     .modal-backdrop.active { display: flex; }
-    .modal { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 440px; padding: 26px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.85); margin: auto; }
-    .modal-lg { max-width: 900px; }
-    .close-modal { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 1.25rem; cursor: pointer; }
-    .form-group { margin-bottom: 14px; }
-    .form-group label { display: block; font-size: 0.84rem; color: var(--muted); margin-bottom: 6px; }
-    .form-control { width: 100%; padding: 11px 13px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text); font-size: 0.92rem; outline: none; }
+    .modal { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 420px; padding: 22px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.85); margin: auto; }
+    .modal-lg { max-width: 850px; }
+    .close-modal { position: absolute; top: 14px; right: 14px; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
+    .form-group { margin-bottom: 12px; }
+    .form-group label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 5px; }
+    .form-control { width: 100%; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text); font-size: 0.9rem; outline: none; }
     .form-control:focus { border-color: var(--primary); }
 
-    .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
-    .pay-card { border: 1.5px solid var(--border); border-radius: 12px; padding: 14px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.2s; }
+    .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
+    .pay-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.2s; }
     .pay-card.selected { border-color: var(--primary); background: rgba(0,242,254,0.08); }
 
-    .profile-avatar-box { display: flex; flex-direction: column; align-items: center; margin-bottom: 18px; }
-    .profile-avatar-box img { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 10px; }
+    .profile-avatar-box { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
+    .profile-avatar-box img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
 
-    footer { border-top: 1px solid var(--border); padding: 30px 20px; text-align: center; font-size: 0.9rem; }
-    .footer-projects { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 22px; margin-bottom: 14px; }
-    .footer-projects a { color: #cbd5e1; font-weight: 500; font-size: 0.92rem; transition: color 0.2s; }
+    footer { border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; font-size: 0.88rem; }
+    .footer-projects { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 12px; }
+    .footer-projects a { color: #cbd5e1; font-weight: 500; font-size: 0.88rem; transition: color 0.2s; }
     .footer-projects a:hover { color: var(--primary); text-decoration: underline; }
 
-    #publicDownloadView { display: none; min-height: 75vh; align-items: center; justify-content: center; padding: 40px 20px; }
-    .dl-card { max-width: 480px; width: 100%; background: var(--bg-card); border: 1px solid var(--primary); border-radius: 20px; padding: 32px; text-align: center; }
+    #publicDownloadView { display: none; min-height: 75vh; align-items: center; justify-content: center; padding: 30px 16px; }
+    .dl-card { max-width: 460px; width: 100%; background: var(--bg-card); border: 1px solid var(--primary); border-radius: 18px; padding: 28px; text-align: center; }
 
-    #toast { position: fixed; bottom: 22px; right: 22px; background: #131a29; border: 1px solid var(--primary); color: var(--text); padding: 12px 18px; border-radius: 12px; font-size: 0.88rem; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6); }
+    #toast { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 380px; margin: 0 auto; background: #131a29; border: 1px solid var(--primary); color: var(--text); padding: 11px 16px; border-radius: 10px; font-size: 0.85rem; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6); text-align: center; }
 
     @media (max-width: 960px) {
       .hero, .admin-grid { grid-template-columns: 1fr; }
       .pricing-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
       .grid-3 { grid-template-columns: 1fr; }
       .nav-center-menu { display: none; }
+    }
+    @media (max-width: 480px) {
+      .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -229,7 +233,7 @@
         <a href="#developer" onclick="toggleSidebar()"><i class="fa-solid fa-code"></i> Developer</a>
       </div>
     </div>
-    <div style="font-size: 0.78rem; color: var(--muted); text-align: center;">
+    <div style="font-size: 0.76rem; color: var(--muted); text-align: center;">
       © 2026 Hassan Files To Links
     </div>
   </div>
@@ -256,9 +260,9 @@
       </nav>
 
       <div class="nav-actions" id="navAuthArea">
-        <button class="btn btn-outline" onclick="openModal('plansPopupModal')">See Plans</button>
+        <button class="btn btn-outline" onclick="openModal('plansPopupModal')">Plans</button>
         <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
-        <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Get Started</button>
+        <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Start</button>
       </div>
     </div>
   </header>
@@ -266,16 +270,16 @@
   <!-- Public File Download View (?file=XYZ) -->
   <div id="publicDownloadView">
     <div class="dl-card">
-      <div class="icon-box" style="margin: 0 auto 16px; width: 60px; height: 60px; font-size: 1.6rem;">
+      <div class="icon-box" style="margin: 0 auto 14px; width: 55px; height: 55px; font-size: 1.5rem;">
         <i class="fa-solid fa-file-arrow-down"></i>
       </div>
-      <h2 id="dlFileName" style="margin-bottom: 8px; word-break: break-all;">Loading file...</h2>
-      <p id="dlFileMeta" style="color: var(--muted); font-size: 0.9rem; margin-bottom: 22px;">Please wait...</p>
-      <a id="dlBtn" href="#" target="_blank" class="btn btn-primary" style="width: 100%; padding: 13px;">
+      <h2 id="dlFileName" style="margin-bottom: 6px; word-break: break-all; font-size: 1.3rem;">Loading file...</h2>
+      <p id="dlFileMeta" style="color: var(--muted); font-size: 0.88rem; margin-bottom: 20px;">Please wait...</p>
+      <a id="dlBtn" href="#" target="_blank" class="btn btn-primary" style="width: 100%; padding: 12px;">
         <i class="fa-solid fa-download"></i> Download File Now
       </a>
-      <div style="margin-top: 16px;">
-        <a href="?" style="font-size: 0.84rem; color: var(--primary);">← Upload your own files on HASSAN FILES TO LINKS</a>
+      <div style="margin-top: 14px;">
+        <a href="?" style="font-size: 0.82rem; color: var(--primary);">← Upload your own files on HASSAN FILES TO LINKS</a>
       </div>
     </div>
   </div>
@@ -283,21 +287,21 @@
   <!-- Main Website View -->
   <main id="mainSiteView">
 
-    <section id="dashboardSection" style="display: none; padding-top: 28px; padding-bottom: 12px;">
+    <section id="dashboardSection" style="display: none; padding-top: 24px; padding-bottom: 10px;">
       <div class="container">
 
         <div id="adminPanelBox" class="panel-box" style="display: none; border-color: rgba(245, 158, 11, 0.55);">
           <div class="dash-header">
             <div>
-              <h2 style="color: #fcd34d;"><i class="fa-solid fa-crown"></i> Admin Plan Manager</h2>
-              <p style="color: var(--muted); font-size: 0.86rem;">Assign plans by Gmail or Username, verify payments instantly.</p>
+              <h2 style="color: #fcd34d; font-size: 1.2rem;"><i class="fa-solid fa-crown"></i> Admin Plan Manager</h2>
+              <p style="color: var(--muted); font-size: 0.82rem;">Assign plans by Gmail or Username, verify payments instantly.</p>
             </div>
             <span id="adminBadgeEmail" class="plan-pill" style="background: rgba(245,158,11,0.16); color: #fcd34d;">ADMIN</span>
           </div>
 
-          <div class="admin-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px;">
+          <div class="admin-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
             <div>
-              <h4 style="margin-bottom: 12px; font-size: 0.98rem;">Assign Plan</h4>
+              <h4 style="margin-bottom: 10px; font-size: 0.92rem;">Assign Plan</h4>
               <div class="form-group">
                 <label>User Gmail or Username</label>
                 <input type="text" id="adminTargetUser" class="form-control" placeholder="e.g. user@gmail.com" />
@@ -317,8 +321,8 @@
             </div>
 
             <div>
-              <h4 style="margin-bottom: 12px; font-size: 0.98rem;">Pending Payment Requests</h4>
-              <div id="adminRequestsList" style="max-height: 230px; overflow-y: auto; font-size: 0.86rem; color: var(--muted);">
+              <h4 style="margin-bottom: 10px; font-size: 0.92rem;">Pending Payment Requests</h4>
+              <div id="adminRequestsList" style="max-height: 210px; overflow-y: auto; font-size: 0.84rem; color: var(--muted);">
                 Loading requests...
               </div>
             </div>
@@ -327,16 +331,16 @@
 
         <div class="panel-box">
           <div class="dash-header">
-            <div style="display: flex; align-items: center; gap: 14px;">
-              <img id="dashUserAvatar" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" />
-              <div>
-                <h2 id="dashWelcome">Welcome!</h2>
-                <p id="dashUserMeta" style="color: var(--muted); font-size: 0.86rem;">Username: —</p>
+            <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
+              <img id="dashUserAvatar" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0;" />
+              <div style="min-width: 0;">
+                <h2 id="dashWelcome" style="font-size: 1.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Welcome!</h2>
+                <p id="dashUserMeta" style="color: var(--muted); font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Username: —</p>
               </div>
             </div>
-            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <span id="dashPlanBadge" class="plan-pill">FREE PLAN</span>
-              <span id="dashStorageText" style="font-size: 0.84rem; color: var(--muted);">0 MB / 1,024 MB</span>
+              <span id="dashStorageText" style="font-size: 0.82rem; color: var(--muted);">0 MB / 1,024 MB</span>
               <button class="btn btn-outline" onclick="openModal('profileModal')"><i class="fa-solid fa-user-gear"></i> Profile</button>
               <button class="btn btn-primary" onclick="openModal('buyModal')"><i class="fa-solid fa-bolt"></i> Upgrade</button>
             </div>
@@ -344,13 +348,13 @@
 
           <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
             <input type="file" id="fileInput" hidden onchange="handleFileUpload(this.files[0])" />
-            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.4rem; color: var(--primary); margin-bottom: 10px;"></i>
-            <h3>Click or Drop File to Upload</h3>
-            <p id="uploadLimitHint" style="color: var(--muted); font-size: 0.86rem; margin-top: 6px;">Max file size: 100 MB</p>
+            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 8px;"></i>
+            <h3 style="font-size: 1.05rem;">Click or Drop File to Upload</h3>
+            <p id="uploadLimitHint" style="color: var(--muted); font-size: 0.82rem; margin-top: 5px;">Max file size: 100 MB</p>
           </div>
 
           <div class="progress-wrap" id="progressWrap">
-            <div style="display: flex; justify-content: space-between; font-size: 0.84rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
               <span id="uploadFileName">Uploading...</span>
               <span id="uploadPercent">0%</span>
             </div>
@@ -384,8 +388,8 @@
       <div>
         <div class="badge"><i class="fa-solid fa-bolt"></i> Fast, secure file hosting & instant links</div>
         <h1>Send any file with a single <span>link.</span></h1>
-        <p><strong>HASSAN FILES TO LINKS</strong> turns any file into a clean, shareable short link in seconds[span_0](start_span)[span_0](end_span). Upload from your phone or desktop and track downloads instantly[span_1](start_span)[span_1](end_span).</p>
-        <div class="hero-btns" style="display: flex; gap: 12px; flex-wrap: wrap;">
+        <p><strong>HASSAN FILES TO LINKS</strong> turns any file into a clean, shareable short link in seconds. Upload from your phone or desktop and track downloads instantly.</p>
+        <div class="hero-btns" style="display: flex; gap: 10px; flex-wrap: wrap;">
           <button id="heroCreateAccountBtn" class="btn btn-primary" onclick="openModal('authModal', 'signup')"><i class="fa-solid fa-user-plus"></i> Create Free Account</button>
           <button id="heroUploadDirectBtn" class="btn btn-primary" style="display: none;" onclick="document.getElementById('fileInput').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload File Now</button>
           <button class="btn btn-outline" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</button>
@@ -416,7 +420,7 @@
       </div>
     </section>
 
-    <section class="container" style="padding-top: 12px;">
+    <section class="container" style="padding-top: 10px;">
       <div class="stats-grid">
         <div class="stat-box"><b>1,420+</b><span>Files hosted</span></div>
         <div class="stat-box"><b>630+</b><span>Registered users</span></div>
@@ -432,9 +436,9 @@
         <p>Engineered for lightning-fast speeds and total file control.</p>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-bolt"></i></div><h3>Short links</h3><p>Every upload instantly generates a clean short share link for WhatsApp or Telegram[span_2](start_span)[span_2](end_span).</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-sliders"></i></div><h3>Total control</h3><p>Manage storage, track live download counts and delete files anytime from your dashboard[span_3](start_span)[span_3](end_span).</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div><h3>Secure Cloud</h3><p>Powered by reliable Firebase cloud infrastructure[span_4](start_span)[span_4](end_span) ensuring 100% data safety.</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-bolt"></i></div><h3>Short links</h3><p>Every upload instantly generates a clean short share link for WhatsApp or Telegram.</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-sliders"></i></div><h3>Total control</h3><p>Manage storage, track live download counts and delete files anytime from your dashboard.</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div><h3>Secure Cloud</h3><p>Powered by reliable Firebase cloud infrastructure ensuring 100% data safety.</p></div>
       </div>
     </section>
 
@@ -444,9 +448,9 @@
         <h2>Three simple steps</h2>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="icon-box"><b>01</b></div><h3>Create Account</h3><p>Sign up in seconds with Google or email[span_5](start_span)[span_5](end_span).</p></div>
-        <div class="card"><div class="icon-box"><b>02</b></div><h3>Upload File</h3><p>Drop your file from phone or computer[span_6](start_span)[span_6](end_span).</p></div>
-        <div class="card"><div class="icon-box"><b>03</b></div><h3>Share Link</h3><p>Send the short link anywhere effortlessly[span_7](start_span)[span_7](end_span).</p></div>
+        <div class="card"><div class="icon-box"><b>01</b></div><h3>Create Account</h3><p>Sign up in seconds with Google or email.</p></div>
+        <div class="card"><div class="icon-box"><b>02</b></div><h3>Upload File</h3><p>Drop your file from phone or computer.</p></div>
+        <div class="card"><div class="icon-box"><b>03</b></div><h3>Share Link</h3><p>Send the short link anywhere effortlessly.</p></div>
       </div>
     </section>
 
@@ -500,8 +504,8 @@
     <section id="faq" class="container">
       <div class="sec-head"><span class="tag">FAQ</span><h2>Questions answered</h2></div>
       <div class="faq-wrap">
-        <details><summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary><p>Yes, to manage files and share links securely[span_8](start_span)[span_8](end_span).</p></details>
-        <details><summary>How to pay via EasyPaisa or JazzCash? <i class="fa-solid fa-chevron-down"></i></summary><p>Send payment to our account and submit your TID in the upgrade modal[span_9](start_span)[span_9](end_span).</p></details>
+        <details><summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary><p>Yes, to manage files and share links securely.</p></details>
+        <details><summary>How to pay via EasyPaisa or JazzCash? <i class="fa-solid fa-chevron-down"></i></summary><p>Send payment to our account and submit your TID in the upgrade modal.</p></details>
       </div>
     </section>
 
@@ -510,8 +514,8 @@
       <div class="dev-card">
         <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="HASSAN OFC" />
         <div>
-          <h3 style="font-size: 1.3rem; margin-bottom: 4px;">HASSAN OFC <span style="font-size: 0.76rem; color: var(--primary);">Developer</span></h3>
-          <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.6;">Creator of HASSAN FILES TO LINKS — building high-performance web utilities[span_10](start_span)[span_10](end_span).</p>
+          <h3 style="font-size: 1.2rem; margin-bottom: 4px;">HASSAN OFC <span style="font-size: 0.74rem; color: var(--primary);">Developer</span></h3>
+          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.5;">Creator of HASSAN FILES TO LINKS — building high-performance web utilities.</p>
           <div class="dev-links">
             <a href="https://wa.me/923294675242" target="_blank" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             <a href="https://t.me/hassanff01" target="_blank" class="btn btn-outline"><i class="fa-brands fa-telegram"></i> Telegram</a>
@@ -529,7 +533,7 @@
         <a href="https://toolkit.page.gd/t/hassan-2nd-toolkit" target="_blank">Main Toolkit</a>
         <a href="https://hassan-toolkit-pro.vercel.app" target="_blank">2nd Toolkit</a>
       </div>
-      <p style="color: var(--muted); font-size: 0.86rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>[span_11](start_span)[span_11](end_span).</p>
+      <p style="color: var(--muted); font-size: 0.84rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>.</p>
     </div>
   </footer>
 
@@ -537,18 +541,18 @@
   <div class="modal-backdrop" id="profileModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 style="margin-bottom: 14px;">My Profile Settings</h3>
+      <h3 style="margin-bottom: 12px; font-size: 1.15rem;">My Profile Settings</h3>
       <div class="profile-avatar-box">
         <img id="profileModalImg" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" />
         <input type="file" id="avatarFileInput" accept="image/*" hidden onchange="uploadProfilePhoto(this.files[0])" />
-        <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="document.getElementById('avatarFileInput').click()">
+        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.78rem;" onclick="document.getElementById('avatarFileInput').click()">
           <i class="fa-solid fa-camera"></i> Change Photo
         </button>
       </div>
       <div class="form-group"><label>Username</label><input type="text" id="profileUsernameDisplay" class="form-control" readonly style="opacity: 0.75;" /></div>
       <div class="form-group"><label>Email Address</label><input type="text" id="profileEmailDisplay" class="form-control" readonly style="opacity: 0.75;" /></div>
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;" />
-      <h4 style="margin-bottom: 10px; font-size: 0.92rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> Change Password</h4>
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 14px 0;" />
+      <h4 style="margin-bottom: 8px; font-size: 0.88rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> Change Password</h4>
       <div class="form-group"><label>Old Password</label><input type="password" id="oldPasswordInput" class="form-control" placeholder="Current password" /></div>
       <div class="form-group"><label>New Password</label><input type="password" id="newPasswordInput" class="form-control" placeholder="New password" /></div>
       <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmNewPasswordInput" class="form-control" placeholder="Re-enter new password" /></div>
@@ -560,9 +564,9 @@
   <div class="modal-backdrop" id="plansPopupModal">
     <div class="modal modal-lg">
       <button class="close-modal" onclick="closeModal('plansPopupModal')"><i class="fa-solid fa-xmark"></i></button>
-      <div style="text-align: center; margin-bottom: 20px;">
-        <h3>Available Hosting Plans</h3>
-        <p style="color: var(--muted); font-size: 0.86rem;">Upgrade instantly via EasyPaisa or JazzCash</p>
+      <div style="text-align: center; margin-bottom: 18px;">
+        <h3 style="font-size: 1.2rem;">Available Hosting Plans</h3>
+        <p style="color: var(--muted); font-size: 0.84rem;">Upgrade instantly via EasyPaisa or JazzCash</p>
       </div>
       <div class="pricing-grid">
         <div class="plan-card">
@@ -574,13 +578,13 @@
         <div class="plan-card popular">
           <span class="plan-ribbon">Top Selling</span>
           <div class="plan-name">Weekly</div>
-          <div class="plan-price">Rs 50 <span>/ 7 days</span></div>
+          <div class="plan-price">Rs 100 <span>/ 7 days</span></div>
           <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 2,048 MB storage</li><li><i class="fa-solid fa-check"></i> 300 MB per file</li></ul>
           <button class="btn btn-primary" onclick="closeModal('plansPopupModal'); selectPlanToBuy('weekly');">Buy Weekly</button>
         </div>
         <div class="plan-card">
           <div class="plan-name">Monthly</div>
-          <div class="plan-price">Rs 100 <span>/ 30 days</span></div>
+          <div class="plan-price">Rs 250 <span>/ 30 days</span></div>
           <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 1,024 MB storage</li><li><i class="fa-solid fa-check"></i> 100 MB per file</li></ul>
           <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); selectPlanToBuy('monthly');">Buy Monthly</button>
         </div>
@@ -598,17 +602,17 @@
   <div class="modal-backdrop" id="authModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 id="authTitle" style="margin-bottom: 6px;">Welcome Back</h3>
-      <p id="authSub" style="color: var(--muted); font-size: 0.86rem; margin-bottom: 18px;">Sign in with Google or Email[span_12](start_span)[span_12](end_span).</p>
-      <button class="btn btn-outline" style="width: 100%; margin-bottom: 14px;" onclick="handleGoogleAuth()">
+      <h3 id="authTitle" style="margin-bottom: 4px; font-size: 1.15rem;">Welcome Back</h3>
+      <p id="authSub" style="color: var(--muted); font-size: 0.84rem; margin-bottom: 16px;">Sign in with Google or Email.</p>
+      <button class="btn btn-outline" style="width: 100%; margin-bottom: 12px;" onclick="handleGoogleAuth()">
         <i class="fa-brands fa-google" style="color: #00f2fe;"></i> Continue with Google
       </button>
-      <div style="text-align: center; font-size: 0.78rem; color: var(--muted); margin-bottom: 14px;">— OR EMAIL —</div>
+      <div style="text-align: center; font-size: 0.76rem; color: var(--muted); margin-bottom: 12px;">— OR EMAIL —</div>
       <div class="form-group" id="usernameGroup" style="display: none;"><label>Username</label><input type="text" id="authUsername" class="form-control" placeholder="username" /></div>
       <div class="form-group"><label>Email Address</label><input type="email" id="authEmail" class="form-control" placeholder="you@gmail.com" /></div>
       <div class="form-group"><label>Password</label><input type="password" id="authPassword" class="form-control" placeholder="••••••••" /></div>
-      <button id="authSubmitBtn" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="handleEmailAuth()">Sign In</button>
-      <p style="text-align: center; font-size: 0.84rem; color: var(--muted);">
+      <button id="authSubmitBtn" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="handleEmailAuth()">Sign In</button>
+      <p style="text-align: center; font-size: 0.82rem; color: var(--muted);">
         <span id="authSwitchText">Don't have an account?</span>
         <a href="javascript:void(0)" id="authSwitchLink" style="color: var(--primary); font-weight: 600;" onclick="toggleAuthMode()">Create Account</a>
       </p>
@@ -619,23 +623,23 @@
   <div class="modal-backdrop" id="buyModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('buyModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 style="margin-bottom: 6px;">Upgrade Plan</h3>
-      <p style="color: var(--muted); font-size: 0.86rem; margin-bottom: 16px;">Select payment method and send payment.</p>
+      <h3 style="margin-bottom: 4px; font-size: 1.15rem;">Upgrade Plan</h3>
+      <p style="color: var(--muted); font-size: 0.84rem; margin-bottom: 14px;">Select payment method and send payment.</p>
 
       <div class="payment-options-grid">
         <div class="pay-card selected" id="payMethodEasypaisa" onclick="selectPaymentMethod('easypaisa')">
-          <i class="fa-solid fa-wallet" style="font-size: 1.4rem; color: #10b981; margin-bottom: 4px;"></i>
-          <div style="font-weight: 700; font-size: 0.88rem;">EasyPaisa</div>
-          <small style="color: var(--muted); font-size: 0.72rem;">03451212815</small>
+          <i class="fa-solid fa-wallet" style="font-size: 1.3rem; color: #10b981; margin-bottom: 3px;"></i>
+          <div style="font-weight: 700; font-size: 0.85rem;">EasyPaisa</div>
+          <small style="color: var(--muted); font-size: 0.7rem;">03451212815</small>
         </div>
         <div class="pay-card" id="payMethodJazzcash" onclick="selectPaymentMethod('jazzcash')">
-          <i class="fa-solid fa-credit-card" style="font-size: 1.4rem; color: #f59e0b; margin-bottom: 4px;"></i>
-          <div style="font-weight: 700; font-size: 0.88rem;">JazzCash</div>
-          <small style="color: var(--muted); font-size: 0.72rem;">03451212815</small>
+          <i class="fa-solid fa-credit-card" style="font-size: 1.3rem; color: #f59e0b; margin-bottom: 3px;"></i>
+          <div style="font-weight: 700; font-size: 0.85rem;">JazzCash</div>
+          <small style="color: var(--muted); font-size: 0.7rem;">03451212815</small>
         </div>
       </div>
 
-      <div class="easypaisa-box" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 12px; margin-bottom: 16px; font-size: 0.86rem;">
+      <div class="easypaisa-box" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 10px; margin-bottom: 14px; font-size: 0.84rem;">
         <div><strong>Selected:</strong> <span id="selectedPayName">EasyPaisa</span></div>
         <div><strong>Account Number:</strong> <span style="color: var(--primary); font-weight: 700;">03451212815</span></div>
         <div><strong>Account Holder:</strong> <span style="color: var(--accent); font-weight: 700;">ANSARIQBAL</span></div>
@@ -644,8 +648,8 @@
       <div class="form-group">
         <label>Select Plan</label>
         <select id="buyPlanSelect" class="form-control">
-          <option value="weekly">Weekly — Rs 50</option>
-          <option value="monthly">Monthly — Rs 100</option>
+          <option value="weekly">Weekly — Rs 100</option>
+          <option value="monthly">Monthly — Rs 250</option>
           <option value="yearly">Yearly — Rs 500</option>
         </select>
       </div>
@@ -749,7 +753,7 @@
       authMode = mode;
       const isSignup = mode === "signup";
       document.getElementById("authTitle").textContent = isSignup ? "Create Account" : "Welcome Back";
-      document.getElementById("authSub").textContent = isSignup ? "Sign up to start sharing files[span_13](start_span)[span_13](end_span)." : "Sign in to your account[span_14](start_span)[span_14](end_span).";
+      document.getElementById("authSub").textContent = isSignup ? "Sign up to start sharing files." : "Sign in to your account.";
       document.getElementById("usernameGroup").style.display = isSignup ? "block" : "none";
       document.getElementById("authSubmitBtn").textContent = isSignup ? "Create Account" : "Sign In";
       document.getElementById("authSwitchText").textContent = isSignup ? "Already have an account?" : "Don't have an account?";
@@ -864,7 +868,7 @@
         const avatar = currentUserData.photoURL || user.photoURL || DEFAULT_AVATAR;
 
         navCenter.innerHTML = `
-          <a href="javascript:void(0)" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</a>
+          <a href="javascript:void(0)" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> Plans</a>
           <a href="javascript:void(0)" onclick="document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
         `;
 
@@ -874,7 +878,7 @@
             <img src="${avatar}" alt="Avatar" />
             <span>@${currentUserData.username}</span>
           </button>
-          <button class="btn btn-danger" style="padding: 7px 10px;" onclick="handleLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+          <button class="btn btn-danger" style="padding: 6px 9px;" onclick="handleLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
         `;
 
         if (adminStatus) {
@@ -898,9 +902,9 @@
           <a href="#developer">Developer</a>
         `;
         navAuthArea.innerHTML = `
-          <button class="btn btn-outline" onclick="openModal('plansPopupModal')">See Plans</button>
+          <button class="btn btn-outline" onclick="openModal('plansPopupModal')">Plans</button>
           <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
-          <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Get Started</button>
+          <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Start</button>
         `;
       }
     });
@@ -949,7 +953,7 @@
       } catch (e) { showToast("Error: " + e.message); }
     };
 
-    // Fast & Safe File Upload Handler (Stuck at 90% fixed)
+    // FLAWLESS UPLOAD HANDLER (Fixed 0%/Stuck issue)
     window.handleFileUpload = async (file) => {
       if (!file || !currentUser || !currentUserData) {
         showToast("Please login first to upload files!");
@@ -969,6 +973,8 @@
       const uploadPercent = document.getElementById("uploadPercent");
       document.getElementById("uploadFileName").textContent = file.name;
       progressWrap.style.display = "block";
+      progressFill.style.width = "0%";
+      uploadPercent.textContent = "0%";
 
       const shortId = Math.random().toString(36).substring(2, 8);
       const storageRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
@@ -1037,8 +1043,8 @@
             <td><strong>${f.fileName}</strong></td>
             <td>${f.sizeMB} MB</td>
             <td>${f.downloads || 0}</td>
-            <td><button class="btn btn-outline" style="padding:5px 9px;font-size:0.78rem;" onclick="navigator.clipboard.writeText('${link}');showToast('Link copied!');"><i class="fa-solid fa-copy"></i> Copy Link</button></td>
-            <td><button class="btn btn-danger" style="padding:5px 9px;font-size:0.78rem;" onclick="deleteFile('${f.fileId}', ${f.sizeMB})"><i class="fa-solid fa-trash"></i></button></td>
+            <td><button class="btn btn-outline" style="padding:4px 8px;font-size:0.76rem;" onclick="navigator.clipboard.writeText('${link}');showToast('Link copied!');"><i class="fa-solid fa-copy"></i> Copy Link</button></td>
+            <td><button class="btn btn-danger" style="padding:4px 8px;font-size:0.76rem;" onclick="deleteFile('${f.fileId}', ${f.sizeMB})"><i class="fa-solid fa-trash"></i></button></td>
           </tr>`;
         });
         tbody.innerHTML = rows;
