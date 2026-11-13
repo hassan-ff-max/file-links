@@ -1,1174 +1,1808 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>HASSAN FILES TO LINKS — Instant File Hosting & Shareable Links</title>
-  <link rel="icon" href="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-
-  <style>
-    :root {
-      --bg: #07090e;
-      --bg-card: rgba(17, 22, 34, 0.88);
-      --bg-card-solid: #111622;
-      --border: rgba(255, 255, 255, 0.09);
-      --primary: #00f2fe;
-      --secondary: #4facfe;
-      --accent: #10b981;
-      --warning: #f59e0b;
-      --danger: #ef4444;
-      --text: #f3f6fc;
-      --muted: #94a3b8;
-      --gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #10b981 100%);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
-    html { scroll-behavior: smooth; }
-    body {
-      background-color: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden;
-      background-image:
-        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08), transparent 35%),
-        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.08), transparent 35%),
-        radial-gradient(circle at 50% 90%, rgba(79, 172, 254, 0.07), transparent 40%);
-    }
-    a { text-decoration: none; color: inherit; }
-
-    header {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(7, 9, 14, 0.96); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--border);
-      width: 100%;
-    }
-    .nav-wrap {
-      max-width: 1200px; margin: 0 auto; padding: 10px 16px;
-      display: flex; align-items: center; justify-content: space-between; gap: 10px;
-    }
-    .nav-left { display: flex; align-items: center; gap: 10px; min-width: 0; }
-    .hamburger-btn {
-      background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text);
-      font-size: 1.1rem; width: 36px; height: 36px; border-radius: 10px; cursor: pointer;
-      display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0;
-    }
-    .hamburger-btn:hover { border-color: var(--primary); color: var(--primary); }
-
-    .brand { display: flex; align-items: center; gap: 8px; font-weight: 800; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .brand img { width: 32px; height: 32px; border-radius: 8px; object-fit: cover; border: 1.5px solid var(--primary); flex-shrink: 0; }
-    .brand span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-
-    .nav-center-menu { display: flex; align-items: center; gap: 16px; font-size: 0.86rem; font-weight: 600; }
-    .nav-center-menu a:hover { color: var(--primary); }
-    .nav-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-
-    /* Clean Sidebar Drawer */
-    .sidebar-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
-      z-index: 1999; display: none; opacity: 0; transition: opacity 0.3s ease;
-    }
-    .sidebar-overlay.active { display: block; opacity: 1; }
-    .sidebar-drawer {
-      position: fixed; top: 0; left: -300px; width: 280px; height: 100%; background: var(--bg-card-solid);
-      border-right: 1px solid var(--border); z-index: 2000; padding: 20px; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      display: flex; flex-direction: column; justify-content: space-between;
-    }
-    .sidebar-drawer.active { left: 0; }
-    .sidebar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
-    .sidebar-links { display: flex; flex-direction: column; gap: 10px; }
-    .sidebar-links a {
-      display: flex; align-items: center; gap: 12px; padding: 11px 14px; border-radius: 10px;
-      background: rgba(255,255,255,0.02); border: 1px solid var(--border); font-weight: 600; font-size: 0.9rem; transition: 0.2s;
-    }
-    .sidebar-links a:hover { background: rgba(0, 242, 254, 0.08); border-color: var(--primary); color: var(--primary); }
-    .sidebar-links a i { width: 20px; color: var(--primary); }
-
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 8px 14px; border-radius: 10px; font-weight: 600; font-size: 0.82rem;
-      cursor: pointer; border: 1px solid transparent; transition: 0.2s; white-space: nowrap;
-    }
-    .btn-primary { background: var(--gradient); color: #041019; font-weight: 700; }
-    .btn-outline { background: rgba(255, 255, 255, 0.04); border-color: var(--border); color: var(--text); }
-    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
-    .btn-danger { background: rgba(239, 68, 68, 0.14); border-color: rgba(239, 68, 68, 0.35); color: #fca5a5; }
-    .btn-admin { background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); color: #fcd34d; }
-
-    .profile-chip {
-      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px 4px 5px;
-      border-radius: 999px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.35);
-      font-size: 0.8rem; font-weight: 600; cursor: pointer; max-width: 140px; overflow: hidden; text-overflow: ellipsis;
-    }
-    .profile-chip img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); flex-shrink: 0; }
-
-    .container { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
-    section { padding: 40px 0; }
-
-    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 30px; align-items: center; padding-top: 30px; }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px;
-      background: rgba(0, 242, 254, 0.09); border: 1px solid rgba(0, 242, 254, 0.25);
-      color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 14px;
-    }
-    .hero h1 { font-size: clamp(1.8rem, 3.8vw, 3rem); line-height: 1.18; font-weight: 800; margin-bottom: 14px; }
-    .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { color: var(--muted); font-size: 0.98rem; line-height: 1.6; margin-bottom: 20px; max-width: 550px; }
-
-    .mockup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 18px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,0.55); }
-    .win-dots { display: flex; align-items: center; gap: 6px; padding-bottom: 10px; border-bottom: 1px solid var(--border); margin-bottom: 12px; font-size: 0.78rem; color: var(--muted); }
-    .win-dots i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
-    .drop-preview { border: 1.5px dashed rgba(0, 242, 254, 0.4); border-radius: 12px; padding: 22px 14px; text-align: center; background: rgba(0, 242, 254, 0.03); margin-bottom: 12px; }
-    .drop-preview i { font-size: 1.8rem; color: var(--primary); margin-bottom: 6px; }
-    .file-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-    .chip { font-size: 0.74rem; padding: 3px 8px; border-radius: 6px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); }
-    .chip b { color: var(--primary); }
-    .link-preview { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.82rem; }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 18px; text-align: center; }
-    .stat-box b { display: block; font-size: 1.5rem; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
-    .stat-box span { font-size: 0.82rem; color: var(--muted); }
-
-    .sec-head { text-align: center; max-width: 600px; margin: 0 auto 30px; }
-    .sec-head .tag { color: var(--primary); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-    .sec-head h2 { font-size: clamp(1.5rem, 2.8vw, 2.2rem); margin: 6px 0 8px; }
-    .sec-head p { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
-
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
-    .icon-box { width: 40px; height: 40px; border-radius: 10px; background: rgba(0, 242, 254, 0.1); color: var(--primary); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; margin-bottom: 14px; }
-    .card h3 { font-size: 1.05rem; margin-bottom: 6px; }
-    .card p { color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-
-    .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-    .plan-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; position: relative; }
-    .plan-card.popular { border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 242, 254, 0.12); }
-    .plan-ribbon { position: absolute; top: -10px; right: 14px; background: var(--gradient); color: #041019; font-size: 0.7rem; font-weight: 800; padding: 2px 9px; border-radius: 999px; }
-    .plan-name { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
-    .plan-price { font-size: 1.8rem; font-weight: 800; margin-bottom: 14px; }
-    .plan-price span { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
-    .plan-list { list-style: none; margin-bottom: 16px; flex: 1; }
-    .plan-list li { font-size: 0.85rem; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
-    .plan-list li i { color: var(--accent); }
-
-    .faq-wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-    details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; }
-    summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 0.92rem; }
-    details p { margin-top: 10px; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-
-    .dev-card { max-width: 720px; margin: 0 auto; background: var(--bg-card); border: 1px solid rgba(0, 242, 254, 0.28); border-radius: 16px; padding: 24px; display: flex; align-items: center; gap: 22px; }
-    .dev-card img { width: 95px; height: 95px; border-radius: 14px; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0; }
-    .dev-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
-
-    .panel-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
-    .dash-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 18px; }
-    .plan-pill { padding: 4px 10px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.16); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.35); }
-    .upload-zone { border: 2px dashed rgba(0, 242, 254, 0.45); border-radius: 14px; padding: 30px 16px; text-align: center; background: rgba(0, 242, 254, 0.03); cursor: pointer; transition: 0.2s; }
-    .upload-zone:hover { background: rgba(0, 242, 254, 0.07); }
-    .progress-wrap { margin-top: 14px; display: none; }
-    .progress-bar { height: 9px; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; margin-top: 6px; }
-    .progress-fill { height: 100%; width: 0%; background: var(--gradient); transition: width 0.15s ease; }
-    .table-wrap { overflow-x: auto; margin-top: 18px; }
-    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; min-width: 500px; }
-    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--border); }
-    th { color: var(--muted); font-weight: 600; }
-
-    .modal-backdrop { position: fixed; inset: 0; background: rgba(3, 5, 10, 0.86); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 2500; padding: 14px; overflow-y: auto; }
-    .modal-backdrop.active { display: flex; }
-    .modal { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: 16px; width: 100%; max-width: 420px; padding: 22px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.85); margin: auto; }
-    .modal-lg { max-width: 850px; }
-    .close-modal { position: absolute; top: 14px; right: 14px; background: none; border: none; color: var(--muted); font-size: 1.2rem; cursor: pointer; }
-    .form-group { margin-bottom: 12px; }
-    .form-group label { display: block; font-size: 0.82rem; color: var(--muted); margin-bottom: 5px; }
-    .form-control { width: 100%; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border); color: var(--text); font-size: 0.9rem; outline: none; }
-    .form-control:focus { border-color: var(--primary); }
-
-    .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
-    .pay-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.2s; }
-    .pay-card.selected { border-color: var(--primary); background: rgba(0,242,254,0.08); }
-
-    .profile-avatar-box { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
-    .profile-avatar-box img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
-
-    footer { border-top: 1px solid var(--border); padding: 24px 16px; text-align: center; font-size: 0.88rem; }
-    .footer-projects { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 12px; }
-    .footer-projects a { color: #cbd5e1; font-weight: 500; font-size: 0.88rem; transition: color 0.2s; }
-    .footer-projects a:hover { color: var(--primary); text-decoration: underline; }
-
-    #publicDownloadView { display: none; min-height: 75vh; align-items: center; justify-content: center; padding: 30px 16px; }
-    .dl-card { max-width: 460px; width: 100%; background: var(--bg-card); border: 1px solid var(--primary); border-radius: 18px; padding: 28px; text-align: center; }
-
-    #toast { position: fixed; bottom: 20px; right: 20px; left: 20px; max-width: 380px; margin: 0 auto; background: #131a29; border: 1px solid var(--primary); color: var(--text); padding: 11px 16px; border-radius: 10px; font-size: 0.85rem; z-index: 3000; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.6); text-align: center; }
-
-    @media (max-width: 960px) {
-      .hero, .admin-grid { grid-template-columns: 1fr; }
-      .pricing-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .grid-3 { grid-template-columns: 1fr; }
-      .nav-center-menu { display: none; }
-    }
-    @media (max-width: 480px) {
-      .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HASSAN X FILES LINKS</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        appbg: '#060913',
+                        surface: '#0d1326',
+                        neoncyan: '#00f2fe',
+                        neongold: '#ffd700',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: #03050a;
+            color: #f8fafc;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        /* Strict Mobile Viewport Frame */
+        .mobile-shell {
+            width: 100%;
+            max-width: 480px;
+            min-height: 100vh;
+            margin: 0 auto;
+            background: radial-gradient(circle at top right, rgba(0, 242, 254, 0.08), transparent 45%),
+                        radial-gradient(circle at bottom left, rgba(255, 215, 0, 0.06), transparent 45%),
+                        #070b16;
+            border-left: 1px solid rgba(56, 189, 248, 0.12);
+            border-right: 1px solid rgba(56, 189, 248, 0.12);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.85);
+        }
+        .glass-card {
+            background: rgba(15, 23, 42, 0.78);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(56, 189, 248, 0.16);
+        }
+        .glass-gold {
+            background: rgba(24, 20, 12, 0.82);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 215, 0, 0.28);
+        }
+        .btn-cyan {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.35);
+            transition: transform 0.15s ease, box-shadow 0.2s ease;
+        }
+        .btn-cyan:active {
+            transform: scale(0.98);
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, #f59e0b 0%, #ffd700 100%);
+            color: #070b16;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+            transition: transform 0.15s ease;
+        }
+        .btn-gold:active {
+            transform: scale(0.98);
+        }
+        /* Hide scrollbars inside horizontal pills */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 <body>
 
-  <!-- Clean Sidebar Drawer -->
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-  <div class="sidebar-drawer" id="sidebarDrawer">
-    <div>
-      <div class="sidebar-header">
-        <div class="brand">
-          <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Logo" />
-          <span>HASSAN FILES</span>
-        </div>
-        <button class="close-modal" onclick="toggleSidebar()" style="position:static;"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-      <div class="sidebar-links">
-        <a href="#features" onclick="toggleSidebar()"><i class="fa-solid fa-star"></i> Features</a>
-        <a href="#how" onclick="toggleSidebar()"><i class="fa-solid fa-circle-question"></i> How It Works</a>
-        <a href="#pricing" onclick="toggleSidebar()"><i class="fa-solid fa-tags"></i> Pricing Plans</a>
-        <a href="#faq" onclick="toggleSidebar()"><i class="fa-solid fa-circle-info"></i> FAQ</a>
-        <a href="#developer" onclick="toggleSidebar()"><i class="fa-solid fa-code"></i> Developer</a>
-      </div>
-    </div>
-    <div style="font-size: 0.76rem; color: var(--muted); text-align: center;">
-      © 2026 Hassan Files To Links
-    </div>
-  </div>
+    <!-- Mobile App Wrapper -->
+    <div class="mobile-shell">
 
-  <!-- Header / Navbar -->
-  <header id="topHome">
-    <div class="nav-wrap">
-      <div class="nav-left">
-        <button class="hamburger-btn" onclick="toggleSidebar()" title="Menu">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-        <a href="#topHome" class="brand">
-          <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Logo" />
-          <span>HASSAN FILES TO LINKS</span>
-        </a>
-      </div>
-
-      <nav class="nav-center-menu" id="navCenterMenu">
-        <a href="#features">Features</a>
-        <a href="#how">How It Works</a>
-        <a href="#pricing">Pricing</a>
-        <a href="#faq">FAQ</a>
-        <a href="#developer">Developer</a>
-      </nav>
-
-      <div class="nav-actions" id="navAuthArea">
-        <button class="btn btn-outline" onclick="openModal('plansPopupModal')">Plans</button>
-        <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
-        <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Start</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Public File Download View (?file=XYZ) -->
-  <div id="publicDownloadView">
-    <div class="dl-card">
-      <div class="icon-box" style="margin: 0 auto 14px; width: 55px; height: 55px; font-size: 1.5rem;">
-        <i class="fa-solid fa-file-arrow-down"></i>
-      </div>
-      <h2 id="dlFileName" style="margin-bottom: 6px; word-break: break-all; font-size: 1.3rem;">Loading file...</h2>
-      <p id="dlFileMeta" style="color: var(--muted); font-size: 0.88rem; margin-bottom: 20px;">Please wait...</p>
-      <a id="dlBtn" href="#" target="_blank" class="btn btn-primary" style="width: 100%; padding: 12px;">
-        <i class="fa-solid fa-download"></i> Download File Now
-      </a>
-      <div style="margin-top: 14px;">
-        <a href="?" style="font-size: 0.82rem; color: var(--primary);">← Upload your own files on HASSAN FILES TO LINKS</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Main Website View -->
-  <main id="mainSiteView">
-
-    <section id="dashboardSection" style="display: none; padding-top: 24px; padding-bottom: 10px;">
-      <div class="container">
-
-        <div id="adminPanelBox" class="panel-box" style="display: none; border-color: rgba(245, 158, 11, 0.55);">
-          <div class="dash-header">
-            <div>
-              <h2 style="color: #fcd34d; font-size: 1.2rem;"><i class="fa-solid fa-crown"></i> Admin Plan Manager</h2>
-              <p style="color: var(--muted); font-size: 0.82rem;">Assign plans by Gmail or Username, verify payments instantly.</p>
+        <!-- Custom Message / Toast Modal (No alert/confirm) -->
+        <div id="app-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
+            <div class="glass-card rounded-3xl p-6 w-full max-w-[360px] text-center border border-cyan-500/30 shadow-2xl">
+                <div id="app-modal-icon" class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-circle-info"></i>
+                </div>
+                <h3 id="app-modal-title" class="text-base font-bold text-white mb-1.5">Notification</h3>
+                <p id="app-modal-text" class="text-xs text-slate-300 leading-relaxed mb-5">Message text</p>
+                <button onclick="closeAppModal()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-bold text-white uppercase tracking-wider">Continue</button>
             </div>
-            <span id="adminBadgeEmail" class="plan-pill" style="background: rgba(245,158,11,0.16); color: #fcd34d;">ADMIN</span>
-          </div>
+        </div>
 
-          <div class="admin-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-            <div>
-              <h4 style="margin-bottom: 10px; font-size: 0.92rem;">Assign Plan</h4>
-              <div class="form-group">
-                <label>User Gmail or Username</label>
-                <input type="text" id="adminTargetUser" class="form-control" placeholder="e.g. user@gmail.com" />
-              </div>
-              <div class="form-group">
-                <label>Select Plan</label>
-                <select id="adminTargetPlan" class="form-control">
-                  <option value="free">Free — Rs 0</option>
-                  <option value="weekly">Weekly — Rs 50</option>
-                  <option value="monthly">Monthly — Rs 100</option>
-                  <option value="yearly">Yearly — Rs 500</option>
-                </select>
-              </div>
-              <button class="btn btn-primary" onclick="adminAssignPlan()">
-                <i class="fa-solid fa-check-circle"></i> Activate Plan Now
-              </button>
+        <!-- ========================================================= -->
+        <!-- 1. PUBLIC FILE DOWNLOAD VIEW (?file=...)                  -->
+        <!-- ========================================================= -->
+        <div id="public-file-view" class="hidden flex-1 flex flex-col justify-between p-5">
+            <div class="flex items-center justify-between py-2">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-sm font-extrabold tracking-wide text-cyan-400">HASSAN X FILES</h1>
+                        <p class="text-[10px] text-slate-400">DIRECT SECURE LINK</p>
+                    </div>
+                </div>
+                <button onclick="exitPublicFileView()" class="px-3.5 py-2 rounded-xl glass-card text-xs font-semibold text-cyan-300 border border-cyan-500/30">
+                    Open App
+                </button>
             </div>
 
-            <div>
-              <h4 style="margin-bottom: 10px; font-size: 0.92rem;">Pending Payment Requests</h4>
-              <div id="adminRequestsList" style="max-height: 210px; overflow-y: auto; font-size: 0.84rem; color: var(--muted);">
-                Loading requests...
-              </div>
+            <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl">
+                <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mx-auto mb-4 text-cyan-400 text-2xl">
+                    <i class="fa-solid fa-file-arrow-down"></i>
+                </div>
+                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider">
+                    Verified File Ready
+                </span>
+                <h2 id="pub-file-name" class="text-lg font-extrabold text-white mt-3 break-all">Loading file...</h2>
+                <div class="flex items-center justify-center gap-4 mt-2 text-xs text-slate-400">
+                    <span><i class="fa-solid fa-hard-drive text-cyan-400 mr-1"></i> <strong id="pub-file-size" class="text-slate-200">--</strong></span>
+                    <span><i class="fa-solid fa-user text-amber-400 mr-1"></i> <strong id="pub-file-owner" class="text-slate-200">--</strong></span>
+                </div>
+
+                <div class="mt-6 space-y-3">
+                    <a id="pub-download-btn" href="#" target="_blank" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Download File Now
+                    </a>
+                    <button onclick="copyTextValue(window.location.href, 'Shareable file URL copied!')" class="w-full py-3 rounded-2xl glass-card text-xs font-semibold text-slate-300 hover:text-white flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-copy text-cyan-400"></i> Copy Share Link
+                    </button>
+                </div>
             </div>
-          </div>
+
+            <p class="text-center text-[11px] text-slate-500 py-2">Powered by HASSAN X FILES LINKS</p>
         </div>
 
-        <div class="panel-box">
-          <div class="dash-header">
-            <div style="display: flex; align-items: center; gap: 12px; min-width: 0;">
-              <img id="dashUserAvatar" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0;" />
-              <div style="min-width: 0;">
-                <h2 id="dashWelcome" style="font-size: 1.15rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Welcome!</h2>
-                <p id="dashUserMeta" style="color: var(--muted); font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Username: —</p>
-              </div>
+        <!-- ========================================================= -->
+        <!-- 2. AUTHENTICATION SCREEN (LOGIN / SIGN UP)                -->
+        <!-- ========================================================= -->
+        <div id="auth-screen" class="flex-1 flex flex-col justify-center p-5">
+            <!-- Brand Header -->
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl shadow-cyan-500/30">
+                    <i class="fa-solid fa-cloud-bolt text-white text-2xl"></i>
+                </div>
+                <h1 class="text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-amber-300">
+                    HASSAN X FILES LINKS
+                </h1>
+                <p class="text-xs text-slate-400 mt-1">Instant Cloud File-to-Link Generator</p>
             </div>
-            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-              <span id="dashPlanBadge" class="plan-pill">FREE PLAN</span>
-              <span id="dashStorageText" style="font-size: 0.82rem; color: var(--muted);">0 MB / 1,024 MB</span>
-              <button class="btn btn-outline" onclick="openModal('profileModal')"><i class="fa-solid fa-user-gear"></i> Profile</button>
-              <button class="btn btn-primary" onclick="openModal('buyModal')"><i class="fa-solid fa-bolt"></i> Upgrade</button>
+
+            <!-- Auth Card -->
+            <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 shadow-2xl">
+                <!-- Toggle Login / Sign Up -->
+                <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-950/90 border border-slate-800 mb-5">
+                    <button id="tab-btn-login" onclick="setAuthMode('login')" class="py-2.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition">
+                        Sign In
+                    </button>
+                    <button id="tab-btn-signup" onclick="setAuthMode('signup')" class="py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition">
+                        Create Account
+                    </button>
+                </div>
+
+                <!-- Google Sign-In Button -->
+                <button onclick="loginWithGoogle()" class="w-full py-3 rounded-2xl bg-white text-slate-900 font-bold text-xs flex items-center justify-center gap-2.5 shadow-md active:scale-98 transition mb-4">
+                    <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+                        <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+                        <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
+                        <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.9C3.5 21.1 7.4 24 12 24z"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <div class="flex items-center gap-2 my-3">
+                    <div class="h-px bg-slate-800 flex-1"></div>
+                    <span class="text-[10px] text-slate-500 uppercase font-semibold">Or with Email</span>
+                    <div class="h-px bg-slate-800 flex-1"></div>
+                </div>
+
+                <!-- Form Inputs -->
+                <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
+                    <div id="signup-username-group" class="hidden">
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-user absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                            <input type="text" id="auth-username" placeholder="e.g. hassan_ff" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Email Address</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-envelope absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                            <input type="email" id="auth-email" required placeholder="Enter your email..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Password</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-lock absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                            <input type="password" id="auth-password" required placeholder="Enter password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-9 pr-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                        </div>
+                    </div>
+
+                    <div id="signup-referral-group" class="hidden">
+                        <label class="block text-[11px] font-semibold text-purple-300 mb-1">Referral Code (Optional - Earn +30 Pts)</label>
+                        <div class="relative">
+                            <i class="fa-solid fa-gift absolute left-3.5 top-3 text-purple-400 text-xs"></i>
+                            <input type="text" id="auth-referral-code" placeholder="Auto-filled if invited..." class="w-full bg-slate-950 border border-purple-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-purple-200 focus:outline-none focus:border-purple-400">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="auth-submit-btn" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider mt-2">
+                        Sign In Now
+                    </button>
+                </form>
             </div>
-          </div>
+        </div>
 
-          <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-            <input type="file" id="fileInput" hidden onchange="handleFileUpload(this.files[0])" />
-            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 8px;"></i>
-            <h3 style="font-size: 1.05rem;">Click or Drop File to Upload</h3>
-            <p id="uploadLimitHint" style="color: var(--muted); font-size: 0.82rem; margin-top: 5px;">Max file size: 100 MB</p>
-          </div>
+        <!-- ========================================================= -->
+        <!-- 3. MAIN AUTHENTICATED MOBILE APP SHELL                    -->
+        <!-- ========================================================= -->
+        <div id="main-app-view" class="hidden flex-1 flex flex-col pb-20">
+            
+            <!-- Sticky Top App Header -->
+            <header class="sticky top-0 z-30 glass-card border-b border-cyan-500/20 px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center gap-2.5" onclick="navigateTo('dashboard')">
+                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
+                        <i class="fa-solid fa-folder-tree text-sm"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xs font-extrabold tracking-wide text-cyan-400 leading-tight">HASSAN X FILES</h1>
+                        <div class="flex items-center gap-1.5 mt-0.5">
+                            <span id="header-plan-badge" class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">Free Plan</span>
+                            <span id="header-points-badge" class="text-[9px] text-purple-300 font-bold">0 Pts</span>
+                        </div>
+                    </div>
+                </div>
 
-          <div class="progress-wrap" id="progressWrap">
-            <div style="display: flex; justify-content: space-between; font-size: 0.82rem;">
-              <span id="uploadFileName">Uploading...</span>
-              <span id="uploadPercent">0%</span>
+                <div class="flex items-center gap-2">
+                    <button onclick="navigateTo('inbox')" class="relative w-9 h-9 rounded-xl glass-card flex items-center justify-center text-slate-300 hover:text-cyan-400">
+                        <i class="fa-solid fa-bell text-sm"></i>
+                        <span id="header-inbox-dot" class="hidden absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-red-500"></span>
+                    </button>
+                    <button onclick="toggleDrawer(true)" class="w-9 h-9 rounded-xl glass-card flex items-center justify-center text-cyan-400 border border-cyan-500/30">
+                        <i class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Slide-Out Mobile Menu Drawer -->
+            <div id="mobile-drawer-overlay" onclick="toggleDrawer(false)" class="fixed inset-0 z-40 bg-black/75 backdrop-blur-xs hidden"></div>
+            <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#0a1020] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col">
+                <div class="flex items-center justify-between pb-4 border-b border-slate-800">
+                    <div class="flex items-center gap-3">
+                        <img id="drawer-avatar" src="https://placehold.co/100x100/0f172a/00f2fe?text=U" class="w-11 h-11 rounded-full object-cover border-2 border-cyan-400">
+                        <div class="overflow-hidden">
+                            <h4 id="drawer-username" class="text-xs font-bold text-white truncate">User</h4>
+                            <p id="drawer-email" class="text-[10px] text-slate-400 truncate">user@email.com</p>
+                            <span id="drawer-plan" class="inline-block mt-0.5 text-[9px] px-2 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">Free Plan</span>
+                        </div>
+                    </div>
+                    <button onclick="toggleDrawer(false)" class="text-slate-400 hover:text-white p-1.5"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+
+                <nav class="flex flex-col gap-1.5 mt-4 text-xs font-semibold">
+                    <button onclick="navigateTo('dashboard'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-cyan-500/10 hover:text-cyan-300 text-left">
+                        <i class="fa-solid fa-gauge w-4 text-cyan-400"></i> Dashboard
+                    </button>
+                    <button onclick="navigateTo('plans'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-amber-500/10 hover:text-amber-300 text-left">
+                        <i class="fa-solid fa-gem w-4 text-amber-400"></i> See Plans
+                    </button>
+                    <button onclick="navigateTo('referral'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-purple-500/10 hover:text-purple-300 text-left">
+                        <i class="fa-solid fa-users w-4 text-purple-400"></i> Refer & Earn Points
+                    </button>
+                    <button onclick="navigateTo('inbox'); toggleDrawer(false)" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-inbox w-4 text-cyan-400"></i> Inbox</span>
+                        <span id="drawer-inbox-count" class="px-2 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-bold hidden">0</span>
+                    </button>
+                    <button onclick="navigateTo('profile'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
+                        <i class="fa-solid fa-user-gear w-4 text-cyan-400"></i> Profile Settings
+                    </button>
+                    <button id="drawer-admin-btn" onclick="navigateTo('admin'); toggleDrawer(false)" class="hidden flex items-center gap-3 px-3.5 py-3 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/30 text-left mt-1">
+                        <i class="fa-solid fa-shield-halved w-4 text-amber-400"></i> Admin Panel
+                    </button>
+                </nav>
+
+                <div class="mt-auto pt-4 border-t border-slate-800">
+                    <button onclick="logoutUser()" class="w-full py-3 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-xs flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-right-from-bracket"></i> Sign Out
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Storage Expired Alert Banner -->
+            <div id="storage-expired-banner" class="hidden mx-4 mt-4 p-3.5 rounded-2xl bg-red-500/15 border border-red-500/40 text-red-200 text-xs flex items-center justify-between gap-2">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400 text-base"></i>
+                    <span>Your Free Plan Has Expired Get Plans Through <button onclick="navigateTo('plans')" class="underline font-extrabold text-amber-300">Plans</button></span>
+                </div>
             </div>
-            <div class="progress-bar">
-              <div class="progress-fill" id="progressFill"></div>
+
+            <!-- ===================================================== -->
+            <!-- VIEW A: DASHBOARD & FILE TO LINK GENERATOR            -->
+            <!-- ===================================================== -->
+            <section id="view-dashboard" class="app-section p-4 space-y-4">
+                
+                <!-- Live Storage & Active Plan Card -->
+                <div class="glass-card rounded-3xl p-4 border border-cyan-500/25">
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Live Storage Usage</span>
+                            <div class="flex items-baseline gap-1.5 mt-0.5">
+                                <h2 id="dash-storage-remaining" class="text-lg font-extrabold text-cyan-300">200.00 MB</h2>
+                                <span class="text-[11px] text-slate-400">left of <span id="dash-storage-total">200 MB</span></span>
+                            </div>
+                        </div>
+                        <button onclick="navigateTo('plans')" class="px-3 py-1.5 rounded-xl btn-gold text-[11px] font-extrabold">
+                            Upgrade
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="w-full h-2.5 bg-slate-900 rounded-full overflow-hidden border border-slate-800">
+                        <div id="dash-storage-bar" class="h-full bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-2.5 text-[11px] text-slate-400">
+                        <span>Used: <strong id="dash-storage-used" class="text-slate-200">0 KB</strong></span>
+                        <span>Active: <strong id="dash-active-plan" class="text-amber-300">Free Plan</strong></span>
+                    </div>
+                </div>
+
+                <!-- Drag & Drop File-to-Link Generator -->
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25">
+                    <h3 class="text-sm font-extrabold text-white mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-link text-cyan-400"></i> File to Link Generator
+                    </h3>
+                    <p class="text-[11px] text-slate-400 mb-3">Drop any file below to generate an instant shareable link.</p>
+
+                    <!-- Optional Custom Slug Input -->
+                    <div class="mb-3">
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Custom URL Slug (Optional)</label>
+                        <input type="text" id="custom-file-slug" placeholder="make url like ?file=my-website" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+                    </div>
+
+                    <!-- Dropzone -->
+                    <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 bg-slate-950/70 rounded-2xl p-6 text-center cursor-pointer transition">
+                        <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0])">
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-2.5 text-xl">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                        </div>
+                        <p class="text-xs font-bold text-slate-200">Tap to Select or Drag & Drop File</p>
+                        <p class="text-[10px] text-slate-400 mt-1">Supports .py, .zip, .html, .apk, images, docs & more</p>
+                    </div>
+
+                    <!-- Upload Progress Indicator -->
+                    <div id="upload-progress-box" class="hidden mt-3 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
+                        <p class="text-xs font-bold text-cyan-300 animate-pulse"><i class="fa-solid fa-spinner fa-spin mr-1.5"></i> Generating Secure Link...</p>
+                    </div>
+
+                    <!-- Latest Generated Link Box -->
+                    <div id="latest-link-box" class="hidden mt-4 p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-emerald-300 uppercase"><i class="fa-solid fa-circle-check mr-1"></i> Shareable Link Ready</span>
+                            <span id="latest-file-size" class="text-[10px] text-slate-300">0 KB</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="latest-link-url" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-cyan-300 focus:outline-none">
+                            <button onclick="copyTextValue(document.getElementById('latest-link-url').value, 'File link copied!')" class="px-3.5 py-2 rounded-xl btn-cyan text-xs font-bold text-white shrink-0">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User's Uploaded Files List (Starts Empty until User Uploads) -->
+                <div class="glass-card rounded-3xl p-4 border border-cyan-500/20">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xs font-extrabold text-cyan-300 uppercase tracking-wider">
+                            <i class="fa-solid fa-folder-open mr-1.5"></i> My Generated Links (<span id="files-count-label">0</span>)
+                        </h3>
+                    </div>
+                    <div id="user-files-list" class="space-y-2.5">
+                        <div class="text-center py-6 text-slate-500 text-xs">
+                            No files uploaded yet. Upload a file above to create your first link!
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW B: SUBSCRIPTION PLANS & POINTS REDEMPTION        -->
+            <!-- ===================================================== -->
+            <section id="view-plans" class="app-section hidden p-4 space-y-4">
+                <div class="text-center">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-[10px] font-bold uppercase">Membership Plans</span>
+                    <h2 class="text-lg font-extrabold text-white mt-1.5">Choose Your Storage Plan</h2>
+                    <p class="text-[11px] text-slate-400">Redeem instantly with Referral Points or Pay via Easypaisa/JazzCash</p>
+                </div>
+
+                <!-- 1. Free Plan -->
+                <div class="glass-card rounded-3xl p-5 border border-slate-800">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="text-base font-extrabold text-white">Free Plan</h3>
+                            <p class="text-[11px] text-slate-400">Starter Access</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-extrabold text-cyan-400">0 PKR</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
+                        <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
+                        <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>200MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>❌</span></li>
+                        <li class="flex justify-between"><span>High-Speed Priority CDN</span> <span>❌</span></li>
+                    </ul>
+                    <button disabled class="w-full py-2.5 rounded-xl bg-slate-800/80 text-slate-400 text-xs font-bold">
+                        Default Starter Tier
+                    </button>
+                </div>
+
+                <!-- 2. Weekly Plan -->
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/35">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="text-base font-extrabold text-cyan-300">Weekly Plan</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Or 190 Referral Points</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-extrabold text-white">100 PKR</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
+                        <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
+                        <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>600MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Ad-Free Downloads</span> <span>✔️</span></li>
+                    </ul>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="redeemPlanPoints('Weekly Plan', 190, 600)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">
+                            190 Points
+                        </button>
+                        <button onclick="openPaymentModal('Weekly Plan', '100 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">
+                            Get Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3. Monthly Plan -->
+                <div class="glass-gold rounded-3xl p-5 relative">
+                    <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-extrabold uppercase">Most Popular</span>
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="text-base font-extrabold text-amber-300">Monthly Plan</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Or 380 Referral Points</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-extrabold text-white">300 PKR</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-200 border-t border-amber-500/20 pt-3 mb-4">
+                        <li class="flex justify-between"><span>Unlimited Links</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
+                        <li class="flex justify-between"><span>1000MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Custom URL Slugs</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Priority Fast Servers</span> <span>✔️</span></li>
+                    </ul>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="redeemPlanPoints('Monthly Plan', 380, 1000)" class="py-2.5 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 text-xs font-bold">
+                            380 Points
+                        </button>
+                        <button onclick="openPaymentModal('Monthly Plan', '300 PKR')" class="py-2.5 rounded-xl btn-gold text-xs font-extrabold">
+                            Get Now
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 4. Yearly Plan -->
+                <div class="glass-card rounded-3xl p-5 border border-purple-500/40">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="text-base font-extrabold text-purple-300">Yearly Plan</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Or 700 Referral Points</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-extrabold text-white">700 PKR</span>
+                        </div>
+                    </div>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
+                        <li class="flex justify-between"><span>Unlimited Links Access</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
+                        <li class="flex justify-between"><span>2048MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>VIP Support & Custom Slugs</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>Permanent Link Retention</span> <span>✔️</span></li>
+                    </ul>
+                    <div class="grid grid-cols-2 gap-2.5">
+                        <button onclick="redeemPlanPoints('Yearly Plan', 700, 2048)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">
+                            700 Points
+                        </button>
+                        <button onclick="openPaymentModal('Yearly Plan', '700 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">
+                            Get Now
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW C: REFER & EARN POINTS                           -->
+            <!-- ===================================================== -->
+            <section id="view-referral" class="app-section hidden p-4 space-y-4">
+                <div class="glass-card rounded-3xl p-5 border border-purple-500/35 text-center">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-white">Refer & Earn Points</h2>
+                    <p class="text-xs text-slate-300 mt-1 leading-relaxed">
+                        Invite friends with your custom referral link! When they sign up, <strong class="text-cyan-300">BOTH of you get +30 Points</strong> instantly.
+                    </p>
+
+                    <div class="mt-4 p-3.5 rounded-2xl bg-slate-950 border border-purple-500/30 text-left">
+                        <label class="block text-[10px] font-bold text-purple-300 uppercase mb-1.5">Your Custom Referral Link</label>
+                        <div class="flex items-center gap-2">
+                            <input type="text" id="my-referral-link" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-purple-200 focus:outline-none">
+                            <button onclick="copyTextValue(document.getElementById('my-referral-link').value, 'Referral link copied!')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold shrink-0">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 mt-4">
+                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold">Total Invited</span>
+                            <h3 id="ref-total-count" class="text-xl font-extrabold text-cyan-400 mt-0.5">0</h3>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800">
+                            <span class="text-[10px] text-slate-400 uppercase font-bold">Available Points</span>
+                            <h3 id="ref-total-points" class="text-xl font-extrabold text-purple-400 mt-0.5">0 Pts</h3>
+                        </div>
+                    </div>
+
+                    <button onclick="navigateTo('plans')" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider mt-4">
+                        Redeem Points for Free Plans
+                    </button>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW D: INBOX / NOTIFICATIONS                         -->
+            <!-- ===================================================== -->
+            <section id="view-inbox" class="app-section hidden p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-base font-extrabold text-cyan-300 flex items-center gap-2">
+                        <i class="fa-solid fa-inbox"></i> Inbox Messages
+                    </h2>
+                    <span class="text-[10px] text-slate-400">Admin Alerts & Approvals</span>
+                </div>
+
+                <div id="inbox-list-container" class="space-y-3">
+                    <div class="glass-card rounded-2xl p-6 text-center text-xs text-slate-500">
+                        No messages in your inbox yet.
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW E: PROFILE & PASSWORD CHANGE                     -->
+            <!-- ===================================================== -->
+            <section id="view-profile" class="app-section hidden p-4 space-y-4">
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
+                    <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-user-pen text-cyan-400"></i> Edit Profile
+                    </h2>
+
+                    <!-- Avatar Preview + Upload from Gallery or Link -->
+                    <div class="flex items-center gap-3.5">
+                        <img id="prof-avatar-img" src="https://placehold.co/100x100/0f172a/00f2fe?text=U" class="w-16 h-16 rounded-full object-cover border-2 border-cyan-400 shrink-0">
+                        <div class="flex-1 space-y-2">
+                            <input type="text" id="prof-avatar-url" placeholder="Paste profile image URL..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
+                            <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold cursor-pointer">
+                                <i class="fa-solid fa-image"></i> Choose from Gallery
+                                <input type="file" accept="image/*" class="hidden" onchange="handleAvatarGalleryUpload(this.files[0])">
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
+                        <input type="text" id="prof-username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Email Address</label>
+                        <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+
+                    <button onclick="updateUserProfile()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                        Save Profile Changes
+                    </button>
+                </div>
+
+                <!-- Change Password Card -->
+                <div class="glass-card rounded-3xl p-5 border border-amber-500/25 space-y-3">
+                    <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
+                        <i class="fa-solid fa-key"></i> Change Password
+                    </h3>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Old Password</label>
+                        <input type="password" id="prof-old-pass" placeholder="Enter current password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">New Password</label>
+                        <input type="password" id="prof-new-pass-1" placeholder="Enter new password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Confirm New Password</label>
+                        <input type="password" id="prof-new-pass-2" placeholder="Re-enter new password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+                    <button onclick="handleChangePassword()" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
+                        CHANGE PASSWORD
+                    </button>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW F: ADMIN PANEL (ONLY FOR ansarbubble43@gmail.com)-->
+            <!-- ===================================================== -->
+            <section id="view-admin" class="app-section hidden p-4 space-y-4">
+                <div class="glass-gold rounded-3xl p-4 flex items-center justify-between">
+                    <div>
+                        <span class="text-[9px] px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold uppercase">Admin Access</span>
+                        <h2 class="text-base font-extrabold text-white mt-1">Hassan Admin Panel</h2>
+                    </div>
+                    <i class="fa-solid fa-shield-halved text-2xl text-amber-400"></i>
+                </div>
+
+                <!-- 1. Broadcast Message to All Users -->
+                <div class="glass-card rounded-3xl p-4 border border-cyan-500/25 space-y-3">
+                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase tracking-wider">
+                        <i class="fa-solid fa-bullhorn mr-1.5"></i> Send Global Broadcast to All Users
+                    </h3>
+                    <textarea id="admin-broadcast-text" rows="3" placeholder="Write message for everyone's Inbox..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400"></textarea>
+                    <button onclick="sendAdminBroadcast()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                        Send Message to Everyone
+                    </button>
+                </div>
+
+                <!-- 2. Grant / Change User Rank by Username or Gmail -->
+                <div class="glass-card rounded-3xl p-4 border border-amber-500/25 space-y-3">
+                    <h3 class="text-xs font-extrabold text-amber-300 uppercase tracking-wider">
+                        <i class="fa-solid fa-crown mr-1.5"></i> Assign Plan Rank to User
+                    </h3>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select or Enter Username / Gmail</label>
+                        <input type="text" id="admin-target-user" list="registered-users-datalist" placeholder="Type username or email..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                        <datalist id="registered-users-datalist"></datalist>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select Plan Rank</label>
+                        <select id="admin-target-plan" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                            <option value="Free Plan">Free Plan (200MB)</option>
+                            <option value="Weekly Plan">Weekly Plan (600MB)</option>
+                            <option value="Monthly Plan">Monthly Plan (1000MB)</option>
+                            <option value="Yearly Plan">Yearly Plan (2048MB)</option>
+                        </select>
+                    </div>
+                    <button onclick="adminGrantUserRank()" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
+                        Update User Rank & Notify
+                    </button>
+                </div>
+
+                <!-- 3. Submitted Payment Messages & Screenshots -->
+                <div class="glass-card rounded-3xl p-4 border border-emerald-500/25 space-y-3">
+                    <h3 class="text-xs font-extrabold text-emerald-300 uppercase tracking-wider">
+                        <i class="fa-solid fa-receipt mr-1.5"></i> Payment Proofs (<span id="admin-payments-count">0</span>)
+                    </h3>
+                    <div id="admin-payments-list" class="space-y-3">
+                        <p class="text-center text-xs text-slate-500 py-4">No payment submissions yet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bottom Mobile Tab Bar -->
+            <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-30 glass-card border-t border-cyan-500/20 px-2 py-2 flex items-center justify-around">
+                <button onclick="navigateTo('dashboard')" id="bnav-dashboard" class="flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-bold py-1 px-2">
+                    <i class="fa-solid fa-house text-sm"></i>
+                    <span>Home</span>
+                </button>
+                <button onclick="navigateTo('plans')" id="bnav-plans" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
+                    <i class="fa-solid fa-gem text-sm"></i>
+                    <span>Plans</span>
+                </button>
+                <button onclick="navigateTo('referral')" id="bnav-referral" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
+                    <i class="fa-solid fa-gift text-sm"></i>
+                    <span>Refer</span>
+                </button>
+                <button onclick="navigateTo('inbox')" id="bnav-inbox" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
+                    <i class="fa-solid fa-inbox text-sm"></i>
+                    <span>Inbox</span>
+                </button>
+                <button onclick="navigateTo('profile')" id="bnav-profile" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
+                    <i class="fa-solid fa-user text-sm"></i>
+                    <span>Profile</span>
+                </button>
+            </nav>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 4. PAYMENT MODAL (EASYPAISA / JAZZCASH / BANK)            -->
+        <!-- ========================================================= -->
+        <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
+            <div class="glass-card rounded-3xl p-5 w-full max-w-[420px] max-h-[90vh] overflow-y-auto border border-amber-500/35 relative">
+                <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase">Plan Activation</span>
+                <h3 id="pay-modal-heading" class="text-base font-extrabold text-white mt-1.5">Weekly Plan — 100 PKR</h3>
+
+                <!-- Select Method with Authentic Logos -->
+                <div class="mt-4">
+                    <label class="block text-[11px] font-bold text-slate-300 mb-2">Select Payment Method Sent From:</label>
+                    <div class="grid grid-cols-3 gap-2">
+                        <!-- Easypaisa -->
+                        <button type="button" onclick="choosePayMethod('Easypaisa')" id="pm-btn-Easypaisa" class="p-2.5 rounded-2xl border-2 border-emerald-500 bg-emerald-500/15 flex flex-col items-center gap-1.5 transition">
+                            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
+                                <circle cx="24" cy="24" r="22" fill="#00A859"/>
+                                <path d="M16 25.5L21.5 31L33 18" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            <span class="text-[10px] font-extrabold text-emerald-300">Easypaisa</span>
+                        </button>
+
+                        <!-- JazzCash -->
+                        <button type="button" onclick="choosePayMethod('JazzCash')" id="pm-btn-JazzCash" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
+                            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
+                                <rect x="2" y="2" width="44" height="44" rx="12" fill="#D71920"/>
+                                <circle cx="24" cy="24" r="11" fill="#FDB913"/>
+                                <path d="M24 16V26C24 28.5 22 30 19.5 30" stroke="#D71920" stroke-width="3.5" stroke-linecap="round"/>
+                            </svg>
+                            <span class="text-[10px] font-extrabold text-slate-300">JazzCash</span>
+                        </button>
+
+                        <!-- Bank -->
+                        <button type="button" onclick="choosePayMethod('Bank')" id="pm-btn-Bank" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
+                            <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm">
+                                <i class="fa-solid fa-building-columns"></i>
+                            </div>
+                            <span class="text-[10px] font-extrabold text-slate-300">Bank 🏦</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Receiver Account Info -->
+                <div class="mt-4 p-3.5 rounded-2xl bg-slate-950 border border-emerald-500/30 space-y-1">
+                    <p class="text-[11px] font-extrabold text-emerald-400">Only Easypaisa account</p>
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-300">Acc NUMBER: <strong class="text-cyan-300">03451212815</strong></span>
+                        <button type="button" onclick="copyTextValue('03451212815', 'Easypaisa number copied!')" class="text-[10px] px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">Copy</button>
+                    </div>
+                    <p class="text-xs text-slate-300">Acc Holder Name: <strong class="text-amber-300">ANSARIQBAL</strong></p>
+                </div>
+
+                <!-- Sender Details & Screenshot -->
+                <div class="mt-4 space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Account Holder Name</label>
+                        <input type="text" id="pay-holder-name" placeholder="Enter your account name..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Account Number</label>
+                        <input type="text" id="pay-account-number" placeholder="Enter your account number..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">
+                            Payment Screenshot <span id="screenshot-req-label" class="text-red-400">* (Required)</span>
+                        </label>
+                        <div id="pay-ss-dropzone" onclick="document.getElementById('pay-ss-input').click()" class="border-2 border-dashed border-amber-500/40 rounded-2xl p-4 text-center bg-slate-950 cursor-pointer">
+                            <input type="file" id="pay-ss-input" accept="image/*" class="hidden" onchange="handlePaymentProofFile(this.files[0])">
+                            <p id="pay-ss-status" class="text-xs text-slate-400">
+                                <i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot
+                            </p>
+                        </div>
+                    </div>
+
+                    <button onclick="sendPaymentProofToAdmin()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
+                        Sent Payment Message
+                    </button>
+                </div>
             </div>
-          </div>
-
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>File Name</th>
-                  <th>Size</th>
-                  <th>Downloads</th>
-                  <th>Shareable Link</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="userFilesTable">
-                <tr><td colspan="5" style="color: var(--muted); text-align: center;">No files uploaded yet.</td></tr>
-              </tbody>
-            </table>
-          </div>
         </div>
 
-      </div>
-    </section>
-
-    <section class="container hero">
-      <div>
-        <div class="badge"><i class="fa-solid fa-bolt"></i> Fast, secure file hosting & instant links</div>
-        <h1>Send any file with a single <span>link.</span></h1>
-        <p><strong>HASSAN FILES TO LINKS</strong> turns any file into a clean, shareable short link in seconds. Upload from your phone or desktop and track downloads instantly.</p>
-        <div class="hero-btns" style="display: flex; gap: 10px; flex-wrap: wrap;">
-          <button id="heroCreateAccountBtn" class="btn btn-primary" onclick="openModal('authModal', 'signup')"><i class="fa-solid fa-user-plus"></i> Create Free Account</button>
-          <button id="heroUploadDirectBtn" class="btn btn-primary" style="display: none;" onclick="document.getElementById('fileInput').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload File Now</button>
-          <button class="btn btn-outline" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</button>
-        </div>
-      </div>
-
-      <div class="mockup-card">
-        <div class="win-dots">
-          <i style="background:#ef4444"></i>
-          <i style="background:#f59e0b"></i>
-          <i style="background:#10b981"></i>
-          <span style="margin-left: 6px;">upload — HASSAN FILES TO LINKS</span>
-        </div>
-        <div class="file-chips">
-          <span class="chip"><b>PDF</b> report.pdf</span>
-          <span class="chip"><b>MP4</b> video.mp4</span>
-          <span class="chip"><b>ZIP</b> archive.zip</span>
-        </div>
-        <div class="drop-preview">
-          <i class="fa-solid fa-cloud-arrow-up"></i>
-          <div><b>Drop files to upload</b></div>
-          <small style="color: var(--muted);">Short unique link generated instantly</small>
-        </div>
-        <div class="link-preview">
-          <span><i class="fa-solid fa-link" style="color: var(--accent);"></i> <b>?file=a87f2b</b></span>
-          <span style="color: var(--accent); font-weight: 600;">Ready</span>
-        </div>
-      </div>
-    </section>
-
-    <section class="container" style="padding-top: 10px;">
-      <div class="stats-grid">
-        <div class="stat-box"><b>1,420+</b><span>Files hosted</span></div>
-        <div class="stat-box"><b>630+</b><span>Registered users</span></div>
-        <div class="stat-box"><b>10.2K+</b><span>Total downloads</span></div>
-        <div class="stat-box"><b>99.9%</b><span>Uptime speed</span></div>
-      </div>
-    </section>
-
-    <section id="features" class="container">
-      <div class="sec-head">
-        <span class="tag">Features</span>
-        <h2>Built for serious sharing</h2>
-        <p>Engineered for lightning-fast speeds and total file control.</p>
-      </div>
-      <div class="grid-3">
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-bolt"></i></div><h3>Short links</h3><p>Every upload instantly generates a clean short share link for WhatsApp or Telegram.</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-sliders"></i></div><h3>Total control</h3><p>Manage storage, track live download counts and delete files anytime from your dashboard.</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div><h3>Secure Cloud</h3><p>Powered by reliable Firebase cloud infrastructure ensuring 100% data safety.</p></div>
-      </div>
-    </section>
-
-    <section id="how" class="container">
-      <div class="sec-head">
-        <span class="tag">How it works</span>
-        <h2>Three simple steps</h2>
-      </div>
-      <div class="grid-3">
-        <div class="card"><div class="icon-box"><b>01</b></div><h3>Create Account</h3><p>Sign up in seconds with Google or email.</p></div>
-        <div class="card"><div class="icon-box"><b>02</b></div><h3>Upload File</h3><p>Drop your file from phone or computer.</p></div>
-        <div class="card"><div class="icon-box"><b>03</b></div><h3>Share Link</h3><p>Send the short link anywhere effortlessly.</p></div>
-      </div>
-    </section>
-
-    <section id="pricing" class="container">
-      <div class="sec-head">
-        <span class="tag">Pricing</span>
-        <h2>Affordable Plans</h2>
-        <p>Upgrade instantly via EasyPaisa or JazzCash.</p>
-      </div>
-      <div class="pricing-grid">
-        <div class="plan-card">
-          <div class="plan-name">Free</div>
-          <div class="plan-price">Rs 0 <span>/ forever</span></div>
-          <ul class="plan-list">
-            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
-            <li><i class="fa-solid fa-check"></i> 100 MB per file</li>
-          </ul>
-          <button class="btn btn-outline" onclick="openModal('authModal', 'signup')">Get Started</button>
-        </div>
-        <div class="plan-card popular">
-          <span class="plan-ribbon">Top Selling</span>
-          <div class="plan-name">Weekly</div>
-          <div class="plan-price">Rs 50 <span>/ 7 days</span></div>
-          <ul class="plan-list">
-            <li><i class="fa-solid fa-check"></i> 2,048 MB storage</li>
-            <li><i class="fa-solid fa-check"></i> 300 MB per file</li>
-          </ul>
-          <button class="btn btn-primary" onclick="selectPlanToBuy('weekly')">Buy Weekly</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Monthly</div>
-          <div class="plan-price">Rs 100 <span>/ 30 days</span></div>
-          <ul class="plan-list">
-            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
-            <li><i class="fa-solid fa-check"></i> 100 MB per file</li>
-          </ul>
-          <button class="btn btn-outline" onclick="selectPlanToBuy('monthly')">Buy Monthly</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Yearly</div>
-          <div class="plan-price">Rs 500 <span>/ 365 days</span></div>
-          <ul class="plan-list">
-            <li><i class="fa-solid fa-check"></i> 10,240 MB storage</li>
-            <li><i class="fa-solid fa-check"></i> 500 MB per file</li>
-          </ul>
-          <button class="btn btn-outline" onclick="selectPlanToBuy('yearly')">Buy Yearly</button>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq" class="container">
-      <div class="sec-head"><span class="tag">FAQ</span><h2>Questions answered</h2></div>
-      <div class="faq-wrap">
-        <details><summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary><p>Yes, to manage files and share links securely.</p></details>
-        <details><summary>How to pay via EasyPaisa or JazzCash? <i class="fa-solid fa-chevron-down"></i></summary><p>Send payment to our account and submit your TID in the upgrade modal.</p></details>
-      </div>
-    </section>
-
-    <section id="developer" class="container">
-      <div class="sec-head"><span class="tag">Developer</span><h2>Meet the Creator</h2></div>
-      <div class="dev-card">
-        <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="HASSAN OFC" />
-        <div>
-          <h3 style="font-size: 1.2rem; margin-bottom: 4px;">HASSAN OFC <span style="font-size: 0.74rem; color: var(--primary);">Developer</span></h3>
-          <p style="color: var(--muted); font-size: 0.85rem; line-height: 1.5;">Creator of HASSAN FILES TO LINKS — building high-performance web utilities.</p>
-          <div class="dev-links">
-            <a href="https://wa.me/923294675242" target="_blank" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
-            <a href="https://t.me/hassanff01" target="_blank" class="btn btn-outline"><i class="fa-brands fa-telegram"></i> Telegram</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <div class="container">
-      <div class="footer-projects">
-        <a href="https://hassan-portfolio-v1-one.vercel.app" target="_blank">Portfolio</a>
-        <a href="https://toolkit.page.gd/t/hassan-2nd-toolkit" target="_blank">Main Toolkit</a>
-        <a href="https://hassan-toolkit-pro.vercel.app" target="_blank">2nd Toolkit</a>
-      </div>
-      <p style="color: var(--muted); font-size: 0.84rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>.</p>
     </div>
-  </footer>
 
-  <!-- Profile Modal -->
-  <div class="modal-backdrop" id="profileModal">
-    <div class="modal">
-      <button class="close-modal" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 style="margin-bottom: 12px; font-size: 1.15rem;">My Profile Settings</h3>
-      <div class="profile-avatar-box">
-        <img id="profileModalImg" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" />
-        <input type="file" id="avatarFileInput" accept="image/*" hidden onchange="uploadProfilePhoto(this.files[0])" />
-        <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.78rem;" onclick="document.getElementById('avatarFileInput').click()">
-          <i class="fa-solid fa-camera"></i> Change Photo
-        </button>
-      </div>
-      <div class="form-group"><label>Username</label><input type="text" id="profileUsernameDisplay" class="form-control" readonly style="opacity: 0.75;" /></div>
-      <div class="form-group"><label>Email Address</label><input type="text" id="profileEmailDisplay" class="form-control" readonly style="opacity: 0.75;" /></div>
-      <hr style="border: 0; border-top: 1px solid var(--border); margin: 14px 0;" />
-      <h4 style="margin-bottom: 8px; font-size: 0.88rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> Change Password</h4>
-      <div class="form-group"><label>Old Password</label><input type="password" id="oldPasswordInput" class="form-control" placeholder="Current password" /></div>
-      <div class="form-group"><label>New Password</label><input type="password" id="newPasswordInput" class="form-control" placeholder="New password" /></div>
-      <div class="form-group"><label>Confirm New Password</label><input type="password" id="confirmNewPasswordInput" class="form-control" placeholder="Re-enter new password" /></div>
-      <button class="btn btn-primary" style="width: 100%;" onclick="handleChangePassword()"><i class="fa-solid fa-key"></i> Update Password</button>
-    </div>
-  </div>
+    <!-- ========================================================= -->
+    <!-- FIREBASE v10.12.0 & FULL APPLICATION LOGIC                -->
+    <!-- ========================================================= -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import {
+            getAuth,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            GoogleAuthProvider,
+            signInWithPopup,
+            onAuthStateChanged,
+            signOut,
+            updatePassword,
+            EmailAuthProvider,
+            reauthenticateWithCredential
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+        import {
+            getFirestore,
+            doc,
+            setDoc,
+            getDoc,
+            updateDoc,
+            collection,
+            addDoc,
+            getDocs,
+            query,
+            orderBy,
+            deleteDoc,
+            serverTimestamp,
+            onSnapshot,
+            increment
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import {
+            getStorage,
+            ref,
+            uploadBytes,
+            getDownloadURL,
+            deleteObject
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-  <!-- See Plans Modal -->
-  <div class="modal-backdrop" id="plansPopupModal">
-    <div class="modal modal-lg">
-      <button class="close-modal" onclick="closeModal('plansPopupModal')"><i class="fa-solid fa-xmark"></i></button>
-      <div style="text-align: center; margin-bottom: 18px;">
-        <h3 style="font-size: 1.2rem;">Available Hosting Plans</h3>
-        <p style="color: var(--muted); font-size: 0.84rem;">Upgrade instantly via EasyPaisa or JazzCash</p>
-      </div>
-      <div class="pricing-grid">
-        <div class="plan-card">
-          <div class="plan-name">Free</div>
-          <div class="plan-price">Rs 0 <span>/ forever</span></div>
-          <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 1,024 MB storage</li><li><i class="fa-solid fa-check"></i> 100 MB per file</li></ul>
-          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); openModal('authModal','signup');">Start Free</button>
-        </div>
-        <div class="plan-card popular">
-          <span class="plan-ribbon">Top Selling</span>
-          <div class="plan-name">Weekly</div>
-          <div class="plan-price">Rs 100 <span>/ 7 days</span></div>
-          <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 2,048 MB storage</li><li><i class="fa-solid fa-check"></i> 300 MB per file</li></ul>
-          <button class="btn btn-primary" onclick="closeModal('plansPopupModal'); selectPlanToBuy('weekly');">Buy Weekly</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Monthly</div>
-          <div class="plan-price">Rs 250 <span>/ 30 days</span></div>
-          <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 1,024 MB storage</li><li><i class="fa-solid fa-check"></i> 100 MB per file</li></ul>
-          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); selectPlanToBuy('monthly');">Buy Monthly</button>
-        </div>
-        <div class="plan-card">
-          <div class="plan-name">Yearly</div>
-          <div class="plan-price">Rs 500 <span>/ 365 days</span></div>
-          <ul class="plan-list"><li><i class="fa-solid fa-check"></i> 10,240 MB storage</li><li><i class="fa-solid fa-check"></i> 500 MB per file</li></ul>
-          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); selectPlanToBuy('yearly');">Buy Yearly</button>
-        </div>
-      </div>
-    </div>
-  </div>
+        // Exact User Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBwc7uSAfwSaB51bikuHWBRnLPSaoPGy78",
+            authDomain: "file-to-link-2.firebaseapp.com",
+            projectId: "file-to-link-2",
+            storageBucket: "file-to-link-2.firebasestorage.app",
+            messagingSenderId: "884697637857",
+            appId: "1:884697637857:web:3ce57c93c49eb1cbca68a0"
+        };
 
-  <!-- Auth Modal -->
-  <div class="modal-backdrop" id="authModal">
-    <div class="modal">
-      <button class="close-modal" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 id="authTitle" style="margin-bottom: 4px; font-size: 1.15rem;">Welcome Back</h3>
-      <p id="authSub" style="color: var(--muted); font-size: 0.84rem; margin-bottom: 16px;">Sign in with Google or Email.</p>
-      <button class="btn btn-outline" style="width: 100%; margin-bottom: 12px;" onclick="handleGoogleAuth()">
-        <i class="fa-brands fa-google" style="color: #00f2fe;"></i> Continue with Google
-      </button>
-      <div style="text-align: center; font-size: 0.76rem; color: var(--muted); margin-bottom: 12px;">— OR EMAIL —</div>
-      <div class="form-group" id="usernameGroup" style="display: none;"><label>Username</label><input type="text" id="authUsername" class="form-control" placeholder="username" /></div>
-      <div class="form-group"><label>Email Address</label><input type="email" id="authEmail" class="form-control" placeholder="you@gmail.com" /></div>
-      <div class="form-group"><label>Password</label><input type="password" id="authPassword" class="form-control" placeholder="••••••••" /></div>
-      <button id="authSubmitBtn" class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="handleEmailAuth()">Sign In</button>
-      <p style="text-align: center; font-size: 0.82rem; color: var(--muted);">
-        <span id="authSwitchText">Don't have an account?</span>
-        <a href="javascript:void(0)" id="authSwitchLink" style="color: var(--primary); font-weight: 600;" onclick="toggleAuthMode()">Create Account</a>
-      </p>
-    </div>
-  </div>
+        // Initialize Firebase Services
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
 
-  <!-- Payment Modal -->
-  <div class="modal-backdrop" id="buyModal">
-    <div class="modal">
-      <button class="close-modal" onclick="closeModal('buyModal')"><i class="fa-solid fa-xmark"></i></button>
-      <h3 style="margin-bottom: 4px; font-size: 1.15rem;">Upgrade Plan</h3>
-      <p style="color: var(--muted); font-size: 0.84rem; margin-bottom: 14px;">Select payment method and send payment.</p>
+        const ADMIN_EMAIL = "ansarbubble43@gmail.com";
+        const ADMIN_PASS = "HASSAN1DEV";
 
-      <div class="payment-options-grid">
-        <div class="pay-card selected" id="payMethodEasypaisa" onclick="selectPaymentMethod('easypaisa')">
-          <i class="fa-solid fa-wallet" style="font-size: 1.3rem; color: #10b981; margin-bottom: 3px;"></i>
-          <div style="font-weight: 700; font-size: 0.85rem;">EasyPaisa</div>
-          <small style="color: var(--muted); font-size: 0.7rem;">03451212815</small>
-        </div>
-        <div class="pay-card" id="payMethodJazzcash" onclick="selectPaymentMethod('jazzcash')">
-          <i class="fa-solid fa-credit-card" style="font-size: 1.3rem; color: #f59e0b; margin-bottom: 3px;"></i>
-          <div style="font-weight: 700; font-size: 0.85rem;">JazzCash</div>
-          <small style="color: var(--muted); font-size: 0.7rem;">03451212815</small>
-        </div>
-      </div>
+        let authMode = "login";
+        let currentUser = null;
+        let userProfile = null;
+        let userFiles = [];
+        let selectedPlanName = "";
+        let selectedPlanPrice = "";
+        let selectedPayMethod = "Easypaisa";
+        let selectedScreenshotFile = null;
 
-      <div class="easypaisa-box" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 10px; margin-bottom: 14px; font-size: 0.84rem;">
-        <div><strong>Selected:</strong> <span id="selectedPayName">EasyPaisa</span></div>
-        <div><strong>Account Number:</strong> <span style="color: var(--primary); font-weight: 700;">03451212815</span></div>
-        <div><strong>Account Holder:</strong> <span style="color: var(--accent); font-weight: 700;">ANSARIQBAL</span></div>
-      </div>
+        // Plan Storage Capacities in Bytes
+        const PLAN_LIMITS = {
+            "Free Plan": 200 * 1024 * 1024,
+            "Weekly Plan": 600 * 1024 * 1024,
+            "Monthly Plan": 1000 * 1024 * 1024,
+            "Yearly Plan": 2048 * 1024 * 1024
+        };
 
-      <div class="form-group">
-        <label>Select Plan</label>
-        <select id="buyPlanSelect" class="form-control">
-          <option value="weekly">Weekly — Rs 100</option>
-          <option value="monthly">Monthly — Rs 250</option>
-          <option value="yearly">Yearly — Rs 500</option>
-        </select>
-      </div>
+        // Helper: Modal Notification
+        window.showAppModal = function(title, text, iconHtml = '<i class="fa-solid fa-circle-info"></i>') {
+            document.getElementById("app-modal-title").innerText = title;
+            document.getElementById("app-modal-text").innerText = text;
+            document.getElementById("app-modal-icon").innerHTML = iconHtml;
+            document.getElementById("app-modal").classList.remove("hidden");
+        };
 
-      <div class="form-group">
-        <label>Transaction ID (TID)</label>
-        <input type="text" id="buyTidInput" class="form-control" placeholder="Enter transaction TID" />
-      </div>
+        window.closeAppModal = function() {
+            document.getElementById("app-modal").classList.add("hidden");
+        };
 
-      <div class="form-group">
-        <label>Sender Number / Proof (Optional)</label>
-        <input type="text" id="buyProofInput" class="form-control" placeholder="03XXXXXXXXX or image link" />
-      </div>
+        // Helper: Clipboard Copy (iFrame safe)
+        window.copyTextValue = function(text, msg = "Copied to clipboard!") {
+            const tempInput = document.createElement("textarea");
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand("copy");
+            document.body.removeChild(tempInput);
+            showAppModal("Copied!", msg, '<i class="fa-solid fa-clipboard-check text-emerald-400"></i>');
+        };
 
-      <button class="btn btn-primary" style="width: 100%;" onclick="submitPaymentRequest()">
-        <i class="fa-solid fa-paper-plane"></i> Submit Payment Verification
-      </button>
-    </div>
-  </div>
-
-  <div id="toast"></div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-    import {
-      getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
-      GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut,
-      EmailAuthProvider, reauthenticateWithCredential, updatePassword
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-    import {
-      getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, getDocs, deleteDoc, increment
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-    import {
-      getStorage, ref, uploadBytesResumable, getDownloadURL, deleteObject
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
-
-    // ================= FIREBASE CONFIG =================
-    const firebaseConfig = {
-  apiKey: "AIzaSyDArsxH6hJCPeWpMQWCd5krqHUagkb1jcE",
-  authDomain: "file-to-link-4af77.firebaseapp.com",
-  projectId: "file-to-link-4af77",
-  storageBucket: "file-to-link-4af77.firebasestorage.app",
-  messagingSenderId: "5103511141",
-  appId: "1:5103511141:web:c13c56ef3574ff3af1088c"
-};
-
-    const ADMIN_CONFIG = {
-      email: "ansarbubble43@gmail.com",
-      manualPassword: "HASSAN1DEV",
-      username: "hassan_admin"
-    };
-    // ===================================================
-
-    const DEFAULT_AVATAR = "https://i.ibb.co/21qmyHBJ/jawadmd.jpg";
-    const PLANS = {
-      free:    { name: "Free",    price: 0,   storageMB: 1024,  maxFileMB: 100 },
-      weekly:  { name: "Weekly",  price: 50,  storageMB: 2048,  maxFileMB: 300 },
-      monthly: { name: "Monthly", price: 100, storageMB: 1024,  maxFileMB: 100 },
-      yearly:  { name: "Yearly",  price: 500, storageMB: 10240, maxFileMB: 500 }
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-    let currentUser = null;
-    let currentUserData = null;
-    let authMode = "login";
-    let selectedPaymentMethodName = "EasyPaisa";
-
-    window.toggleSidebar = () => {
-      document.getElementById("sidebarDrawer").classList.toggle("active");
-      document.getElementById("sidebarOverlay").classList.toggle("active");
-    };
-
-    function isAdminEmail(email) {
-      return email && email.trim().toLowerCase() === ADMIN_CONFIG.email.trim().toLowerCase();
-    }
-
-    window.showToast = (msg) => {
-      const t = document.getElementById("toast");
-      t.textContent = msg;
-      t.style.display = "block";
-      setTimeout(() => { t.style.display = "none"; }, 4000);
-    };
-
-    window.openModal = (id, mode = null) => {
-      if (mode) setAuthMode(mode);
-      if (id === "profileModal" && currentUser && currentUserData) {
-        document.getElementById("profileModalImg").src = currentUserData.photoURL || currentUser.photoURL || DEFAULT_AVATAR;
-        document.getElementById("profileUsernameDisplay").value = currentUserData.username || "";
-        document.getElementById("profileEmailDisplay").value = currentUser.email || "";
-      }
-      document.getElementById(id).classList.add("active");
-    };
-
-    window.closeModal = (id) => { document.getElementById(id).classList.remove("active"); };
-
-    function setAuthMode(mode) {
-      authMode = mode;
-      const isSignup = mode === "signup";
-      document.getElementById("authTitle").textContent = isSignup ? "Create Account" : "Welcome Back";
-      document.getElementById("authSub").textContent = isSignup ? "Sign up to start sharing files." : "Sign in to your account.";
-      document.getElementById("usernameGroup").style.display = isSignup ? "block" : "none";
-      document.getElementById("authSubmitBtn").textContent = isSignup ? "Create Account" : "Sign In";
-      document.getElementById("authSwitchText").textContent = isSignup ? "Already have an account?" : "Don't have an account?";
-      document.getElementById("authSwitchLink").textContent = isSignup ? "Sign In" : "Create Account";
-    }
-
-    window.toggleAuthMode = () => { setAuthMode(authMode === "login" ? "signup" : "login"); };
-
-    window.selectPaymentMethod = (method) => {
-      selectedPaymentMethodName = method === 'easypaisa' ? 'EasyPaisa' : 'JazzCash';
-      document.getElementById("payMethodEasypaisa").className = method === 'easypaisa' ? "pay-card selected" : "pay-card";
-      document.getElementById("payMethodJazzcash").className = method === 'jazzcash' ? "pay-card selected" : "pay-card";
-      document.getElementById("selectedPayName").textContent = selectedPaymentMethodName;
-    };
-
-    window.selectPlanToBuy = (planKey) => {
-      if (!currentUser) { openModal("authModal", "signup"); return; }
-      document.getElementById("buyPlanSelect").value = planKey;
-      openModal("buyModal");
-    };
-
-    window.handleEmailAuth = async () => {
-      const email = document.getElementById("authEmail").value.trim().toLowerCase();
-      const password = document.getElementById("authPassword").value;
-      const username = document.getElementById("authUsername").value.trim().toLowerCase();
-      if (!email || !password) return showToast("Please fill in email and password.");
-
-      if (authMode === "login" && isAdminEmail(email) && password === ADMIN_CONFIG.manualPassword) {
-        try {
-          await signInWithEmailAndPassword(auth, email, password);
-          showToast("Admin logged in successfully!");
-          closeModal("authModal");
-          return;
-        } catch (e) {
-          try {
-            const cred = await createUserWithEmailAndPassword(auth, email, password);
-            await ensureUserProfile(cred.user, ADMIN_CONFIG.username);
-            closeModal("authModal");
-            return;
-          } catch (err) {}
+        // Helper: Format Bytes (e.g., 70.71 KB, 199.93 MB)
+        function formatSize(bytes) {
+            if (!bytes || bytes <= 0) return "0 KB";
+            const k = 1024;
+            const sizes = ["Bytes", "KB", "MB", "GB"];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
         }
-      }
 
-      try {
-        if (authMode === "signup") {
-          if (!username || username.length < 3) return showToast("Username must be at least 3 characters.");
-          const cred = await createUserWithEmailAndPassword(auth, email, password);
-          await ensureUserProfile(cred.user, username);
-          showToast("Account created!");
-        } else {
-          await signInWithEmailAndPassword(auth, email, password);
-          showToast("Logged in successfully!");
+        // Generate custom referral code from username (e.g., hassan_ff -> hassanff1789)
+        function generateReferralCode(username) {
+            const clean = (username || "user").toLowerCase().replace(/[^a-z0-9]/g, "");
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            return `${clean}${rand}`;
         }
-        closeModal("authModal");
-      } catch (err) {
-        showToast(err.message.replace("Firebase:", "").trim());
-      }
-    };
 
-    window.handleGoogleAuth = async () => {
-      try {
-        const provider = new GoogleAuthProvider();
-        const res = await signInWithPopup(auth, provider);
-        const uname = isAdminEmail(res.user.email) ? ADMIN_CONFIG.username : res.user.email.split("@")[0].toLowerCase().replace(/[^a-z0-9_]/g, "");
-        await ensureUserProfile(res.user, uname);
-        showToast("Signed in with Google!");
-        closeModal("authModal");
-      } catch (err) {
-        showToast(err.message.replace("Firebase:", "").trim());
-      }
-    };
+        // Check URL Parameters on Startup (?file= or ?ref= or /refcode)
+        async function checkUrlParamsOnLoad() {
+            const params = new URLSearchParams(window.location.search);
+            const fileSlug = params.get("file");
+            const refCode = params.get("ref");
 
-    window.handleLogout = async () => { await signOut(auth); showToast("Logged out."); };
+            // Auto-fill referral code if present in URL
+            if (refCode) {
+                setAuthMode("signup");
+                document.getElementById("auth-referral-code").value = refCode;
+            } else {
+                // Also support path segment referral like /hassanff1789
+                const pathParts = window.location.pathname.split("/").filter(Boolean);
+                if (pathParts.length > 0 && pathParts[0] !== "index.html") {
+                    setAuthMode("signup");
+                    document.getElementById("auth-referral-code").value = pathParts[0];
+                }
+            }
 
-    async function ensureUserProfile(user, preferredUname) {
-      const profile = {
-        uid: user.uid,
-        email: user.email.toLowerCase(),
-        username: preferredUname || user.email.split("@")[0].toLowerCase(),
-        plan: isAdminEmail(user.email) ? "yearly" : "free",
-        usedMB: 0,
-        photoURL: user.photoURL || DEFAULT_AVATAR,
-        createdAt: Date.now()
-      };
-      try {
-        const refDoc = doc(db, "users", user.uid);
-        const snap = await getDoc(refDoc);
-        if (!snap.exists()) { await setDoc(refDoc, profile); return profile; }
-        return { ...profile, ...snap.data() };
-      } catch (e) { return profile; }
-    }
+            // Public File Download Page when ?file=... is opened
+            if (fileSlug) {
+                document.getElementById("auth-screen").classList.add("hidden");
+                document.getElementById("main-app-view").classList.add("hidden");
+                document.getElementById("public-file-view").classList.remove("hidden");
 
-    onAuthStateChanged(auth, async (user) => {
-      currentUser = user;
-      const navCenter = document.getElementById("navCenterMenu");
-      const navAuthArea = document.getElementById("navAuthArea");
-      const dashSection = document.getElementById("dashboardSection");
-      const adminBox = document.getElementById("adminPanelBox");
-      const heroCreateBtn = document.getElementById("heroCreateAccountBtn");
-      const heroUploadBtn = document.getElementById("heroUploadDirectBtn");
+                try {
+                    const filesSnap = await getDocs(collection(db, "files"));
+                    let matchedFile = null;
+                    filesSnap.forEach((docSnap) => {
+                        const data = docSnap.data();
+                        if (data.slug === fileSlug || docSnap.id === fileSlug || data.fileName === fileSlug) {
+                            matchedFile = { id: docSnap.id, ...data };
+                        }
+                    });
 
-      if (user) {
-        const adminStatus = isAdminEmail(user.email);
-        const defUname = adminStatus ? ADMIN_CONFIG.username : user.email.split("@")[0].toLowerCase();
-
-        if (heroCreateBtn) heroCreateBtn.style.display = "none";
-        if (heroUploadBtn) heroUploadBtn.style.display = "inline-flex";
-        dashSection.style.display = "block";
-        adminBox.style.display = adminStatus ? "block" : "none";
-
-        currentUserData = await ensureUserProfile(user, defUname);
-        const avatar = currentUserData.photoURL || user.photoURL || DEFAULT_AVATAR;
-
-        navCenter.innerHTML = `
-          <a href="javascript:void(0)" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> Plans</a>
-          <a href="javascript:void(0)" onclick="document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
-        `;
-
-        navAuthArea.innerHTML = `
-          ${adminStatus ? `<a href="#dashboardSection" class="btn btn-admin"><i class="fa-solid fa-crown"></i> Admin</a>` : ""}
-          <button class="profile-chip" onclick="openModal('profileModal')">
-            <img src="${avatar}" alt="Avatar" />
-            <span>@${currentUserData.username}</span>
-          </button>
-          <button class="btn btn-danger" style="padding: 6px 9px;" onclick="handleLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
-        `;
-
-        if (adminStatus) {
-          document.getElementById("adminBadgeEmail").textContent = `ADMIN: ${user.email}`;
-          loadAdminRequests();
+                    if (matchedFile) {
+                        document.getElementById("pub-file-name").innerText = matchedFile.fileName;
+                        document.getElementById("pub-file-size").innerText = formatSize(matchedFile.size);
+                        document.getElementById("pub-file-owner").innerText = matchedFile.uploaderName || "User";
+                        const dlBtn = document.getElementById("pub-download-btn");
+                        dlBtn.href = matchedFile.downloadURL;
+                        dlBtn.setAttribute("download", matchedFile.fileName);
+                    } else {
+                        document.getElementById("pub-file-name").innerText = "File Not Found";
+                        document.getElementById("pub-download-btn").classList.add("hidden");
+                    }
+                } catch (err) {
+                    document.getElementById("pub-file-name").innerText = fileSlug;
+                }
+            }
         }
-        updateDashboardUI();
-        loadUserFiles();
-      } else {
-        currentUserData = null;
-        if (heroCreateBtn) heroCreateBtn.style.display = "inline-flex";
-        if (heroUploadBtn) heroUploadBtn.style.display = "none";
-        dashSection.style.display = "none";
-        adminBox.style.display = "none";
 
-        navCenter.innerHTML = `
-          <a href="#features">Features</a>
-          <a href="#how">How It Works</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#faq">FAQ</a>
-          <a href="#developer">Developer</a>
-        `;
-        navAuthArea.innerHTML = `
-          <button class="btn btn-outline" onclick="openModal('plansPopupModal')">Plans</button>
-          <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
-          <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Start</button>
-        `;
-      }
-    });
+        window.exitPublicFileView = function() {
+            const cleanUrl = window.location.origin + window.location.pathname;
+            window.history.replaceState({}, document.title, cleanUrl);
+            document.getElementById("public-file-view").classList.add("hidden");
+            if (currentUser) {
+                document.getElementById("main-app-view").classList.remove("hidden");
+            } else {
+                document.getElementById("auth-screen").classList.remove("hidden");
+            }
+        };
 
-    function updateDashboardUI() {
-      if (!currentUserData) return;
-      const plan = PLANS[currentUserData.plan || "free"] || PLANS.free;
-      const used = Number(currentUserData.usedMB || 0).toFixed(2);
-      document.getElementById("dashUserAvatar").src = currentUserData.photoURL || DEFAULT_AVATAR;
-      document.getElementById("dashWelcome").textContent = `Hello, @${currentUserData.username}`;
-      document.getElementById("dashUserMeta").textContent = `Email: ${currentUserData.email}`;
-      document.getElementById("dashPlanBadge").textContent = `${plan.name.toUpperCase()} PLAN`;
-      document.getElementById("dashStorageText").textContent = `${used} MB / ${plan.storageMB} MB`;
-      document.getElementById("uploadLimitHint").textContent = `Max file size: ${plan.maxFileMB} MB`;
-    }
+        // Switch Login vs Sign Up Mode
+        window.setAuthMode = function(mode) {
+            authMode = mode;
+            const loginBtn = document.getElementById("tab-btn-login");
+            const signupBtn = document.getElementById("tab-btn-signup");
+            const userGroup = document.getElementById("signup-username-group");
+            const refGroup = document.getElementById("signup-referral-group");
+            const submitBtn = document.getElementById("auth-submit-btn");
 
-    window.uploadProfilePhoto = async (file) => {
-      if (!file || !currentUser) return;
-      showToast("Uploading photo...");
-      try {
-        const sRef = ref(storage, `avatars/${currentUser.uid}_${Date.now()}_${file.name}`);
-        const task = await uploadBytesResumable(sRef, file);
-        const url = await getDownloadURL(task.ref);
-        await updateDoc(doc(db, "users", currentUser.uid), { photoURL: url });
-        currentUserData.photoURL = url;
-        document.getElementById("profileModalImg").src = url;
-        updateDashboardUI();
-        showToast("Profile photo updated!");
-      } catch (e) { showToast("Error: " + e.message); }
-    };
+            if (mode === "login") {
+                loginBtn.className = "py-2.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition";
+                signupBtn.className = "py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition";
+                userGroup.classList.add("hidden");
+                refGroup.classList.add("hidden");
+                submitBtn.innerText = "Sign In Now";
+            } else {
+                signupBtn.className = "py-2.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30 transition";
+                loginBtn.className = "py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white transition";
+                userGroup.classList.remove("hidden");
+                refGroup.classList.remove("hidden");
+                submitBtn.innerText = "Create Free Account";
+            }
+        };
 
-    window.handleChangePassword = async () => {
-      const oldP = document.getElementById("oldPasswordInput").value;
-      const newP = document.getElementById("newPasswordInput").value;
-      const confP = document.getElementById("confirmNewPasswordInput").value;
-      if (!oldP || !newP || !confP) return showToast("Fill in all password fields.");
-      if (newP !== confP) return showToast("New passwords do not match!");
-      try {
-        const cred = EmailAuthProvider.credential(currentUser.email, oldP);
-        await reauthenticateWithCredential(currentUser, cred);
-        await updatePassword(currentUser, newP);
-        document.getElementById("oldPasswordInput").value = "";
-        document.getElementById("newPasswordInput").value = "";
-        document.getElementById("confirmNewPasswordInput").value = "";
-        showToast("Password updated successfully!");
-      } catch (e) { showToast("Error: " + e.message); }
-    };
+        // Email / Password Login or Sign Up
+        window.handleAuthSubmit = async function(e) {
+            e.preventDefault();
+            const email = document.getElementById("auth-email").value.trim().toLowerCase();
+            const password = document.getElementById("auth-password").value;
+            const usernameInput = document.getElementById("auth-username").value.trim();
+            const referralInput = document.getElementById("auth-referral-code").value.trim();
 
-    // FLAWLESS UPLOAD HANDLER (Fixed 0%/Stuck issue)
-    window.handleFileUpload = async (file) => {
-      if (!file || !currentUser || !currentUserData) {
-        showToast("Please login first to upload files!");
-        openModal("authModal", "login");
-        return;
-      }
+            try {
+                if (authMode === "login") {
+                    try {
+                        await signInWithEmailAndPassword(auth, email, password);
+                    } catch (loginErr) {
+                        // Auto-provision Admin account in Firebase Auth if logging in with exact admin credentials for first time
+                        if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
+                            const cred = await createUserWithEmailAndPassword(auth, email, password);
+                            await initializeUserDocument(cred.user, "hassan_admin", "");
+                        } else {
+                            throw loginErr;
+                        }
+                    }
+                } else {
+                    const cred = await createUserWithEmailAndPassword(auth, email, password);
+                    const chosenUsername = email === ADMIN_EMAIL ? "hassan_admin" : (usernameInput || email.split("@")[0]);
+                    await initializeUserDocument(cred.user, chosenUsername, referralInput);
+                }
+            } catch (error) {
+                showAppModal("Authentication Error", error.message, '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>');
+            }
+        };
 
-      const plan = PLANS[currentUserData.plan || "free"] || PLANS.free;
-      const fileMB = file.size / (1024 * 1024);
-      if (fileMB > plan.maxFileMB) {
-        showToast(`File size exceeds limit! Your plan allows up to ${plan.maxFileMB} MB per file.`);
-        return;
-      }
+        // Google Sign-In
+        window.loginWithGoogle = async function() {
+            try {
+                const provider = new GoogleAuthProvider();
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+                const userDocRef = doc(db, "users", user.uid);
+                const snap = await getDoc(userDocRef);
+                if (!snap.exists()) {
+                    const isAdm = (user.email || "").toLowerCase() === ADMIN_EMAIL;
+                    const uname = isAdm ? "hassan_admin" : (user.displayName || user.email.split("@")[0]).replace(/\s+/g, "_").toLowerCase();
+                    const refCode = document.getElementById("auth-referral-code").value.trim();
+                    await initializeUserDocument(user, uname, refCode);
+                }
+            } catch (error) {
+                showAppModal("Google Sign-In Error", error.message, '<i class="fa-solid fa-triangle-exclamation text-red-400"></i>');
+            }
+        };
 
-      const progressWrap = document.getElementById("progressWrap");
-      const progressFill = document.getElementById("progressFill");
-      const uploadPercent = document.getElementById("uploadPercent");
-      document.getElementById("uploadFileName").textContent = file.name;
-      progressWrap.style.display = "block";
-      progressFill.style.width = "0%";
-      uploadPercent.textContent = "0%";
+        // Create User Profile in Firestore + Handle Referral Rewards (+30 Points to Both)
+        async function initializeUserDocument(user, username, referredByCode) {
+            const emailLower = (user.email || "").toLowerCase();
+            const isAdmin = emailLower === ADMIN_EMAIL;
+            const myRefCode = generateReferralCode(username);
+            let startingPoints = 0;
 
-      const shortId = Math.random().toString(36).substring(2, 8);
-      const storageRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
-      const uploadTask = uploadBytesResumable(storageRef, file);
+            if (referredByCode) {
+                try {
+                    const allUsersSnap = await getDocs(collection(db, "users"));
+                    let referrerDocId = null;
+                    allUsersSnap.forEach((uDoc) => {
+                        const d = uDoc.data();
+                        if (d.referralCode && d.referralCode.toLowerCase() === referredByCode.toLowerCase()) {
+                            referrerDocId = uDoc.id;
+                        }
+                    });
 
-      uploadTask.on("state_changed", 
-        (snapshot) => {
-          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
-          progressFill.style.width = progress + "%";
-          uploadPercent.textContent = progress + "%";
-        },
-        (error) => {
-          progressWrap.style.display = "none";
-          console.error("Upload error:", error);
-          showToast("Upload failed: " + error.message);
-        },
-        async () => {
-          try {
-            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-            await setDoc(doc(db, "files", shortId), {
-              fileId: shortId,
-              ownerUid: currentUser.uid,
-              ownerUsername: currentUserData.username,
-              fileName: file.name,
-              sizeMB: Number(fileMB.toFixed(2)),
-              downloadURL: downloadURL,
-              downloads: 0,
-              createdAt: Date.now()
+                    if (referrerDocId && referrerDocId !== user.uid) {
+                        startingPoints = 30;
+                        await updateDoc(doc(db, "users", referrerDocId), {
+                            points: increment(30),
+                            referralCount: increment(1)
+                        });
+                    }
+                } catch (e) {
+                    console.warn("Referral lookup note:", e);
+                }
+            }
+
+            const profileData = {
+                uid: user.uid,
+                username: isAdmin ? "hassan_admin" : username,
+                email: emailLower,
+                avatar: user.photoURL || `https://placehold.co/100x100/0f172a/00f2fe?text=${(username[0] || "U").toUpperCase()}`,
+                plan: isAdmin ? "Yearly Plan" : "Free Plan",
+                storageLimit: isAdmin ? PLAN_LIMITS["Yearly Plan"] : PLAN_LIMITS["Free Plan"],
+                usedStorage: 0,
+                points: startingPoints,
+                referralCode: myRefCode,
+                referralCount: 0,
+                isAdmin: isAdmin,
+                createdAt: serverTimestamp()
+            };
+
+            await setDoc(doc(db, "users", user.uid), profileData);
+
+            if (startingPoints > 0) {
+                await addDoc(collection(db, "users", user.uid, "notifications"), {
+                    title: "Referral Bonus Unlocked!",
+                    message: "You received +30 Points for joining via a referral link!",
+                    createdAt: serverTimestamp()
+                });
+            }
+        }
+
+        // Firebase Auth State Listener
+        onAuthStateChanged(auth, async (user) => {
+            const params = new URLSearchParams(window.location.search);
+            const hasFileParam = Boolean(params.get("file"));
+
+            if (user) {
+                currentUser = user;
+                const userRef = doc(db, "users", user.uid);
+                const snap = await getDoc(userRef);
+
+                if (!snap.exists()) {
+                    const isAdm = (user.email || "").toLowerCase() === ADMIN_EMAIL;
+                    await initializeUserDocument(user, isAdm ? "hassan_admin" : user.email.split("@")[0], "");
+                }
+
+                // Real-time listener on User Profile
+                onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        userProfile = docSnap.data();
+                        // Enforce admin privileges if email matches
+                        if ((userProfile.email || "").toLowerCase() === ADMIN_EMAIL && !userProfile.isAdmin) {
+                            updateDoc(userRef, { isAdmin: true, username: "hassan_admin" });
+                        }
+                        syncProfileUI();
+                    }
+                });
+
+                // Real-time listener on User's Uploaded Files
+                onSnapshot(collection(db, "files"), (snapshot) => {
+                    userFiles = [];
+                    let totalBytes = 0;
+                    snapshot.forEach((docItem) => {
+                        const f = docItem.data();
+                        if (f.ownerId === user.uid) {
+                            userFiles.push({ id: docItem.id, ...f });
+                            totalBytes += Number(f.size || 0);
+                        }
+                    });
+                    renderFilesList(totalBytes);
+                });
+
+                // Real-time listener on Inbox Notifications & Broadcasts
+                setupInboxListeners(user.uid);
+
+                if (!hasFileParam) {
+                    document.getElementById("auth-screen").classList.add("hidden");
+                    document.getElementById("main-app-view").classList.remove("hidden");
+                }
+            } else {
+                currentUser = null;
+                userProfile = null;
+                if (!hasFileParam) {
+                    document.getElementById("main-app-view").classList.add("hidden");
+                    document.getElementById("auth-screen").classList.remove("hidden");
+                }
+            }
+        });
+
+        // Sync User Profile Data to UI
+        function syncProfileUI() {
+            if (!userProfile) return;
+            const limitBytes = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
+
+            document.getElementById("header-plan-badge").innerText = userProfile.plan;
+            document.getElementById("header-points-badge").innerText = `${userProfile.points || 0} Pts`;
+            document.getElementById("dash-active-plan").innerText = userProfile.plan;
+            document.getElementById("dash-storage-total").innerText = formatSize(limitBytes);
+
+            // Drawer & Profile Inputs
+            document.getElementById("drawer-avatar").src = userProfile.avatar;
+            document.getElementById("drawer-username").innerText = userProfile.username;
+            document.getElementById("drawer-email").innerText = userProfile.email;
+            document.getElementById("drawer-plan").innerText = userProfile.plan;
+
+            document.getElementById("prof-avatar-img").src = userProfile.avatar;
+            document.getElementById("prof-avatar-url").value = userProfile.avatar;
+            document.getElementById("prof-username").value = userProfile.username;
+            document.getElementById("prof-email").value = userProfile.email;
+
+            // Referral Section
+            const baseOrigin = window.location.origin + window.location.pathname;
+            document.getElementById("my-referral-link").value = `${baseOrigin}?ref=${userProfile.referralCode}`;
+            document.getElementById("ref-total-count").innerText = userProfile.referralCount || 0;
+            document.getElementById("ref-total-points").innerText = `${userProfile.points || 0} Pts`;
+
+            // Admin Access Controls
+            const isAdmin = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL;
+            if (isAdmin) {
+                document.getElementById("drawer-admin-btn").classList.remove("hidden");
+                document.getElementById("screenshot-req-label").innerText = "(Optional for Admin)";
+                document.getElementById("screenshot-req-label").className = "text-emerald-400";
+                loadAdminData();
+            } else {
+                document.getElementById("drawer-admin-btn").classList.add("hidden");
+                document.getElementById("screenshot-req-label").innerText = "* (Required)";
+                document.getElementById("screenshot-req-label").className = "text-red-400";
+            }
+
+            renderFilesList(userProfile.usedStorage || 0);
+        }
+
+        // Render Uploaded Files & Calculate Live Storage Deduction
+        function renderFilesList(usedBytes) {
+            const listEl = document.getElementById("user-files-list");
+            const countEl = document.getElementById("files-count-label");
+            countEl.innerText = userFiles.length;
+
+            const planName = userProfile ? userProfile.plan : "Free Plan";
+            const totalLimit = PLAN_LIMITS[planName] || PLAN_LIMITS["Free Plan"];
+            const remainingBytes = Math.max(0, totalLimit - usedBytes);
+            const pct = Math.min(100, (usedBytes / totalLimit) * 100);
+
+            document.getElementById("dash-storage-used").innerText = formatSize(usedBytes);
+            document.getElementById("dash-storage-remaining").innerText = formatSize(remainingBytes);
+            document.getElementById("dash-storage-bar").style.width = `${pct}%`;
+
+            // Show expiry alert when 0 MB remaining
+            const expiredBanner = document.getElementById("storage-expired-banner");
+            if (remainingBytes <= 0) {
+                expiredBanner.classList.remove("hidden");
+                document.getElementById("dash-storage-bar").classList.replace("from-cyan-400", "from-red-500");
+            } else {
+                expiredBanner.classList.add("hidden");
+            }
+
+            if (userFiles.length === 0) {
+                listEl.innerHTML = `<div class="text-center py-6 text-slate-500 text-xs">No files uploaded yet. Upload a file above to create your first link!</div>`;
+                return;
+            }
+
+            listEl.innerHTML = userFiles.map((f) => {
+                const fullUrl = `${window.location.origin}${window.location.pathname}?file=${encodeURIComponent(f.slug)}`;
+                return `
+                    <div class="p-3 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-2.5">
+                        <div class="min-w-0 flex-1">
+                            <p class="text-xs font-bold text-white truncate">${f.fileName}</p>
+                            <p class="text-[10px] text-cyan-400 truncate mt-0.5">?file=${f.slug} • <span class="text-slate-400">${formatSize(f.size)}</span></p>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <button onclick="copyTextValue('${fullUrl}', 'Shareable link copied!')" class="w-8 h-8 rounded-xl bg-cyan-500/15 text-cyan-300 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-copy"></i>
+                            </button>
+                            <button onclick="deleteUploadedFile('${f.id}', '${f.storagePath || ""}')" class="w-8 h-8 rounded-xl bg-red-500/15 text-red-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        // Drag & Drop Events for File Upload
+        const dropArea = document.getElementById("file-drop-area");
+        ["dragenter", "dragover"].forEach((evt) => {
+            dropArea.addEventListener(evt, (e) => {
+                e.preventDefault();
+                dropArea.classList.add("border-cyan-400", "bg-cyan-500/10");
+            });
+        });
+        ["dragleave", "drop"].forEach((evt) => {
+            dropArea.addEventListener(evt, (e) => {
+                e.preventDefault();
+                dropArea.classList.remove("border-cyan-400", "bg-cyan-500/10");
+            });
+        });
+        dropArea.addEventListener("drop", (e) => {
+            const file = e.dataTransfer.files[0];
+            if (file) processFileUpload(file);
+        });
+
+        // Upload File to Firebase Storage + Firestore
+        window.processFileUpload = async function(file) {
+            if (!file || !currentUser || !userProfile) return;
+
+            const totalLimit = PLAN_LIMITS[userProfile.plan] || PLAN_LIMITS["Free Plan"];
+            const currentUsed = userFiles.reduce((acc, item) => acc + Number(item.size || 0), 0);
+
+            if (currentUsed + file.size > totalLimit) {
+                document.getElementById("storage-expired-banner").classList.remove("hidden");
+                showAppModal(
+                    "Storage Limit Reached",
+                    "Your Free Plan Has Expired Get Plans Through Plans",
+                    '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>'
+                );
+                return;
+            }
+
+            const progressBox = document.getElementById("upload-progress-box");
+            progressBox.classList.remove("hidden");
+
+            try {
+                const customSlugInput = document.getElementById("custom-file-slug").value.trim();
+                const randCode = Math.random().toString(36).substring(2, 9);
+                const slug = customSlugInput
+                    ? customSlugInput.replace(/[^a-zA-Z0-9._-]/g, "-")
+                    : `${file.name.replace(/\s+/g, "_")}_${randCode}`;
+
+                const storagePath = `uploads/${currentUser.uid}/${Date.now()}_${file.name}`;
+                const fileRef = ref(storage, storagePath);
+
+                await uploadBytes(fileRef, file);
+                const downloadURL = await getDownloadURL(fileRef);
+
+                await addDoc(collection(db, "files"), {
+                    ownerId: currentUser.uid,
+                    uploaderName: userProfile.username,
+                    fileName: file.name,
+                    size: file.size,
+                    slug: slug,
+                    storagePath: storagePath,
+                    downloadURL: downloadURL,
+                    createdAt: serverTimestamp()
+                });
+
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    usedStorage: currentUsed + file.size
+                });
+
+                const generatedUrl = `${window.location.origin}${window.location.pathname}?file=${encodeURIComponent(slug)}`;
+                document.getElementById("latest-link-url").value = generatedUrl;
+                document.getElementById("latest-file-size").innerText = formatSize(file.size);
+                document.getElementById("latest-link-box").classList.remove("hidden");
+                document.getElementById("custom-file-slug").value = "";
+            } catch (err) {
+                showAppModal("Upload Failed", err.message, '<i class="fa-solid fa-circle-xmark text-red-400"></i>');
+            } finally {
+                progressBox.classList.add("hidden");
+            }
+        };
+
+        // Delete File
+        window.deleteUploadedFile = async function(fileDocId, storagePath) {
+            try {
+                if (storagePath) {
+                    try {
+                        await deleteObject(ref(storage, storagePath));
+                    } catch (_) {}
+                }
+                await deleteDoc(doc(db, "files", fileDocId));
+                showAppModal("File Deleted", "File removed and storage restored.", '<i class="fa-solid fa-trash-can text-cyan-400"></i>');
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
+
+        // Redeem Plan Instantly with Referral Points
+        window.redeemPlanPoints = async function(planName, requiredPts, storageMB) {
+            if (!userProfile || !currentUser) return;
+            const currentPts = Number(userProfile.points || 0);
+
+            if (currentPts < requiredPts) {
+                showAppModal(
+                    "Not Enough Points",
+                    `You currently have ${currentPts} Points, but ${planName} requires ${requiredPts} Points. Share your referral link to earn +30 Points per invite!`,
+                    '<i class="fa-solid fa-coins text-amber-400"></i>'
+                );
+                return;
+            }
+
+            try {
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    points: currentPts - requiredPts,
+                    plan: planName,
+                    storageLimit: storageMB * 1024 * 1024
+                });
+
+                await addDoc(collection(db, "users", currentUser.uid, "notifications"), {
+                    title: `${planName} Activated!`,
+                    message: `You redeemed ${requiredPts} Points and unlocked ${planName} (${storageMB}MB Storage).`,
+                    createdAt: serverTimestamp()
+                });
+
+                showAppModal("Plan Upgraded!", `${planName} is now active on your account!`, '<i class="fa-solid fa-crown text-amber-400"></i>');
+                navigateTo("dashboard");
+            } catch (err) {
+                showAppModal("Redemption Error", err.message);
+            }
+        };
+
+        // Payment Modal Controls
+        window.openPaymentModal = function(planName, priceStr) {
+            selectedPlanName = planName;
+            selectedPlanPrice = priceStr;
+            selectedScreenshotFile = null;
+            document.getElementById("pay-modal-heading").innerText = `${planName} — ${priceStr}`;
+            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot`;
+            document.getElementById("payment-modal").classList.remove("hidden");
+        };
+
+        window.closePaymentModal = function() {
+            document.getElementById("payment-modal").classList.add("hidden");
+        };
+
+        window.choosePayMethod = function(method) {
+            selectedPayMethod = method;
+            ["Easypaisa", "JazzCash", "Bank"].forEach((m) => {
+                const btn = document.getElementById(`pm-btn-${m}`);
+                if (m === method) {
+                    btn.className = "p-2.5 rounded-2xl border-2 border-emerald-500 bg-emerald-500/15 flex flex-col items-center gap-1.5 transition";
+                } else {
+                    btn.className = "p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition";
+                }
+            });
+        };
+
+        const payDrop = document.getElementById("pay-ss-dropzone");
+        payDrop.addEventListener("dragover", (e) => e.preventDefault());
+        payDrop.addEventListener("drop", (e) => {
+            e.preventDefault();
+            if (e.dataTransfer.files[0]) handlePaymentProofFile(e.dataTransfer.files[0]);
+        });
+
+        window.handlePaymentProofFile = function(file) {
+            if (!file) return;
+            selectedScreenshotFile = file;
+            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ${file.name}`;
+        };
+
+        // Submit Payment Proof to Admin
+        window.sendPaymentProofToAdmin = async function() {
+            if (!currentUser || !userProfile) return;
+            const holderName = document.getElementById("pay-holder-name").value.trim();
+            const accNumber = document.getElementById("pay-account-number").value.trim();
+            const isAdmin = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL;
+
+            if (!holderName || !accNumber) {
+                showAppModal("Missing Info", "Please enter your Account Holder Name and Account Number.");
+                return;
+            }
+
+            if (!isAdmin && !selectedScreenshotFile) {
+                showAppModal("Screenshot Required", "Please upload a screenshot of your payment proof.");
+                return;
+            }
+
+            try {
+                let screenshotURL = "";
+                if (selectedScreenshotFile) {
+                    const ssRef = ref(storage, `payments/${currentUser.uid}/${Date.now()}_${selectedScreenshotFile.name}`);
+                    await uploadBytes(ssRef, selectedScreenshotFile);
+                    screenshotURL = await getDownloadURL(ssRef);
+                }
+
+                await addDoc(collection(db, "payments"), {
+                    uid: currentUser.uid,
+                    username: userProfile.username,
+                    email: userProfile.email,
+                    plan: selectedPlanName,
+                    price: selectedPlanPrice,
+                    method: selectedPayMethod,
+                    holderName: holderName,
+                    accountNumber: accNumber,
+                    screenshotURL: screenshotURL,
+                    status: "pending",
+                    createdAt: serverTimestamp()
+                });
+
+                closePaymentModal();
+                showAppModal(
+                    "Payment Sent!",
+                    "Your payment message & proof have been sent to Admin. You will get an Inbox notification once approved!",
+                    '<i class="fa-solid fa-paper-plane text-emerald-400"></i>'
+                );
+            } catch (err) {
+                showAppModal("Submission Error", err.message);
+            }
+        };
+
+        // Inbox & Broadcasts Real-time Sync
+        function setupInboxListeners(uid) {
+            let personalMsgs = [];
+            let globalMsgs = [];
+
+            const renderCombinedInbox = () => {
+                const container = document.getElementById("inbox-list-container");
+                const combined = [...personalMsgs, ...globalMsgs].sort((a, b) => (b.ts || 0) - (a.ts || 0));
+
+                const badge = document.getElementById("drawer-inbox-count");
+                const dot = document.getElementById("header-inbox-dot");
+                if (combined.length > 0) {
+                    badge.innerText = combined.length;
+                    badge.classList.remove("hidden");
+                    dot.classList.remove("hidden");
+                } else {
+                    badge.classList.add("hidden");
+                    dot.classList.add("hidden");
+                }
+
+                if (combined.length === 0) {
+                    container.innerHTML = `<div class="glass-card rounded-2xl p-6 text-center text-xs text-slate-500">No messages in your inbox yet.</div>`;
+                    return;
+                }
+
+                container.innerHTML = combined.map((m) => `
+                    <div class="glass-card rounded-2xl p-4 border ${m.isBroadcast ? "border-amber-500/30" : "border-cyan-500/30"}">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-extrabold uppercase ${m.isBroadcast ? "text-amber-300" : "text-cyan-300"}">
+                                <i class="fa-solid ${m.isBroadcast ? "fa-bullhorn" : "fa-circle-check"} mr-1"></i> ${m.title}
+                            </span>
+                        </div>
+                        <p class="text-xs text-slate-200 leading-relaxed">${m.message}</p>
+                    </div>
+                `).join("");
+            };
+
+            onSnapshot(collection(db, "users", uid, "notifications"), (snap) => {
+                personalMsgs = [];
+                snap.forEach((d) => {
+                    const data = d.data();
+                    personalMsgs.push({
+                        title: data.title || "Notification",
+                        message: data.message,
+                        ts: data.createdAt?.seconds || Date.now() / 1000,
+                        isBroadcast: false
+                    });
+                });
+                renderCombinedInbox();
             });
 
-            const newUsed = Number(((currentUserData.usedMB || 0) + fileMB).toFixed(2));
-            await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
-            currentUserData.usedMB = newUsed;
-
-            progressWrap.style.display = "none";
-            progressFill.style.width = "0%";
-            document.getElementById("fileInput").value = "";
-            showToast("File uploaded & link generated successfully!");
-            updateDashboardUI();
-            loadUserFiles();
-          } catch (dbErr) {
-            progressWrap.style.display = "none";
-            console.error("DB Save error:", dbErr);
-            showToast("File uploaded, but database save failed: " + dbErr.message);
-          }
-        }
-      );
-    };
-
-    async function loadUserFiles() {
-      const tbody = document.getElementById("userFilesTable");
-      try {
-        const q = query(collection(db, "files"), where("ownerUid", "==", currentUser.uid));
-        const snap = await getDocs(q);
-        if (snap.empty) { 
-          tbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);text-align:center;">No files uploaded yet.</td></tr>`; 
-          return; 
+            onSnapshot(collection(db, "broadcasts"), (snap) => {
+                globalMsgs = [];
+                snap.forEach((d) => {
+                    const data = d.data();
+                    globalMsgs.push({
+                        title: "Admin Announcement",
+                        message: data.message,
+                        ts: data.createdAt?.seconds || Date.now() / 1000,
+                        isBroadcast: true
+                    });
+                });
+                renderCombinedInbox();
+            });
         }
 
-        const base = window.location.origin + window.location.pathname;
-        let rows = "";
-        snap.forEach((d) => {
-          const f = d.data();
-          const link = `${base}?file=${f.fileId}`;
-          rows += `<tr>
-            <td><strong>${f.fileName}</strong></td>
-            <td>${f.sizeMB} MB</td>
-            <td>${f.downloads || 0}</td>
-            <td><button class="btn btn-outline" style="padding:4px 8px;font-size:0.76rem;" onclick="navigator.clipboard.writeText('${link}');showToast('Link copied!');"><i class="fa-solid fa-copy"></i> Copy Link</button></td>
-            <td><button class="btn btn-danger" style="padding:4px 8px;font-size:0.76rem;" onclick="deleteFile('${f.fileId}', ${f.sizeMB})"><i class="fa-solid fa-trash"></i></button></td>
-          </tr>`;
-        });
-        tbody.innerHTML = rows;
-      } catch (e) { 
-        tbody.innerHTML = `<tr><td colspan="5" style="color:#fca5a5;text-align:center;">Error loading files</td></tr>`; 
-      }
-    }
+        // Admin Panel Functions
+        function loadAdminData() {
+            // Load all users for Admin autocomplete selector
+            onSnapshot(collection(db, "users"), (snap) => {
+                const datalist = document.getElementById("registered-users-datalist");
+                datalist.innerHTML = "";
+                snap.forEach((uDoc) => {
+                    const u = uDoc.data();
+                    const opt1 = document.createElement("option");
+                    opt1.value = u.username;
+                    opt1.label = `${u.username} (${u.email}) - ${u.plan}`;
+                    datalist.appendChild(opt1);
 
-    window.deleteFile = async (fileId, sizeMB) => {
-      try {
-        await deleteDoc(doc(db, "files", fileId));
-        const newUsed = Math.max(0, Number(((currentUserData.usedMB || 0) - sizeMB).toFixed(2)));
-        await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
-        currentUserData.usedMB = newUsed;
-        showToast("File deleted.");
-        updateDashboardUI();
-        loadUserFiles();
-      } catch (e) {
-        showToast("Error deleting file: " + e.message);
-      }
-    };
+                    const opt2 = document.createElement("option");
+                    opt2.value = u.email;
+                    opt2.label = `${u.email} (${u.username})`;
+                    datalist.appendChild(opt2);
+                });
+            });
 
-    window.submitPaymentRequest = async () => {
-      const planKey = document.getElementById("buyPlanSelect").value;
-      const tid = document.getElementById("buyTidInput").value.trim();
-      const proof = document.getElementById("buyProofInput").value.trim();
-      if (!tid) return showToast("Enter transaction TID.");
+            // Load Payment Submissions
+            onSnapshot(collection(db, "payments"), (snap) => {
+                const listEl = document.getElementById("admin-payments-list");
+                const countEl = document.getElementById("admin-payments-count");
+                const items = [];
+                snap.forEach((d) => items.push({ id: d.id, ...d.data() }));
+                countEl.innerText = items.length;
 
-      try {
-        await addDoc(collection(db, "payment_requests"), {
-          uid: currentUser.uid,
-          username: currentUserData.username,
-          email: currentUserData.email,
-          method: selectedPaymentMethodName,
-          plan: planKey,
-          amount: PLANS[planKey].price,
-          tid, proof,
-          status: "pending",
-          createdAt: Date.now()
-        });
-        document.getElementById("buyTidInput").value = "";
-        document.getElementById("buyProofInput").value = "";
-        closeModal("buyModal");
-        showToast("Payment request submitted to Admin!");
-      } catch (e) {
-        showToast("Error: " + e.message);
-      }
-    };
+                if (items.length === 0) {
+                    listEl.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No payment submissions yet.</p>`;
+                    return;
+                }
 
-    window.adminAssignPlan = async () => {
-      const target = document.getElementById("adminTargetUser").value.trim().toLowerCase();
-      const planKey = document.getElementById("adminTargetPlan").value;
-      if (!target) return showToast("Enter user email or username.");
-
-      try {
-        const usersRef = collection(db, "users");
-        let qSnap = await getDocs(query(usersRef, where("email", "==", target)));
-        if (qSnap.empty) {
-          qSnap = await getDocs(query(usersRef, where("username", "==", target)));
+                listEl.innerHTML = items.map((p) => `
+                    <div class="p-3.5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-extrabold text-white">${p.username} <span class="text-amber-300">(${p.plan})</span></p>
+                                <p class="text-[10px] text-slate-400">${p.email}</p>
+                            </div>
+                            <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase ${p.status === "approved" ? "bg-emerald-500/20 text-emerald-300" : "bg-amber-500/20 text-amber-300"}">
+                                ${p.status}
+                            </span>
+                        </div>
+                        <div class="text-[11px] text-slate-300 bg-slate-900/70 p-2.5 rounded-xl">
+                            <p>Method: <strong>${p.method}</strong> | Holder: <strong>${p.holderName}</strong></p>
+                            <p>Account #: <strong class="text-cyan-300">${p.accountNumber}</strong></p>
+                        </div>
+                        ${p.screenshotURL ? `<a href="${p.screenshotURL}" target="_blank" class="inline-block text-[11px] text-cyan-400 underline"><i class="fa-solid fa-image mr-1"></i> View Payment Screenshot</a>` : ""}
+                        <button onclick="approvePaymentProof('${p.id}', '${p.uid}', '${p.plan}')" class="w-full py-2.5 rounded-xl btn-gold text-xs font-extrabold uppercase">
+                            Approve & Notify User
+                        </button>
+                    </div>
+                `).join("");
+            });
         }
-        if (qSnap.empty) return showToast("User not found in database!");
 
-        const userDoc = qSnap.docs[0];
-        await updateDoc(doc(db, "users", userDoc.id), { plan: planKey });
-        if (userDoc.id === currentUser.uid) { currentUserData.plan = planKey; updateDashboardUI(); }
-        document.getElementById("adminTargetUser").value = "";
-        showToast(`Successfully assigned ${planKey.toUpperCase()} plan!`);
-        loadAdminRequests();
-      } catch (e) { showToast("Error: " + e.message); }
-    };
+        // Admin Broadcast to All Users
+        window.sendAdminBroadcast = async function() {
+            const msg = document.getElementById("admin-broadcast-text").value.trim();
+            if (!msg) return;
+            try {
+                await addDoc(collection(db, "broadcasts"), {
+                    message: msg,
+                    sender: "hassan_admin",
+                    createdAt: serverTimestamp()
+                });
+                document.getElementById("admin-broadcast-text").value = "";
+                showAppModal("Broadcast Sent!", "Message delivered to every user's Inbox!", '<i class="fa-solid fa-bullhorn text-cyan-400"></i>');
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
 
-    async function loadAdminRequests() {
-      const box = document.getElementById("adminRequestsList");
-      try {
-        const snap = await getDocs(query(collection(db, "payment_requests"), where("status", "==", "pending")));
-        if (snap.empty) { box.innerHTML = "<p>No pending requests.</p>"; return; }
-        let html = "";
-        snap.forEach((d) => {
-          const r = d.data();
-          html += `<div style="padding:8px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px;background:rgba(255,255,255,0.02)">
-            <div><b>@${r.username}</b> (${r.method})</div>
-            <div>Plan: <b>${r.plan.toUpperCase()}</b> · TID: <b>${r.tid}</b></div>
-            <button class="btn btn-primary" style="padding:3px 8px;font-size:0.74rem;margin-top:4px;" onclick="approvePayment('${d.id}', '${r.uid}', '${r.plan}')">Approve</button>
-          </div>`;
-        });
-        box.innerHTML = html;
-      } catch (e) { box.innerHTML = "<p>Error loading requests.</p>"; }
-    }
+        // Admin Approve Payment Proof -> Sends Exact Requested Inbox Message
+        window.approvePaymentProof = async function(paymentId, targetUid, planName) {
+            try {
+                await updateDoc(doc(db, "payments", paymentId), { status: "approved" });
 
-    window.approvePayment = async (reqId, uid, planKey) => {
-      await updateDoc(doc(db, "users", uid), { plan: planKey });
-      await updateDoc(doc(db, "payment_requests", reqId), { status: "approved" });
-      showToast("Payment approved!");
-      loadAdminRequests();
-    };
+                if (targetUid) {
+                    const storageLimit = PLAN_LIMITS[planName] || PLAN_LIMITS["Weekly Plan"];
+                    await updateDoc(doc(db, "users", targetUid), {
+                        plan: planName,
+                        storageLimit: storageLimit
+                    });
 
-    async function checkPublicDownloadRoute() {
-      const params = new URLSearchParams(window.location.search);
-      const fileId = params.get("file");
-      if (!fileId) return;
+                    await addDoc(collection(db, "users", targetUid, "notifications"), {
+                        title: "Payment Approved",
+                        message: "ADMIN IS NOW ONLINE. AND HE APPROVED YOUR PAYMENT MESSEGE. CHECK YOUR RANK NOW.",
+                        createdAt: serverTimestamp()
+                    });
+                }
 
-      document.getElementById("mainSiteView").style.display = "none";
-      document.getElementById("publicDownloadView").style.display = "flex";
+                showAppModal("Approved!", "User notified in their Inbox & plan rank updated!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
+            } catch (err) {
+                showAppModal("Approval Error", err.message);
+            }
+        };
 
-      try {
-        const refDoc = doc(db, "files", fileId);
-        const snap = await getDoc(refDoc);
-        if (!snap.exists()) {
-          document.getElementById("dlFileName").textContent = "File Not Found";
-          document.getElementById("dlFileMeta").textContent = "Link may have expired.";
-          document.getElementById("dlBtn").style.display = "none";
-          return;
-        }
-        const f = snap.data();
-        document.getElementById("dlFileName").textContent = f.fileName;
-        document.getElementById("dlFileMeta").textContent = `Size: ${f.sizeMB} MB · Shared by @${f.ownerUsername}`;
-        const btn = document.getElementById("dlBtn");
-        btn.href = f.downloadURL;
-        btn.onclick = async () => { await updateDoc(refDoc, { downloads: increment(1) }); };
-      } catch (e) {
-        document.getElementById("dlFileName").textContent = "Error loading file";
-      }
-    }
-    checkPublicDownloadRoute();
-  </script>
+        // Admin Assign Plan Rank by Username or Gmail
+        window.adminGrantUserRank = async function() {
+            const identifier = document.getElementById("admin-target-user").value.trim().toLowerCase();
+            const chosenPlan = document.getElementById("admin-target-plan").value;
+            if (!identifier) {
+                showAppModal("Input Required", "Please enter a username or Gmail address.");
+                return;
+            }
+
+            try {
+                const snap = await getDocs(collection(db, "users"));
+                let targetDoc = null;
+                snap.forEach((d) => {
+                    const u = d.data();
+                    if ((u.username || "").toLowerCase() === identifier || (u.email || "").toLowerCase() === identifier) {
+                        targetDoc = { id: d.id, ...u };
+                    }
+                });
+
+                if (!targetDoc) {
+                    showAppModal("User Not Found", "No registered user matched that username or Gmail.");
+                    return;
+                }
+
+                const newStorage = PLAN_LIMITS[chosenPlan] || PLAN_LIMITS["Free Plan"];
+                await updateDoc(doc(db, "users", targetDoc.id), {
+                    plan: chosenPlan,
+                    storageLimit: newStorage
+                });
+
+                await addDoc(collection(db, "users", targetDoc.id, "notifications"), {
+                    title: "Rank Updated by Admin",
+                    message: `ADMIN IS NOW ONLINE. AND HE APPROVED YOUR PAYMENT MESSEGE. CHECK YOUR RANK NOW. (${chosenPlan})`,
+                    createdAt: serverTimestamp()
+                });
+
+                showAppModal("Rank Updated!", `${targetDoc.username} is now on ${chosenPlan}!`, '<i class="fa-solid fa-crown text-amber-400"></i>');
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
+
+        // Profile Updates & Password Change
+        window.handleAvatarGalleryUpload = async function(file) {
+            if (!file || !currentUser) return;
+            try {
+                const avatarRef = ref(storage, `avatars/${currentUser.uid}_${Date.now()}`);
+                await uploadBytes(avatarRef, file);
+                const url = await getDownloadURL(avatarRef);
+                document.getElementById("prof-avatar-url").value = url;
+                document.getElementById("prof-avatar-img").src = url;
+                showAppModal("Image Ready", "Tap 'Save Profile Changes' to apply your new profile picture.");
+            } catch (err) {
+                showAppModal("Upload Error", err.message);
+            }
+        };
+
+        window.updateUserProfile = async function() {
+            if (!currentUser) return;
+            const newUsername = document.getElementById("prof-username").value.trim();
+            const newEmail = document.getElementById("prof-email").value.trim().toLowerCase();
+            const newAvatar = document.getElementById("prof-avatar-url").value.trim();
+
+            try {
+                await updateDoc(doc(db, "users", currentUser.uid), {
+                    username: newUsername || userProfile.username,
+                    email: newEmail || userProfile.email,
+                    avatar: newAvatar || userProfile.avatar
+                });
+                showAppModal("Profile Saved", "Your profile information has been updated!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
+
+        window.handleChangePassword = async function() {
+            const oldPass = document.getElementById("prof-old-pass").value;
+            const newPass1 = document.getElementById("prof-new-pass-1").value;
+            const newPass2 = document.getElementById("prof-new-pass-2").value;
+
+            if (!oldPass || !newPass1 || !newPass2) {
+                showAppModal("Missing Fields", "Please fill in Old Password, New Password, and Confirm Password.");
+                return;
+            }
+            if (newPass1 !== newPass2) {
+                showAppModal("Password Mismatch", "New passwords do not match.");
+                return;
+            }
+
+            try {
+                const credential = EmailAuthProvider.credential(currentUser.email, oldPass);
+                await reauthenticateWithCredential(currentUser, credential);
+                await updatePassword(currentUser, newPass1);
+                document.getElementById("prof-old-pass").value = "";
+                document.getElementById("prof-new-pass-1").value = "";
+                document.getElementById("prof-new-pass-2").value = "";
+                showAppModal("Success!", "Your password has been changed successfully!", '<i class="fa-solid fa-key text-emerald-400"></i>');
+            } catch (err) {
+                showAppModal("Password Error", err.message);
+            }
+        };
+
+        // Navigation & Drawer Toggles
+        window.navigateTo = function(sectionName) {
+            document.querySelectorAll(".app-section").forEach((sec) => sec.classList.add("hidden"));
+            const target = document.getElementById(`view-${sectionName}`);
+            if (target) target.classList.remove("hidden");
+
+            // Highlight bottom nav item
+            ["dashboard", "plans", "referral", "inbox", "profile"].forEach((tab) => {
+                const btn = document.getElementById(`bnav-${tab}`);
+                if (btn) {
+                    btn.className = tab === sectionName
+                        ? "flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-bold py-1 px-2"
+                        : "flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2";
+                }
+            });
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        };
+
+        window.toggleDrawer = function(open) {
+            const drawer = document.getElementById("mobile-drawer");
+            const overlay = document.getElementById("mobile-drawer-overlay");
+            if (open) {
+                overlay.classList.remove("hidden");
+                drawer.classList.remove("translate-x-full");
+            } else {
+                overlay.classList.add("hidden");
+                drawer.classList.add("translate-x-full");
+            }
+        };
+
+        window.logoutUser = async function() {
+            toggleDrawer(false);
+            await signOut(auth);
+        };
+
+        // Run startup URL inspection
+        checkUrlParamsOnLoad();
+    </script>
 </body>
 </html>
