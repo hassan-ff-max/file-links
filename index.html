@@ -40,71 +40,27 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Compact Dark Navbar Bar */
     header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(7, 9, 14, 0.92);
-      backdrop-filter: blur(14px);
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(7, 9, 14, 0.92); backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
     }
     .nav-wrap {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 10px 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
+      max-width: 1200px; margin: 0 auto; padding: 10px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 800;
-      font-size: 0.95rem;
-    }
-    .brand img {
-      width: 34px;
-      height: 34px;
-      border-radius: 9px;
-      object-fit: cover;
-      border: 1.5px solid var(--primary);
-    }
-    .brand span {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 0.95rem; }
+    .brand img { width: 34px; height: 34px; border-radius: 9px; object-fit: cover; border: 1.5px solid var(--primary); }
+    .brand span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-    .nav-center-menu {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
+    .nav-center-menu { display: flex; align-items: center; gap: 16px; font-size: 0.88rem; font-weight: 600; }
     .nav-center-menu a:hover { color: var(--primary); }
-
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .nav-actions { display: flex; align-items: center; gap: 8px; }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      padding: 8px 14px;
-      border-radius: 9px;
-      font-weight: 600;
-      font-size: 0.84rem;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: 0.2s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      padding: 8px 14px; border-radius: 9px; font-weight: 600; font-size: 0.84rem;
+      cursor: pointer; border: 1px solid transparent; transition: 0.2s;
     }
     .btn-primary { background: var(--gradient); color: #041019; font-weight: 700; }
     .btn-outline { background: rgba(255, 255, 255, 0.04); border-color: var(--border); color: var(--text); }
@@ -113,48 +69,25 @@
     .btn-admin { background: rgba(245, 158, 11, 0.16); border-color: rgba(245, 158, 11, 0.45); color: #fcd34d; }
 
     .profile-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 4px 10px 4px 5px;
-      border-radius: 999px;
-      background: rgba(0, 242, 254, 0.1);
-      border: 1px solid rgba(0, 242, 254, 0.35);
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
+      display: inline-flex; align-items: center; gap: 7px; padding: 4px 10px 4px 5px;
+      border-radius: 999px; background: rgba(0, 242, 254, 0.1); border: 1px solid rgba(0, 242, 254, 0.35);
+      font-size: 0.82rem; font-weight: 600; cursor: pointer;
     }
     .profile-chip img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; border: 1px solid var(--primary); }
 
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     section { padding: 50px 0; }
 
-    /* Hero */
-    .hero {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 40px;
-      align-items: center;
-      padding-top: 36px;
-    }
+    .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-top: 36px; }
     .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 12px;
-      border-radius: 999px;
-      background: rgba(0, 242, 254, 0.09);
-      border: 1px solid rgba(0, 242, 254, 0.25);
-      color: var(--primary);
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 16px;
+      display: inline-flex; align-items: center; gap: 8px; padding: 5px 12px; border-radius: 999px;
+      background: rgba(0, 242, 254, 0.09); border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--primary); font-size: 0.8rem; font-weight: 600; margin-bottom: 16px;
     }
     .hero h1 { font-size: clamp(2rem, 4vw, 3.1rem); line-height: 1.14; font-weight: 800; margin-bottom: 16px; }
     .hero h1 span { background: var(--gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
     .hero p { color: var(--muted); font-size: 1rem; line-height: 1.6; margin-bottom: 22px; max-width: 540px; }
 
-    /* Mockup Card */
     .mockup-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); }
     .win-dots { display: flex; align-items: center; gap: 7px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-bottom: 14px; font-size: 0.78rem; color: var(--muted); }
     .win-dots i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
@@ -165,7 +98,6 @@
     .chip b { color: var(--primary); }
     .link-preview { display: flex; align-items: center; justify-content: space-between; padding: 9px 12px; border-radius: 8px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); font-size: 0.82rem; }
 
-    /* Stats & Grids */
     .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
     .stat-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 20px; text-align: center; }
     .stat-box b { display: block; font-size: 1.6rem; font-weight: 800; color: var(--primary); margin-bottom: 3px; }
@@ -182,7 +114,6 @@
     .card h3 { font-size: 1.08rem; margin-bottom: 6px; }
     .card p { color: var(--muted); font-size: 0.88rem; line-height: 1.55; }
 
-    /* Pricing */
     .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
     .plan-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; display: flex; flex-direction: column; position: relative; }
     .plan-card.popular { border-color: var(--primary); box-shadow: 0 0 25px rgba(0, 242, 254, 0.12); }
@@ -194,18 +125,15 @@
     .plan-list li { font-size: 0.85rem; color: var(--muted); margin-bottom: 9px; display: flex; align-items: center; gap: 7px; }
     .plan-list li i { color: var(--accent); }
 
-    /* FAQ */
     .faq-wrap { max-width: 740px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
     details { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 15px 18px; }
     summary { font-weight: 600; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; font-size: 0.92rem; }
     details p { margin-top: 10px; color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
 
-    /* Developer Card */
     .dev-card { max-width: 740px; margin: 0 auto; background: var(--bg-card); border: 1px solid rgba(0, 242, 254, 0.28); border-radius: 18px; padding: 26px; display: flex; align-items: center; gap: 24px; }
     .dev-card img { width: 104px; height: 104px; border-radius: 16px; object-fit: cover; border: 2px solid var(--primary); flex-shrink: 0; }
     .dev-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 
-    /* Dashboard & Admin */
     .panel-box { background: var(--bg-card); border: 1px solid var(--border); border-radius: 18px; padding: 24px; margin-bottom: 26px; }
     .dash-header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border); margin-bottom: 20px; }
     .plan-pill { padding: 4px 11px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; background: rgba(16, 185, 129, 0.16); color: var(--accent); border: 1px solid rgba(16, 185, 129, 0.35); }
@@ -219,7 +147,6 @@
     th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; }
 
-    /* Modals & Forms */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(3, 5, 10, 0.85); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 16px; overflow-y: auto; }
     .modal-backdrop.active { display: flex; }
     .modal { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 440px; padding: 24px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.8); margin: auto; }
@@ -233,7 +160,6 @@
     .payment-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px; }
     .pay-card { border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02); transition: 0.2s; }
     .pay-card.selected { border-color: var(--primary); background: rgba(0,242,254,0.08); }
-    .pay-card img { width: 28px; height: 28px; border-radius: 50%; object-fit: cover; margin-bottom: 5px; }
 
     .profile-avatar-box { display: flex; flex-direction: column; align-items: center; margin-bottom: 16px; }
     .profile-avatar-box img { width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 8px; }
@@ -258,7 +184,6 @@
 </head>
 <body>
 
-  <!-- Header / Navbar -->
   <header id="topHome">
     <div class="nav-wrap">
       <a href="#topHome" class="brand">
@@ -266,7 +191,6 @@
         <span>HASSAN FILES TO LINKS</span>
       </a>
 
-      <!-- Center Menu (Left: See Plans, Center: Dashboard, Right Corner: Profile) -->
       <nav class="nav-center-menu" id="navCenterMenu">
         <a href="#features">Features</a>
         <a href="#how">How It Works</a>
@@ -275,7 +199,6 @@
         <a href="#developer">Developer</a>
       </nav>
 
-      <!-- Right Actions (Dynamic Login / Profile Chip) -->
       <div class="nav-actions" id="navAuthArea">
         <button class="btn btn-outline" onclick="openModal('plansPopupModal')">See Plans</button>
         <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
@@ -284,7 +207,6 @@
     </div>
   </header>
 
-  <!-- Public File Download View (?file=XYZ) -->
   <div id="publicDownloadView">
     <div class="dl-card">
       <div class="icon-box" style="margin: 0 auto 14px; width: 54px; height: 54px; font-size: 1.5rem;">
@@ -301,14 +223,11 @@
     </div>
   </div>
 
-  <!-- Main Website View -->
   <main id="mainSiteView">
 
-    <!-- Dashboard & Admin Section -->
     <section id="dashboardSection" style="display: none; padding-top: 24px; padding-bottom: 10px;">
       <div class="container">
 
-        <!-- Admin Panel -->
         <div id="adminPanelBox" class="panel-box" style="display: none; border-color: rgba(245, 158, 11, 0.5);">
           <div class="dash-header">
             <div>
@@ -323,7 +242,7 @@
               <h4 style="margin-bottom: 10px; font-size: 0.95rem;">Assign Plan</h4>
               <div class="form-group">
                 <label>User Gmail or Username</label>
-                <input type="text" id="adminTargetUser" class="form-control" placeholder="e.g. user@gmail.com or username" />
+                <input type="text" id="adminTargetUser" class="form-control" placeholder="e.g. user@gmail.com" />
               </div>
               <div class="form-group">
                 <label>Select Plan</label>
@@ -348,7 +267,6 @@
           </div>
         </div>
 
-        <!-- User Dashboard -->
         <div class="panel-box">
           <div class="dash-header">
             <div style="display: flex; align-items: center; gap: 12px;">
@@ -404,7 +322,6 @@
       </div>
     </section>
 
-    <!-- Hero Section -->
     <section class="container hero">
       <div>
         <div class="badge"><i class="fa-solid fa-bolt"></i> Fast, secure file hosting & instant links</div>
@@ -441,7 +358,6 @@
       </div>
     </section>
 
-    <!-- Stats -->
     <section class="container" style="padding-top: 10px;">
       <div class="stats-grid">
         <div class="stat-box"><b>1,420+</b><span>Files hosted</span></div>
@@ -451,7 +367,6 @@
       </div>
     </section>
 
-    <!-- Features -->
     <section id="features" class="container">
       <div class="sec-head">
         <span class="tag">Features</span>
@@ -459,26 +374,24 @@
         <p>Engineered for lightning-fast speeds and total file control.</p>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-bolt"></i></div><h3>Short links</h3><p>Every upload instantly generates a clean short share link for WhatsApp or Telegram[span_0](start_span)[span_0](end_span).</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-sliders"></i></div><h3>Total control</h3><p>Manage storage, track live download counts and delete files anytime from your dashboard[span_1](start_span)[span_1](end_span).</p></div>
-        <div class="card"><div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div><h3>Secure Cloud</h3><p>Powered by reliable Firebase cloud infrastructure[span_2](start_span)[span_2](end_span) ensuring 100% data safety.</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-bolt"></i></div><h3>Short links</h3><p>Every upload instantly generates a clean short share link for WhatsApp or Telegram[span_1](start_span)[span_1](end_span).</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-sliders"></i></div><h3>Total control</h3><p>Manage storage, track live download counts and delete files anytime from your dashboard[span_2](start_span)[span_2](end_span).</p></div>
+        <div class="card"><div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div><h3>Secure Cloud</h3><p>Powered by reliable Firebase cloud infrastructure[span_3](start_span)[span_3](end_span) ensuring 100% data safety.</p></div>
       </div>
     </section>
 
-    <!-- How It Works -->
     <section id="how" class="container">
       <div class="sec-head">
         <span class="tag">How it works</span>
         <h2>Three simple steps</h2>
       </div>
       <div class="grid-3">
-        <div class="card"><div class="icon-box"><b>01</b></div><h3>Create Account</h3><p>Sign up in seconds with Google or email[span_3](start_span)[span_3](end_span).</p></div>
-        <div class="card"><div class="icon-box"><b>02</b></div><h3>Upload File</h3><p>Drop your file from phone or computer[span_4](start_span)[span_4](end_span).</p></div>
-        <div class="card"><div class="icon-box"><b>03</b></div><h3>Share Link</h3><p>Send the short link anywhere effortlessly[span_5](start_span)[span_5](end_span).</p></div>
+        <div class="card"><div class="icon-box"><b>01</b></div><h3>Create Account</h3><p>Sign up in seconds with Google or email[span_4](start_span)[span_4](end_span).</p></div>
+        <div class="card"><div class="icon-box"><b>02</b></div><h3>Upload File</h3><p>Drop your file from phone or computer[span_5](start_span)[span_5](end_span).</p></div>
+        <div class="card"><div class="icon-box"><b>03</b></div><h3>Share Link</h3><p>Send the short link anywhere effortlessly[span_6](start_span)[span_6](end_span).</p></div>
       </div>
     </section>
 
-    <!-- Pricing -->
     <section id="pricing" class="container">
       <div class="sec-head">
         <span class="tag">Pricing</span>
@@ -526,23 +439,21 @@
       </div>
     </section>
 
-    <!-- FAQ -->
     <section id="faq" class="container">
       <div class="sec-head"><span class="tag">FAQ</span><h2>Questions answered</h2></div>
       <div class="faq-wrap">
-        <details><summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary><p>Yes, to manage files and share links securely[span_6](start_span)[span_6](end_span).</p></details>
-        <details><summary>How to pay via EasyPaisa or JazzCash? <i class="fa-solid fa-chevron-down"></i></summary><p>Send payment to our account and submit your TID in the upgrade modal[span_7](start_span)[span_7](end_span).</p></details>
+        <details><summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary><p>Yes, to manage files and share links securely[span_7](start_span)[span_7](end_span).</p></details>
+        <details><summary>How to pay via EasyPaisa or JazzCash? <i class="fa-solid fa-chevron-down"></i></summary><p>Send payment to our account and submit your TID in the upgrade modal[span_8](start_span)[span_8](end_span).</p></details>
       </div>
     </section>
 
-    <!-- Developer Card -->
     <section id="developer" class="container">
       <div class="sec-head"><span class="tag">Developer</span><h2>Meet the Creator</h2></div>
       <div class="dev-card">
         <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="HASSAN OFC" />
         <div>
           <h3 style="font-size: 1.3rem; margin-bottom: 4px;">HASSAN OFC <span style="font-size: 0.76rem; color: var(--primary);">Developer</span></h3>
-          <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.6;">Creator of HASSAN FILES TO LINKS — building high-performance web utilities[span_8](start_span)[span_8](end_span).</p>
+          <p style="color: var(--muted); font-size: 0.88rem; line-height: 1.6;">Creator of HASSAN FILES TO LINKS — building high-performance web utilities[span_9](start_span)[span_9](end_span).</p>
           <div class="dev-links">
             <a href="https://wa.me/923294675242" target="_blank" class="btn btn-primary"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
             <a href="https://t.me/hassanff01" target="_blank" class="btn btn-outline"><i class="fa-brands fa-telegram"></i> Telegram</a>
@@ -553,7 +464,6 @@
 
   </main>
 
-  <!-- Footer with Normal Projects Links -->
   <footer>
     <div class="container">
       <div class="footer-projects">
@@ -561,11 +471,10 @@
         <a href="https://toolkit.page.gd/t/hassan-2nd-toolkit" target="_blank">Main Toolkit</a>
         <a href="https://hassan-toolkit-pro.vercel.app" target="_blank">2nd Toolkit</a>
       </div>
-      <p style="color: var(--muted); font-size: 0.84rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>[span_9](start_span)[span_9](end_span).</p>
+      <p style="color: var(--muted); font-size: 0.84rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>[span_10](start_span)[span_10](end_span).</p>
     </div>
   </footer>
 
-  <!-- Profile Modal (Avatar, Username, Email, Old & 2x New Password) -->
   <div class="modal-backdrop" id="profileModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
@@ -588,7 +497,6 @@
     </div>
   </div>
 
-  <!-- See Plans Popup Modal -->
   <div class="modal-backdrop" id="plansPopupModal">
     <div class="modal modal-lg">
       <button class="close-modal" onclick="closeModal('plansPopupModal')"><i class="fa-solid fa-xmark"></i></button>
@@ -626,12 +534,11 @@
     </div>
   </div>
 
-  <!-- Auth Modal -->
   <div class="modal-backdrop" id="authModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
       <h3 id="authTitle" style="margin-bottom: 6px;">Welcome Back</h3>
-      <p id="authSub" style="color: var(--muted); font-size: 0.84rem; margin-bottom: 16px;">Sign in with Google or Email[span_10](start_span)[span_10](end_span).</p>
+      <p id="authSub" style="color: var(--muted); font-size: 0.84rem; margin-bottom: 16px;">Sign in with Google or Email[span_11](start_span)[span_11](end_span).</p>
       <button class="btn btn-outline" style="width: 100%; margin-bottom: 12px;" onclick="handleGoogleAuth()">
         <i class="fa-brands fa-google" style="color: #00f2fe;"></i> Continue with Google
       </button>
@@ -647,27 +554,26 @@
     </div>
   </div>
 
-  <!-- EasyPaisa / JazzCash Payment Modal -->
   <div class="modal-backdrop" id="buyModal">
     <div class="modal">
       <button class="close-modal" onclick="closeModal('buyModal')"><i class="fa-solid fa-xmark"></i></button>
       <h3 style="margin-bottom: 6px;">Upgrade Plan</h3>
       <p style="color: var(--muted); font-size: 0.84rem; margin-bottom: 14px;">Select payment method and send payment.</p>
 
-      <div class="payment-options-grid">
-        <div class="pay-card selected" id="payMethodEasypaisa" onclick="selectPaymentMethod('easypaisa')">
+      <div class="payment-options-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 14px;">
+        <div class="pay-card selected" id="payMethodEasypaisa" onclick="selectPaymentMethod('easypaisa')" style="border: 1.5px solid var(--primary); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; background: rgba(0,242,254,0.08);">
           <i class="fa-solid fa-wallet" style="font-size: 1.4rem; color: #10b981; margin-bottom: 4px;"></i>
           <div style="font-weight: 700; font-size: 0.88rem;">EasyPaisa</div>
           <small style="color: var(--muted); font-size: 0.72rem;">03451212815</small>
         </div>
-        <div class="pay-card" id="payMethodJazzcash" onclick="selectPaymentMethod('jazzcash')">
+        <div class="pay-card" id="payMethodJazzcash" onclick="selectPaymentMethod('jazzcash')" style="border: 1.5px solid var(--border); border-radius: 10px; padding: 12px; text-align: center; cursor: pointer; background: rgba(255,255,255,0.02);">
           <i class="fa-solid fa-credit-card" style="font-size: 1.4rem; color: #f59e0b; margin-bottom: 4px;"></i>
           <div style="font-weight: 700; font-size: 0.88rem;">JazzCash</div>
           <small style="color: var(--muted); font-size: 0.72rem;">03451212815</small>
         </div>
       </div>
 
-      <div class="easypaisa-box" id="paymentDetailsBox" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 12px; margin-bottom: 14px; font-size: 0.84rem;">
+      <div class="easypaisa-box" style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: 10px; padding: 12px; margin-bottom: 14px; font-size: 0.84rem;">
         <div><strong>Selected:</strong> <span id="selectedPayName">EasyPaisa</span></div>
         <div><strong>Account Number:</strong> <span style="color: var(--primary); font-weight: 700;">03451212815</span></div>
         <div><strong>Account Holder:</strong> <span style="color: var(--accent); font-weight: 700;">ANSARIQBAL</span></div>
@@ -700,7 +606,6 @@
 
   <div id="toast"></div>
 
-  <!-- Firebase & App Logic -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
@@ -758,7 +663,7 @@
       const t = document.getElementById("toast");
       t.textContent = msg;
       t.style.display = "block";
-      setTimeout(() => { t.style.display = "none"; }, 3800);
+      setTimeout(() => { t.style.display = "none"; }, 4000);
     };
 
     window.openModal = (id, mode = null) => {
@@ -777,7 +682,7 @@
       authMode = mode;
       const isSignup = mode === "signup";
       document.getElementById("authTitle").textContent = isSignup ? "Create Account" : "Welcome Back";
-      document.getElementById("authSub").textContent = isSignup ? "Sign up to start sharing files[span_11](start_span)[span_11](end_span)." : "Sign in to your account[span_12](start_span)[span_12](end_span).";
+      document.getElementById("authSub").textContent = isSignup ? "Sign up to start sharing files[span_12](start_span)[span_12](end_span)." : "Sign in to your account[span_13](start_span)[span_13](end_span).";
       document.getElementById("usernameGroup").style.display = isSignup ? "block" : "none";
       document.getElementById("authSubmitBtn").textContent = isSignup ? "Create Account" : "Sign In";
       document.getElementById("authSwitchText").textContent = isSignup ? "Already have an account?" : "Don't have an account?";
@@ -788,8 +693,10 @@
 
     window.selectPaymentMethod = (method) => {
       selectedPaymentMethodName = method === 'easypaisa' ? 'EasyPaisa' : 'JazzCash';
-      document.getElementById("payMethodEasypaisa").className = method === 'easypaisa' ? "pay-card selected" : "pay-card";
-      document.getElementById("payMethodJazzcash").className = method === 'jazzcash' ? "pay-card selected" : "pay-card";
+      document.getElementById("payMethodEasypaisa").style.borderColor = method === 'easypaisa' ? "var(--primary)" : "var(--border)";
+      document.getElementById("payMethodEasypaisa").style.background = method === 'easypaisa' ? "rgba(0,242,254,0.08)" : "rgba(255,255,255,0.02)";
+      document.getElementById("payMethodJazzcash").style.borderColor = method === 'jazzcash' ? "var(--primary)" : "var(--border)";
+      document.getElementById("payMethodJazzcash").style.background = method === 'jazzcash' ? "rgba(0,242,254,0.08)" : "rgba(255,255,255,0.02)";
       document.getElementById("selectedPayName").textContent = selectedPaymentMethodName;
     };
 
@@ -870,7 +777,6 @@
       } catch (e) { return profile; }
     }
 
-    // Instant UI Switch on Auth State Change
     onAuthStateChanged(auth, async (user) => {
       currentUser = user;
       const navCenter = document.getElementById("navCenterMenu");
@@ -892,7 +798,6 @@
         currentUserData = await ensureUserProfile(user, defUname);
         const avatar = currentUserData.photoURL || user.photoURL || DEFAULT_AVATAR;
 
-        // Left: See Plans | Center: Dashboard | Right: Profile Chip
         navCenter.innerHTML = `
           <a href="javascript:void(0)" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</a>
           <a href="javascript:void(0)" onclick="document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'})"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
@@ -976,15 +881,23 @@
         document.getElementById("newPasswordInput").value = "";
         document.getElementById("confirmNewPasswordInput").value = "";
         showToast("Password updated successfully!");
-      } catch (e) { showToast("Error updating password: " + e.message); }
+      } catch (e) { showToast("Error: " + e.message); }
     };
 
-    // File Upload with Short Code Generation
+    // Safe & Fast File Upload Handler (Stuck at 0% Bug Solved)
     window.handleFileUpload = async (file) => {
-      if (!file || !currentUser || !currentUserData) return;
-      const plan = PLANS[currentUserData.plan || "free"];
+      if (!file || !currentUser || !currentUserData) {
+        showToast("Please login first to upload files!");
+        openModal("authModal", "login");
+        return;
+      }
+
+      const plan = PLANS[currentUserData.plan || "free"] || PLANS.free;
       const fileMB = file.size / (1024 * 1024);
-      if (fileMB > plan.maxFileMB) return showToast(`File exceeds limit (${plan.maxFileMB} MB).`);
+      if (fileMB > plan.maxFileMB) {
+        showToast(`File size exceeds limit! Your plan allows up to ${plan.maxFileMB} MB per file.`);
+        return;
+      }
 
       const progressWrap = document.getElementById("progressWrap");
       const progressFill = document.getElementById("progressFill");
@@ -993,42 +906,49 @@
       progressWrap.style.display = "block";
 
       const shortId = Math.random().toString(36).substring(2, 8);
-      const sRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
-      const task = uploadBytesResumable(sRef, file);
+      const storageRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
 
-      task.on("state_changed", 
-        (snap) => {
-          const pct = Math.round((snap.bytesTransferred / snap.totalBytes) * 100);
-          progressFill.style.width = pct + "%";
-          uploadPercent.textContent = pct + "%";
+      uploadTask.on("state_changed", 
+        (snapshot) => {
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          progressFill.style.width = progress + "%";
+          uploadPercent.textContent = progress + "%";
         },
-        (err) => {
+        (error) => {
           progressWrap.style.display = "none";
-          showToast("Upload failed: " + err.message);
+          console.error("Upload error:", error);
+          showToast("Upload failed: " + error.message);
         },
         async () => {
-          const url = await getDownloadURL(task.snapshot.ref);
-          await setDoc(doc(db, "files", shortId), {
-            fileId: shortId,
-            ownerUid: currentUser.uid,
-            ownerUsername: currentUserData.username,
-            fileName: file.name,
-            sizeMB: Number(fileMB.toFixed(2)),
-            downloadURL: url,
-            downloads: 0,
-            createdAt: Date.now()
-          });
+          try {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            await setDoc(doc(db, "files", shortId), {
+              fileId: shortId,
+              ownerUid: currentUser.uid,
+              ownerUsername: currentUserData.username,
+              fileName: file.name,
+              sizeMB: Number(fileMB.toFixed(2)),
+              downloadURL: downloadURL,
+              downloads: 0,
+              createdAt: Date.now()
+            });
 
-          const newUsed = Number(((currentUserData.usedMB || 0) + fileMB).toFixed(2));
-          await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
-          currentUserData.usedMB = newUsed;
+            const newUsed = Number(((currentUserData.usedMB || 0) + fileMB).toFixed(2));
+            await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
+            currentUserData.usedMB = newUsed;
 
-          progressWrap.style.display = "none";
-          progressFill.style.width = "0%";
-          document.getElementById("fileInput").value = "";
-          showToast("File uploaded successfully!");
-          updateDashboardUI();
-          loadUserFiles();
+            progressWrap.style.display = "none";
+            progressFill.style.width = "0%";
+            document.getElementById("fileInput").value = "";
+            showToast("File uploaded & link generated successfully!");
+            updateDashboardUI();
+            loadUserFiles();
+          } catch (dbErr) {
+            progressWrap.style.display = "none";
+            console.error("DB Save error:", dbErr);
+            showToast("File uploaded to storage, but database save failed: " + dbErr.message);
+          }
         }
       );
     };
@@ -1038,7 +958,10 @@
       try {
         const q = query(collection(db, "files"), where("ownerUid", "==", currentUser.uid));
         const snap = await getDocs(q);
-        if (snap.empty) { tbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);text-align:center;">No files uploaded yet.</td></tr>`; return; }
+        if (snap.empty) { 
+          tbody.innerHTML = `<tr><td colspan="5" style="color:var(--muted);text-align:center;">No files uploaded yet.</td></tr>`; 
+          return; 
+        }
 
         const base = window.location.origin + window.location.pathname;
         let rows = "";
@@ -1054,17 +977,23 @@
           </tr>`;
         });
         tbody.innerHTML = rows;
-      } catch (e) { tbody.innerHTML = `<tr><td colspan="5" style="color:#fca5a5;text-align:center;">Error loading files</td></tr>`; }
+      } catch (e) { 
+        tbody.innerHTML = `<tr><td colspan="5" style="color:#fca5a5;text-align:center;">Error loading files</td></tr>`; 
+      }
     }
 
     window.deleteFile = async (fileId, sizeMB) => {
-      await deleteDoc(doc(db, "files", fileId));
-      const newUsed = Math.max(0, Number(((currentUserData.usedMB || 0) - sizeMB).toFixed(2)));
-      await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
-      currentUserData.usedMB = newUsed;
-      showToast("File deleted.");
-      updateDashboardUI();
-      loadUserFiles();
+      try {
+        await deleteDoc(doc(db, "files", fileId));
+        const newUsed = Math.max(0, Number(((currentUserData.usedMB || 0) - sizeMB).toFixed(2)));
+        await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
+        currentUserData.usedMB = newUsed;
+        showToast("File deleted.");
+        updateDashboardUI();
+        loadUserFiles();
+      } catch (e) {
+        showToast("Error deleting file: " + e.message);
+      }
     };
 
     window.submitPaymentRequest = async () => {
@@ -1073,24 +1002,27 @@
       const proof = document.getElementById("buyProofInput").value.trim();
       if (!tid) return showToast("Enter transaction TID.");
 
-      await addDoc(collection(db, "payment_requests"), {
-        uid: currentUser.uid,
-        username: currentUserData.username,
-        email: currentUserData.email,
-        method: selectedPaymentMethodName,
-        plan: planKey,
-        amount: PLANS[planKey].price,
-        tid, proof,
-        status: "pending",
-        createdAt: Date.now()
-      });
-      document.getElementById("buyTidInput").value = "";
-      document.getElementById("buyProofInput").value = "";
-      closeModal("buyModal");
-      showToast("Payment request submitted to Admin!");
+      try {
+        await addDoc(collection(db, "payment_requests"), {
+          uid: currentUser.uid,
+          username: currentUserData.username,
+          email: currentUserData.email,
+          method: selectedPaymentMethodName,
+          plan: planKey,
+          amount: PLANS[planKey].price,
+          tid, proof,
+          status: "pending",
+          createdAt: Date.now()
+        });
+        document.getElementById("buyTidInput").value = "";
+        document.getElementById("buyProofInput").value = "";
+        closeModal("buyModal");
+        showToast("Payment request submitted to Admin!");
+      } catch (e) {
+        showToast("Error: " + e.message);
+      }
     };
 
-    // Robust Admin Plan Assignment (Supports Gmail or Username lookup)
     window.adminAssignPlan = async () => {
       const target = document.getElementById("adminTargetUser").value.trim().toLowerCase();
       const planKey = document.getElementById("adminTargetPlan").value;
@@ -1138,7 +1070,6 @@
       loadAdminRequests();
     };
 
-    // Public File Download Handler (?file=XYZ)
     async function checkPublicDownloadRoute() {
       const params = new URLSearchParams(window.location.search);
       const fileId = params.get("file");
