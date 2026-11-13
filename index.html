@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HASSAN X FILES LINKS</title>
+    <!-- Dynamic OpenGraph / WhatsApp Meta Tags for Link Previews -->
+    <title id="meta-page-title">HASSAN X FILES LINKS</title>
+    <meta property="og:title" id="meta-og-title" content="HASSAN X FILES LINKS">
+    <meta property="og:description" id="meta-og-desc" content="Secure file and code sharing link generated via Hassan X Files.">
+    <meta property="og:site_name" content="HASSAN X FILES">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -86,7 +90,6 @@
         .btn-gold:active {
             transform: scale(0.98);
         }
-        /* Hide scrollbars inside horizontal pills */
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -101,7 +104,7 @@
     <!-- Mobile App Wrapper -->
     <div class="mobile-shell">
 
-        <!-- Custom Message / Toast Modal (No alert/confirm) -->
+        <!-- Custom Message / Toast Modal -->
         <div id="app-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm hidden p-4">
             <div class="glass-card rounded-3xl p-6 w-full max-w-[360px] text-center border border-cyan-500/30 shadow-2xl">
                 <div id="app-modal-icon" class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-3 text-xl">
@@ -127,9 +130,7 @@
                         <p class="text-[10px] text-slate-400">DIRECT SECURE LINK</p>
                     </div>
                 </div>
-                <button onclick="exitPublicFileView()" class="px-3.5 py-2 rounded-xl glass-card text-xs font-semibold text-cyan-300 border border-cyan-500/30">
-                    Open App
-                </button>
+                <!-- Open App button removed completely as requested -->
             </div>
 
             <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl space-y-4">
@@ -409,8 +410,8 @@
 
                     <!-- Custom URL Slug -->
                     <div>
-                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Make URL / Custom Slug</label>
-                        <input type="text" id="custom-file-slug" placeholder="make url like ?file=my-website" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono">
+                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Make URL / Custom Slug (Supports hassan-code, source-code, code-by-hassan)</label>
+                        <input type="text" id="custom-file-slug" placeholder="make url like hassan-code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono">
                     </div>
 
                     <!-- TAB 1: Drag & Drop File Upload -->
@@ -907,7 +908,6 @@
             deleteObject
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-        // Exact User Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyBwc7uSAfwSaB51bikuHWBRnLPSaoPGy78",
             authDomain: "file-to-link-2.firebaseapp.com",
@@ -935,7 +935,7 @@
         let selectedPlanPrice = "";
         let selectedPayMethod = "Easypaisa";
         let selectedScreenshotFile = null;
-        let currentGenMode = "file"; // 'file' or 'code'
+        let currentGenMode = "file";
         let activePublicFileRecord = null;
 
         const PLAN_LIMITS = {
@@ -980,7 +980,6 @@
             return `${clean}${rand}`;
         }
 
-        // Switch generator mode between file upload and manual code creator
         window.switchGenMode = function(mode) {
             currentGenMode = mode;
             const fileBtn = document.getElementById("gen-tab-file");
@@ -1001,7 +1000,7 @@
             }
         };
 
-        // Open Public File Download Page
+        // Open Public File Download Page & Dynamically Update WhatsApp / OpenGraph Meta Tags
         async function loadPublicFileBySlug(fileSlug) {
             document.getElementById("auth-screen").classList.add("hidden");
             document.getElementById("main-app-view").classList.add("hidden");
@@ -1035,6 +1034,13 @@
                 const resolvedOwner = matchedFile.uploaderName || matchedFile.ownerUsername || "User";
                 const resolvedUrl = matchedFile.downloadURL || matchedFile.fileData || "";
                 const codeContent = matchedFile.codeContent || "";
+
+                // Dynamically update page title and OpenGraph metadata so WhatsApp preview matches the slug name (e.g. hassan-code)
+                document.title = resolvedName;
+                const ogTitleMeta = document.getElementById("meta-og-title");
+                if (ogTitleMeta) ogTitleMeta.setAttribute("content", resolvedName);
+                const ogDescMeta = document.getElementById("meta-og-desc");
+                if (ogDescMeta) ogDescMeta.setAttribute("content", `Download ${resolvedName} securely via Hassan X Files.`);
 
                 document.getElementById("pub-file-name").innerText = resolvedName;
                 document.getElementById("pub-file-size").innerText = formatSize(resolvedSize);
@@ -1122,17 +1128,6 @@
                 await loadPublicFileBySlug(fileSlug);
             }
         }
-
-        window.exitPublicFileView = function() {
-            const cleanUrl = window.location.origin + window.location.pathname;
-            window.history.replaceState({}, document.title, cleanUrl);
-            document.getElementById("public-file-view").classList.add("hidden");
-            if (currentUser) {
-                document.getElementById("main-app-view").classList.remove("hidden");
-            } else {
-                document.getElementById("auth-screen").classList.remove("hidden");
-            }
-        };
 
         window.setAuthMode = function(mode) {
             authMode = mode;
@@ -1479,7 +1474,6 @@
             });
         }
 
-        // Process File Upload or Manual Code
         window.processFileUpload = async function(fileOrContent, mode, customFileName = "") {
             if (!currentUser || !userProfile) {
                 showAppModal("Sign In Required", "Please sign in to upload files and generate links.");
@@ -1526,7 +1520,6 @@
                     } catch (_) {}
                 }
             } else {
-                // Manual Code Mode
                 codeContent = fileOrContent;
                 fileName = customFileName || "Hassan_MD.py";
                 fileSize = new Blob([codeContent]).size;
@@ -1937,7 +1930,7 @@
                 document.getElementById("prof-avatar-img").src = url;
                 showAppModal("Image Ready", "Tap 'Save Profile Changes' to apply your new profile picture.");
             } catch (err) {
-                showAppModal("Error", err.message);
+                showAppModal("Upload Error", err.message);
             }
         };
 
