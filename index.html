@@ -37,7 +37,6 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Navbar & Hamburger */
     header {
       position: sticky; top: 0; z-index: 100;
       background: rgba(7, 9, 14, 0.94); backdrop-filter: blur(16px);
@@ -63,7 +62,7 @@
     .nav-center-menu a:hover { color: var(--primary); }
     .nav-actions { display: flex; align-items: center; gap: 10px; }
 
-    /* Sliding Drawer Sidebar */
+    /* Clean Sidebar Drawer (Without broken app install) */
     .sidebar-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px);
       z-index: 1999; display: none; opacity: 0; transition: opacity 0.3s ease;
@@ -105,7 +104,6 @@
     .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
     section { padding: 54px 0; }
 
-    /* Hero */
     .hero { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; padding-top: 40px; }
     .badge {
       display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border-radius: 999px;
@@ -175,7 +173,6 @@
     th, td { text-align: left; padding: 12px 10px; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; }
 
-    /* Modals */
     .modal-backdrop { position: fixed; inset: 0; background: rgba(3, 5, 10, 0.86); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 2500; padding: 16px; overflow-y: auto; }
     .modal-backdrop.active { display: flex; }
     .modal { background: var(--bg-card-solid); border: 1px solid var(--border); border-radius: 18px; width: 100%; max-width: 440px; padding: 26px; position: relative; box-shadow: 0 24px 60px rgba(0,0,0,0.85); margin: auto; }
@@ -213,7 +210,7 @@
 </head>
 <body>
 
-  <!-- Sidebar Overlay & Drawer (3-lines menu) -->
+  <!-- Clean Sidebar Drawer -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
   <div class="sidebar-drawer" id="sidebarDrawer">
     <div>
@@ -225,7 +222,6 @@
         <button class="close-modal" onclick="toggleSidebar()" style="position:static;"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="sidebar-links">
-        <a href="javascript:void(0)" onclick="toggleSidebar(); openModal('appInstallModal');"><i class="fa-solid fa-mobile-screen-button"></i> Install App</a>
         <a href="#features" onclick="toggleSidebar()"><i class="fa-solid fa-star"></i> Features</a>
         <a href="#how" onclick="toggleSidebar()"><i class="fa-solid fa-circle-question"></i> How It Works</a>
         <a href="#pricing" onclick="toggleSidebar()"><i class="fa-solid fa-tags"></i> Pricing Plans</a>
@@ -537,24 +533,6 @@
     </div>
   </footer>
 
-  <!-- Install App Modal (Exact style like rohansmm.online/app_install) -->
-  <div class="modal-backdrop" id="appInstallModal">
-    <div class="modal" style="text-align: center;">
-      <button class="close-modal" onclick="closeModal('appInstallModal')"><i class="fa-solid fa-xmark"></i></button>
-      <div style="width: 75px; height: 75px; margin: 0 auto 16px; background: rgba(0,242,254,0.1); border: 2px solid var(--primary); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: var(--primary);">
-        <i class="fa-solid fa-cloud-arrow-down"></i>
-      </div>
-      <h3 style="margin-bottom: 8px;">Install HASSAN FILES APP</h3>
-      <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 20px;">Install our web app directly on your Android mobile for lightning-fast file uploading and link generation.</p>
-      <button class="btn btn-primary" style="width: 100%; padding: 12px; margin-bottom: 12px;" onclick="triggerAppInstall()">
-        <i class="fa-solid fa-download"></i> Download & Install APK / PWA
-      </button>
-      <div style="font-size: 0.78rem; color: var(--muted);">
-        Compatible with Chrome / Edge / Android Devices
-      </div>
-    </div>
-  </div>
-
   <!-- Profile Modal -->
   <div class="modal-backdrop" id="profileModal">
     <div class="modal">
@@ -738,32 +716,11 @@
     let currentUserData = null;
     let authMode = "login";
     let selectedPaymentMethodName = "EasyPaisa";
-    let deferredPrompt = null;
 
     window.toggleSidebar = () => {
       document.getElementById("sidebarDrawer").classList.toggle("active");
       document.getElementById("sidebarOverlay").classList.toggle("active");
     };
-
-    window.triggerAppInstall = () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            showToast("App installation started!");
-          }
-          deferredPrompt = null;
-        });
-      } else {
-        showToast("To install, open browser menu (...) and tap 'Add to Home screen' or 'Install App'.");
-      }
-      closeModal('appInstallModal');
-    };
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-    });
 
     function isAdminEmail(email) {
       return email && email.trim().toLowerCase() === ADMIN_CONFIG.email.trim().toLowerCase();
@@ -992,7 +949,7 @@
       } catch (e) { showToast("Error: " + e.message); }
     };
 
-    // Fast Hybrid File Upload Handler (Guaranteed 100% working)
+    // Fast & Safe File Upload Handler (Stuck at 90% fixed)
     window.handleFileUpload = async (file) => {
       if (!file || !currentUser || !currentUserData) {
         showToast("Please login first to upload files!");
@@ -1013,56 +970,52 @@
       document.getElementById("uploadFileName").textContent = file.name;
       progressWrap.style.display = "block";
 
-      let progress = 0;
-      const fakeProgress = setInterval(() => {
-        if (progress < 90) {
-          progress += 10;
+      const shortId = Math.random().toString(36).substring(2, 8);
+      const storageRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on("state_changed", 
+        (snapshot) => {
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           progressFill.style.width = progress + "%";
           uploadPercent.textContent = progress + "%";
-        }
-      }, 150);
-
-      const shortId = Math.random().toString(36).substring(2, 8);
-
-      try {
-        const storageRef = ref(storage, `uploads/${currentUser.uid}/${shortId}_${file.name}`);
-        const uploadTask = await uploadBytesResumable(storageRef, file);
-        const downloadURL = await getDownloadURL(uploadTask.ref);
-
-        clearInterval(fakeProgress);
-        progressFill.style.width = "100%";
-        uploadPercent.textContent = "100%";
-
-        await setDoc(doc(db, "files", shortId), {
-          fileId: shortId,
-          ownerUid: currentUser.uid,
-          ownerUsername: currentUserData.username,
-          fileName: file.name,
-          sizeMB: Number(fileMB.toFixed(2)),
-          downloadURL: downloadURL,
-          downloads: 0,
-          createdAt: Date.now()
-        });
-
-        const newUsed = Number(((currentUserData.usedMB || 0) + fileMB).toFixed(2));
-        await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
-        currentUserData.usedMB = newUsed;
-
-        setTimeout(() => {
+        },
+        (error) => {
           progressWrap.style.display = "none";
-          progressFill.style.width = "0%";
-          document.getElementById("fileInput").value = "";
-          showToast("File uploaded & link generated successfully!");
-          updateDashboardUI();
-          loadUserFiles();
-        }, 500);
+          console.error("Upload error:", error);
+          showToast("Upload failed: " + error.message);
+        },
+        async () => {
+          try {
+            const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+            await setDoc(doc(db, "files", shortId), {
+              fileId: shortId,
+              ownerUid: currentUser.uid,
+              ownerUsername: currentUserData.username,
+              fileName: file.name,
+              sizeMB: Number(fileMB.toFixed(2)),
+              downloadURL: downloadURL,
+              downloads: 0,
+              createdAt: Date.now()
+            });
 
-      } catch (err) {
-        clearInterval(fakeProgress);
-        progressWrap.style.display = "none";
-        console.error("Upload error:", err);
-        showToast("Upload failed: " + err.message + ". Check Firebase Storage rules.");
-      }
+            const newUsed = Number(((currentUserData.usedMB || 0) + fileMB).toFixed(2));
+            await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
+            currentUserData.usedMB = newUsed;
+
+            progressWrap.style.display = "none";
+            progressFill.style.width = "0%";
+            document.getElementById("fileInput").value = "";
+            showToast("File uploaded & link generated successfully!");
+            updateDashboardUI();
+            loadUserFiles();
+          } catch (dbErr) {
+            progressWrap.style.display = "none";
+            console.error("DB Save error:", dbErr);
+            showToast("File uploaded, but database save failed: " + dbErr.message);
+          }
+        }
+      );
     };
 
     async function loadUserFiles() {
