@@ -1,0 +1,2080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HASSAN FILES TO LINKS — Instant File Hosting & Shareable Links</title>
+  <link rel="icon" href="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+
+  <style>
+    :root {
+      --bg: #07090e;
+      --bg-card: rgba(17, 22, 34, 0.82);
+      --bg-card-solid: #111622;
+      --border: rgba(255, 255, 255, 0.09);
+      --primary: #00f2fe;
+      --secondary: #4facfe;
+      --accent: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --text: #f3f6fc;
+      --muted: #94a3b8;
+      --gradient: linear-gradient(135deg, #00f2fe 0%, #4facfe 50%, #10b981 100%);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(0, 242, 254, 0.08), transparent 35%),
+        radial-gradient(circle at 85% 25%, rgba(16, 185, 129, 0.08), transparent 35%),
+        radial-gradient(circle at 50% 90%, rgba(79, 172, 254, 0.07), transparent 40%);
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 9, 14, 0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-wrap {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.3px;
+    }
+
+    .brand img {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      object-fit: cover;
+      border: 1.5px solid var(--primary);
+      box-shadow: 0 0 12px rgba(0, 242, 254, 0.35);
+    }
+
+    .brand span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 9px 15px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #041019;
+      font-weight: 700;
+      box-shadow: 0 4px 18px rgba(0, 242, 254, 0.25);
+    }
+
+    .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
+
+    .btn-outline {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
+
+    .btn-danger {
+      background: rgba(239, 68, 68, 0.14);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .btn-admin {
+      background: rgba(245, 158, 11, 0.16);
+      border-color: rgba(245, 158, 11, 0.45);
+      color: #fcd34d;
+    }
+
+    .profile-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 6px;
+      border-radius: 999px;
+      background: rgba(0, 242, 254, 0.1);
+      border: 1px solid rgba(0, 242, 254, 0.35);
+      color: var(--text);
+      font-size: 0.84rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .profile-chip img {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid var(--primary);
+    }
+
+    /* Container & Sections */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    section { padding: 56px 0; }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 40px;
+      align-items: center;
+      padding-top: 40px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0, 242, 254, 0.09);
+      border: 1px solid rgba(0, 242, 254, 0.25);
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      line-height: 1.14;
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.02rem;
+      line-height: 1.65;
+      margin-bottom: 26px;
+      max-width: 560px;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .trust-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      font-size: 0.84rem;
+      color: var(--muted);
+    }
+
+    .trust-tags span i { color: var(--accent); margin-right: 5px; }
+
+    /* Mockup Card */
+    .mockup-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55);
+    }
+
+    .win-dots {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+
+    .win-dots i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .drop-preview {
+      border: 1.5px dashed rgba(0, 242, 254, 0.4);
+      border-radius: 14px;
+      padding: 28px 18px;
+      text-align: center;
+      background: rgba(0, 242, 254, 0.03);
+      margin-bottom: 16px;
+    }
+
+    .drop-preview i {
+      font-size: 2rem;
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    .file-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+    }
+
+    .chip b { color: var(--primary); margin-right: 4px; }
+
+    .link-preview {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      font-size: 0.85rem;
+    }
+
+    /* Stats */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    .stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 22px;
+      text-align: center;
+    }
+
+    .stat-box b {
+      display: block;
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 4px;
+    }
+
+    .stat-box span { font-size: 0.86rem; color: var(--muted); }
+
+    /* Section Headings */
+    .sec-head {
+      text-align: center;
+      max-width: 650px;
+      margin: 0 auto 42px;
+    }
+
+    .sec-head .tag {
+      color: var(--primary);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .sec-head h2 {
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      margin: 8px 0 12px;
+    }
+
+    .sec-head p { color: var(--muted); font-size: 0.96rem; line-height: 1.6; }
+
+    /* Features & Steps */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 26px;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 242, 254, 0.35);
+    }
+
+    .icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 11px;
+      background: rgba(0, 242, 254, 0.1);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 { font-size: 1.12rem; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
+
+    /* Pricing */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+    }
+
+    .plan-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .plan-card.popular {
+      border-color: var(--primary);
+      box-shadow: 0 0 30px rgba(0, 242, 254, 0.14);
+    }
+
+    .plan-ribbon {
+      position: absolute;
+      top: -11px;
+      right: 16px;
+      background: var(--gradient);
+      color: #041019;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .plan-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; }
+
+    .plan-price {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .plan-price span { font-size: 0.85rem; color: var(--muted); font-weight: 500; }
+
+    .plan-list {
+      list-style: none;
+      margin-bottom: 22px;
+      flex: 1;
+    }
+
+    .plan-list li {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .plan-list li i { color: var(--accent); }
+
+    /* FAQ */
+    .faq-wrap {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    details {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 20px;
+    }
+
+    summary {
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    details p {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* Developer Card */
+    .dev-card {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--bg-card);
+      border: 1px solid rgba(0, 242, 254, 0.28);
+      border-radius: 20px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      gap: 26px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+    }
+
+    .dev-card img {
+      width: 112px;
+      height: 112px;
+      border-radius: 18px;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      flex-shrink: 0;
+    }
+
+    .dev-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    /* User Dashboard & Admin Panel */
+    .panel-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 26px;
+      margin-bottom: 28px;
+    }
+
+    .dash-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 22px;
+    }
+
+    .plan-pill {
+      padding: 5px 12px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.16);
+      color: var(--accent);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+
+    .upload-zone {
+      border: 2px dashed rgba(0, 242, 254, 0.45);
+      border-radius: 16px;
+      padding: 34px 20px;
+      text-align: center;
+      background: rgba(0, 242, 254, 0.03);
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .upload-zone:hover { background: rgba(0, 242, 254, 0.07); }
+
+    .progress-wrap {
+      margin-top: 16px;
+      display: none;
+    }
+
+    .progress-bar {
+      height: 10px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--gradient);
+      transition: width 0.2s;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+
+    th, td {
+      text-align: left;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    th { color: var(--muted); font-weight: 600; }
+
+    /* Forms & Modals */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 5, 10, 0.84);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      padding: 16px;
+      overflow-y: auto;
+    }
+
+    .modal-backdrop.active { display: flex; }
+
+    .modal {
+      background: var(--bg-card-solid);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      width: 100%;
+      max-width: 450px;
+      padding: 26px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.75);
+      margin: auto;
+    }
+
+    .modal-lg {
+      max-width: 920px;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+    }
+
+    .form-group { margin-bottom: 14px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 13px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 0.92rem;
+      outline: none;
+    }
+
+    .form-control:focus { border-color: var(--primary); }
+
+    .easypaisa-box {
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 16px;
+      font-size: 0.88rem;
+    }
+
+    .easypaisa-box div { margin-bottom: 5px; }
+
+    .admin-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Profile Modal Avatar */
+    .profile-avatar-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .profile-avatar-box img {
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* Clean Normal Footer Below Developer Card */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 20px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-projects {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 22px;
+      margin-bottom: 14px;
+    }
+
+    .footer-projects a {
+      color: #cbd5e1;
+      font-weight: 500;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+    }
+
+    .footer-projects a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    /* Public Download View */
+    #publicDownloadView {
+      display: none;
+      min-height: 75vh;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .dl-card {
+      max-width: 480px;
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--primary);
+      border-radius: 20px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 22px;
+      right: 22px;
+      background: #131a29;
+      border: 1px solid var(--primary);
+      color: var(--text);
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      z-index: 2000;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+
+    @media (max-width: 960px) {
+      .hero, .admin-grid { grid-template-columns: 1fr; }
+      .pricing-grid, .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .grid-3 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+
+    @media (max-width: 560px) {
+      .pricing-grid, .stats-grid { grid-template-columns: 1fr; }
+      .dev-card { flex-direction: column; text-align: center; }
+      .dev-links { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="topHome">
+    <div class="nav-wrap">
+      <a href="#topHome" class="brand">
+        <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="HASSAN FILES TO LINKS" />
+        <span>HASSAN FILES TO LINKS</span>
+      </a>
+      <nav class="nav-links">
+        <a href="#features">Features</a>
+        <a href="#how">How It Works</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="#developer">Developer</a>
+      </nav>
+      <div class="nav-actions" id="navAuthArea">
+        <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
+        <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Get Started</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Public File Download View (Opens when ?file=FILE_ID is visited) -->
+  <div id="publicDownloadView">
+    <div class="dl-card">
+      <div class="icon-box" style="margin: 0 auto 16px; width: 60px; height: 60px; font-size: 1.6rem;">
+        <i class="fa-solid fa-file-arrow-down"></i>
+      </div>
+      <h2 id="dlFileName" style="margin-bottom: 8px; word-break: break-all;">Loading file...</h2>
+      <p id="dlFileMeta" style="color: var(--muted); font-size: 0.9rem; margin-bottom: 22px;">Please wait...</p>
+      <a id="dlBtn" href="#" target="_blank" class="btn btn-primary" style="width: 100%; padding: 13px;">
+        <i class="fa-solid fa-download"></i> Download File Now
+      </a>
+      <div style="margin-top: 16px;">
+        <a href="?" style="font-size: 0.84rem; color: var(--primary);">← Upload your own files on HASSAN FILES TO LINKS</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Website View -->
+  <main id="mainSiteView">
+
+    <!-- User Dashboard & Admin Section (Visible immediately after Login) -->
+    <section id="dashboardSection" style="display: none; padding-bottom: 10px; padding-top: 28px;">
+      <div class="container">
+
+        <!-- Admin Panel (Opens automatically for Admin Gmail via Google Login OR Manual Login) -->
+        <div id="adminPanelBox" class="panel-box" style="display: none; border-color: rgba(245, 158, 11, 0.55);">
+          <div class="dash-header">
+            <div>
+              <h2 style="color: #fcd34d;"><i class="fa-solid fa-crown"></i> Admin Plan Manager</h2>
+              <p style="color: var(--muted); font-size: 0.86rem;">Assign any pricing plan by Username or Email, manage registered users, or approve EasyPaisa payments.</p>
+            </div>
+            <span id="adminBadgeEmail" class="plan-pill" style="background: rgba(245,158,11,0.16); color: #fcd34d; border-color: rgba(245,158,11,0.4);">ADMIN</span>
+          </div>
+
+          <div class="admin-grid">
+            <!-- Direct Plan Assign by Username/Email -->
+            <div>
+              <h4 style="margin-bottom: 12px;">Assign Plan to User</h4>
+              <div class="form-group">
+                <label>Enter Username or User Email</label>
+                <input type="text" id="adminTargetUser" class="form-control" placeholder="e.g. ali123 or user@gmail.com" />
+              </div>
+              <div class="form-group">
+                <label>Select Plan</label>
+                <select id="adminTargetPlan" class="form-control">
+                  <option value="free">Free — Rs 0 (1,024 MB Storage / 100 MB File)</option>
+                  <option value="weekly">Weekly — Rs 50 (2,048 MB Storage / 300 MB File / 7 Days)</option>
+                  <option value="monthly">Monthly — Rs 100 (1,024 MB Storage / 100 MB File / 30 Days)</option>
+                  <option value="yearly">Yearly — Rs 500 (10,240 MB Storage / 500 MB File / 365 Days)</option>
+                </select>
+              </div>
+              <button class="btn btn-primary" onclick="adminAssignPlan()">
+                <i class="fa-solid fa-check-circle"></i> Activate Plan Now
+              </button>
+            </div>
+
+            <!-- EasyPaisa Payment Requests -->
+            <div>
+              <h4 style="margin-bottom: 12px;">Pending EasyPaisa Requests</h4>
+              <div id="adminRequestsList" style="max-height: 230px; overflow-y: auto; font-size: 0.85rem; color: var(--muted);">
+                Loading requests...
+              </div>
+            </div>
+          </div>
+
+          <!-- Registered Users Quick List for Admin -->
+          <div style="margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--border);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+              <h4>All Registered Users</h4>
+              <button class="btn btn-outline" style="padding: 5px 10px; font-size: 0.78rem;" onclick="loadAllUsersForAdmin()">
+                <i class="fa-solid fa-rotate"></i> Refresh Users
+              </button>
+            </div>
+            <div class="table-wrap" style="margin-top: 6px; max-height: 240px; overflow-y: auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Current Plan</th>
+                    <th>Quick Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adminUsersTable">
+                  <tr><td colspan="4" style="color: var(--muted);">Loading users...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- User File Upload & Dashboard -->
+        <div class="panel-box">
+          <div class="dash-header">
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <img id="dashUserAvatar" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Profile" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" />
+              <div>
+                <h2 id="dashWelcome">Welcome!</h2>
+                <p id="dashUserMeta" style="color: var(--muted); font-size: 0.86rem;">Username: —</p>
+              </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <span id="dashPlanBadge" class="plan-pill">FREE PLAN</span>
+              <span id="dashStorageText" style="font-size: 0.84rem; color: var(--muted);">0 MB / 1,024 MB</span>
+              <button class="btn btn-outline" onclick="openModal('profileModal')"><i class="fa-solid fa-user-gear"></i> Profile</button>
+              <button class="btn btn-primary" onclick="openModal('buyModal')"><i class="fa-solid fa-bolt"></i> Upgrade Plan</button>
+            </div>
+          </div>
+
+          <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
+            <input type="file" id="fileInput" hidden onchange="handleFileUpload(this.files[0])" />
+            <i class="fa-solid fa-cloud-arrow-up" style="font-size: 2.3rem; color: var(--primary); margin-bottom: 10px;"></i>
+            <h3>Click to Upload Any File</h3>
+            <p id="uploadLimitHint" style="color: var(--muted); font-size: 0.86rem; margin-top: 6px;">Max file size: 100 MB (Free Plan)</p>
+          </div>
+
+          <div class="progress-wrap" id="progressWrap">
+            <div style="display: flex; justify-content: space-between; font-size: 0.84rem;">
+              <span id="uploadFileName">Uploading...</span>
+              <span id="uploadPercent">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File Name</th>
+                  <th>Size</th>
+                  <th>Downloads</th>
+                  <th>Shareable Link</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="userFilesTable">
+                <tr><td colspan="5" style="color: var(--muted); text-align: center;">No files uploaded yet.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="container hero">
+      <div>
+        <div class="badge"><i class="fa-solid fa-bolt"></i> Fast, secure file hosting & instant links</div>
+        <h1>Send any file with a single <span>link.</span></h1>
+        <p><strong>HASSAN FILES TO LINKS</strong> turns any file into a clean, shareable link in seconds. Upload from your phone or desktop, share anywhere on WhatsApp or Telegram, and track every download.</p>
+        <div class="hero-btns">
+          <button id="heroCreateAccountBtn" class="btn btn-primary" onclick="openModal('authModal', 'signup')"><i class="fa-solid fa-user-plus"></i> Create Free Account</button>
+          <button id="heroUploadDirectBtn" class="btn btn-primary" style="display: none;" onclick="document.getElementById('fileInput').click()"><i class="fa-solid fa-cloud-arrow-up"></i> Upload File Now</button>
+          <button class="btn btn-outline" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</button>
+        </div>
+        <div class="trust-tags">
+          <span><i class="fa-solid fa-check-circle"></i> Free plan included</span>
+          <span><i class="fa-solid fa-check-circle"></i> No account needed to download</span>
+          <span><i class="fa-solid fa-check-circle"></i> EasyPaisa supported</span>
+        </div>
+      </div>
+
+      <div class="mockup-card">
+        <div class="win-dots">
+          <i style="background:#ef4444"></i>
+          <i style="background:#f59e0b"></i>
+          <i style="background:#10b981"></i>
+          <span style="margin-left: 6px;">upload — HASSAN FILES TO LINKS</span>
+        </div>
+        <div class="file-chips">
+          <span class="chip"><b>PDF</b> report.pdf</span>
+          <span class="chip"><b>MP4</b> video.mp4</span>
+          <span class="chip"><b>ZIP</b> archive.zip</span>
+          <span class="chip"><b>APK</b> app.apk</span>
+        </div>
+        <div class="drop-preview">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <div><b>Drop files to upload</b></div>
+          <small style="color: var(--muted);">Instant link generation from any device</small>
+        </div>
+        <div class="link-preview">
+          <span><i class="fa-solid fa-link" style="color: var(--accent);"></i> <b>?file=Hs9xK2mP</b></span>
+          <span style="color: var(--accent); font-weight: 600;">Ready to share</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Statistics -->
+    <section class="container" style="padding-top: 20px;">
+      <div class="stats-grid">
+        <div class="stat-box"><b id="statFiles">1,240+</b><span>Files hosted</span></div>
+        <div class="stat-box"><b id="statUsers">580+</b><span>Registered users</span></div>
+        <div class="stat-box"><b id="statDownloads">9,450+</b><span>Total downloads</span></div>
+        <div class="stat-box"><b>99.9%</b><span>Uptime speed</span></div>
+      </div>
+    </section>
+
+    <!-- Why Us -->
+    <section id="features" class="container">
+      <div class="sec-head">
+        <span class="tag">Why Hassan Files To Links</span>
+        <h2>Built for serious sharing</h2>
+        <p>Everything between choosing a file and your recipient downloading it — engineered to take seconds, not steps.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box"><i class="fa-solid fa-bolt"></i></div>
+          <h3>Links in seconds</h3>
+          <p>Every upload instantly generates a unique share link. Send it over WhatsApp, Telegram or email — your recipient downloads from one clean page, no sign-up required.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box"><i class="fa-solid fa-sliders"></i></div>
+          <h3>Total control</h3>
+          <p>Copy links, manage your storage usage, and watch download counts in real time — your dashboard keeps every upload organised and within reach.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box"><i class="fa-solid fa-shield-halved"></i></div>
+          <h3>Protected cloud storage</h3>
+          <p>Powered by Google Firebase cloud infrastructure for reliable storage and fast direct downloads across mobile and desktop devices.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how" class="container">
+      <div class="sec-head">
+        <span class="tag">How it works</span>
+        <h2>From upload to shared in three steps</h2>
+      </div>
+      <div class="grid-3">
+        <div class="card">
+          <div class="icon-box"><b>01</b></div>
+          <h3>Create your free account</h3>
+          <p>Sign up with your email or Google account and upload straight away on the Free plan. Upgrade any time with EasyPaisa.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box"><b>02</b></div>
+          <h3>Drop your file</h3>
+          <p>Pick a file from your phone or computer. The moment the upload lands, your share link is generated automatically.</p>
+        </div>
+        <div class="card">
+          <div class="icon-box"><b>03</b></div>
+          <h3>Share it anywhere</h3>
+          <p>Send the link over WhatsApp, Telegram or email. Your recipient downloads from one clean page — no account needed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="container">
+      <div class="sec-head">
+        <span class="tag">Plans</span>
+        <h2>Pricing that scales with you</h2>
+        <p>Start free. Upgrade in minutes with EasyPaisa — your new limits activate the moment your payment is verified.</p>
+      </div>
+
+      <div class="pricing-grid">
+        <!-- Free -->
+        <div class="plan-card">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">Rs 0 <span>/ forever</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 100 MB per file</li>
+            <li><i class="fa-solid fa-check"></i> No expiry</li>
+            <li><i class="fa-solid fa-check"></i> Instant share links</li>
+          </ul>
+          <button class="btn btn-outline free-plan-cta" onclick="handleFreePlanClick()">Get Started Free</button>
+        </div>
+
+        <!-- Weekly -->
+        <div class="plan-card popular">
+          <span class="plan-ribbon">Top Selling</span>
+          <div class="plan-name">Weekly</div>
+          <div class="plan-price">Rs 50 <span>/ 7 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 2,048 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 300 MB per file</li>
+            <li><i class="fa-solid fa-check"></i> 7 days validity</li>
+            <li><i class="fa-solid fa-check"></i> Instant share links</li>
+          </ul>
+          <button class="btn btn-primary" onclick="selectPlanToBuy('weekly')">Buy Weekly Plan</button>
+        </div>
+
+        <!-- Monthly -->
+        <div class="plan-card">
+          <span class="plan-ribbon" style="background: #4facfe;">Budget Friendly</span>
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price">Rs 100 <span>/ 30 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 100 MB per file</li>
+            <li><i class="fa-solid fa-check"></i> 30 days validity</li>
+            <li><i class="fa-solid fa-check"></i> Instant share links</li>
+          </ul>
+          <button class="btn btn-outline" onclick="selectPlanToBuy('monthly')">Buy Monthly Plan</button>
+        </div>
+
+        <!-- Yearly -->
+        <div class="plan-card">
+          <span class="plan-ribbon" style="background: #10b981;">Best Value</span>
+          <div class="plan-name">Yearly</div>
+          <div class="plan-price">Rs 500 <span>/ 365 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 10,240 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 500 MB per file</li>
+            <li><i class="fa-solid fa-check"></i> 365 days validity</li>
+            <li><i class="fa-solid fa-check"></i> Instant share links</li>
+          </ul>
+          <button class="btn btn-outline" onclick="selectPlanToBuy('yearly')">Buy Yearly Plan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container">
+      <div class="sec-head">
+        <span class="tag">FAQ</span>
+        <h2>Questions, answered</h2>
+      </div>
+      <div class="faq-wrap">
+        <details>
+          <summary>Do I need an account to upload? <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>Yes — uploads are tied to a free account so your files, links and download counts stay under your control. Downloading never requires an account.</p>
+        </details>
+        <details>
+          <summary>How large can a file be? <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>It depends on your plan. The Free plan allows files up to 100 MB and 1,024 MB total storage; paid plans raise limits up to 500 MB per file and 10,240 MB storage.</p>
+        </details>
+        <details>
+          <summary>How do I pay for a plan? <i class="fa-solid fa-chevron-down"></i></summary>
+          <p>We accept EasyPaisa (<strong>03451212815</strong> — Holder Name: <strong>ANSARIQBAL</strong>). Send the exact amount, then submit your Transaction ID (TID) and username. Your plan activates as soon as verified.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Developer Section -->
+    <section id="developer" class="container">
+      <div class="sec-head">
+        <span class="tag">Developer</span>
+        <h2>Meet the Creator</h2>
+      </div>
+      <div class="dev-card">
+        <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="HASSAN OFC" />
+        <div>
+          <h3 style="font-size: 1.4rem; margin-bottom: 4px;">HASSAN OFC <span style="font-size: 0.78rem; color: var(--primary); font-weight: 700;">Developer</span></h3>
+          <p style="color: var(--muted); font-size: 0.92rem; line-height: 1.6;">
+            Creator of <strong>HASSAN FILES TO LINKS</strong> — building fast, mobile-friendly web tools, cloud utilities, and instant file sharing solutions.
+          </p>
+          <div class="dev-links">
+            <a href="https://wa.me/923294675242" target="_blank" rel="noopener" class="btn btn-primary">
+              <i class="fa-brands fa-whatsapp"></i> HASSAN OFC
+            </a>
+            <a href="https://t.me/hassanff01" target="_blank" rel="noopener" class="btn btn-outline">
+              <i class="fa-brands fa-telegram"></i> HASSAN YG OFC
+            </a>
+            <a href="https://YouTube.com/@hassan-ff-1x2" target="_blank" rel="noopener" class="btn btn-outline">
+              <i class="fa-brands fa-youtube" style="color:#ef4444;"></i> HASSAN YT OFC
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer with Normal Links Below Developer Card -->
+  <footer>
+    <div class="container">
+      <div class="footer-projects">
+        <a href="https://hassan-portfolio-v1-one.vercel.app" target="_blank" rel="noopener">Portfolio</a>
+        <a href="https://toolkit.page.gd/t/hassan-2nd-toolkit" target="_blank" rel="noopener">Main Toolkit</a>
+        <a href="https://hassan-toolkit-pro.vercel.app" target="_blank" rel="noopener">2nd Toolkit</a>
+      </div>
+      <p style="color: var(--muted); font-size: 0.85rem;">© 2026 <strong>HASSAN FILES TO LINKS</strong>. Developed by <strong>HASSAN OFC</strong>.</p>
+    </div>
+  </footer>
+
+  <!-- Profile Modal (Picture Update + Email/Username + Old & 2x New Password Change) -->
+  <div class="modal-backdrop" id="profileModal">
+    <div class="modal">
+      <button class="close-modal" onclick="closeModal('profileModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 style="margin-bottom: 14px;">My Profile Settings</h3>
+
+      <div class="profile-avatar-box">
+        <img id="profileModalImg" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" alt="Avatar" />
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+          <input type="file" id="avatarFileInput" accept="image/*" hidden onchange="uploadProfilePhoto(this.files[0])" />
+          <button class="btn btn-outline" style="padding: 6px 12px; font-size: 0.8rem;" onclick="document.getElementById('avatarFileInput').click()">
+            <i class="fa-solid fa-camera"></i> Upload Photo
+          </button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Or Paste Profile Picture URL</label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="profilePhotoUrlInput" class="form-control" placeholder="https://..." />
+          <button class="btn btn-primary" style="padding: 8px 12px;" onclick="saveProfilePhotoUrl()">Save</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" id="profileUsernameDisplay" class="form-control" readonly style="opacity: 0.75;" />
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="text" id="profileEmailDisplay" class="form-control" readonly style="opacity: 0.75;" />
+      </div>
+
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;" />
+
+      <h4 style="margin-bottom: 10px; font-size: 0.95rem;"><i class="fa-solid fa-lock" style="color: var(--primary);"></i> Change Password</h4>
+
+      <div class="form-group">
+        <label>Old Password</label>
+        <input type="password" id="oldPasswordInput" class="form-control" placeholder="Enter current password" />
+      </div>
+
+      <div class="form-group">
+        <label>New Password</label>
+        <input type="password" id="newPasswordInput" class="form-control" placeholder="Enter new password" />
+      </div>
+
+      <div class="form-group">
+        <label>Confirm New Password (Re-enter)</label>
+        <input type="password" id="confirmNewPasswordInput" class="form-control" placeholder="Re-enter new password to verify" />
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%;" onclick="handleChangePassword()">
+        <i class="fa-solid fa-key"></i> Update Password
+      </button>
+    </div>
+  </div>
+
+  <!-- See Plans Popup Modal (Accessible directly from Top Navbar) -->
+  <div class="modal-backdrop" id="plansPopupModal">
+    <div class="modal modal-lg">
+      <button class="close-modal" onclick="closeModal('plansPopupModal')"><i class="fa-solid fa-xmark"></i></button>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h3 style="font-size: 1.5rem;">Available Hosting Plans</h3>
+        <p style="color: var(--muted); font-size: 0.88rem;">Choose a plan and upgrade instantly via EasyPaisa (03451212815 — ANSARIQBAL)</p>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="plan-card">
+          <div class="plan-name">Free</div>
+          <div class="plan-price">Rs 0 <span>/ forever</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 100 MB/file</li>
+            <li><i class="fa-solid fa-check"></i> No expiry</li>
+          </ul>
+          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); handleFreePlanClick();">Active / Start Free</button>
+        </div>
+
+        <div class="plan-card popular">
+          <span class="plan-ribbon">Top Selling</span>
+          <div class="plan-name">Weekly</div>
+          <div class="plan-price">Rs 50 <span>/ 7 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 2,048 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 300 MB/file</li>
+            <li><i class="fa-solid fa-check"></i> 7 days validity</li>
+          </ul>
+          <button class="btn btn-primary" onclick="closeModal('plansPopupModal'); selectPlanToBuy('weekly');">Buy Weekly</button>
+        </div>
+
+        <div class="plan-card">
+          <span class="plan-ribbon" style="background: #4facfe;">Budget Friendly</span>
+          <div class="plan-name">Monthly</div>
+          <div class="plan-price">Rs 100 <span>/ 30 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 1,024 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 100 MB/file</li>
+            <li><i class="fa-solid fa-check"></i> 30 days validity</li>
+          </ul>
+          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); selectPlanToBuy('monthly');">Buy Monthly</button>
+        </div>
+
+        <div class="plan-card">
+          <span class="plan-ribbon" style="background: #10b981;">Best Value</span>
+          <div class="plan-name">Yearly</div>
+          <div class="plan-price">Rs 500 <span>/ 365 days</span></div>
+          <ul class="plan-list">
+            <li><i class="fa-solid fa-check"></i> 10,240 MB storage</li>
+            <li><i class="fa-solid fa-check"></i> Up to 500 MB/file</li>
+            <li><i class="fa-solid fa-check"></i> 365 days validity</li>
+          </ul>
+          <button class="btn btn-outline" onclick="closeModal('plansPopupModal'); selectPlanToBuy('yearly');">Buy Yearly</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal (Login / Sign Up / Google Login) -->
+  <div class="modal-backdrop" id="authModal">
+    <div class="modal">
+      <button class="close-modal" onclick="closeModal('authModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 id="authTitle" style="margin-bottom: 6px;">Welcome Back</h3>
+      <p id="authSub" style="color: var(--muted); font-size: 0.86rem; margin-bottom: 18px;">Sign in with Google or Email to manage your files.</p>
+
+      <button class="btn btn-outline" style="width: 100%; margin-bottom: 14px; border-color: rgba(0, 242, 254, 0.35);" onclick="handleGoogleAuth()">
+        <i class="fa-brands fa-google" style="color: #00f2fe;"></i> Continue with Google
+      </button>
+
+      <div style="text-align: center; font-size: 0.78rem; color: var(--muted); margin-bottom: 14px;">— OR USE EMAIL & PASSWORD —</div>
+
+      <div class="form-group" id="usernameGroup" style="display: none;">
+        <label>Username (Unique)</label>
+        <input type="text" id="authUsername" class="form-control" placeholder="e.g. hassan_ff" />
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="authEmail" class="form-control" placeholder="you@example.com" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="authPassword" class="form-control" placeholder="••••••••" />
+      </div>
+
+      <button id="authSubmitBtn" class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="handleEmailAuth()">
+        Sign In
+      </button>
+
+      <p style="text-align: center; font-size: 0.84rem; color: var(--muted);">
+        <span id="authSwitchText">Don't have an account?</span>
+        <a href="javascript:void(0)" id="authSwitchLink" style="color: var(--primary); font-weight: 600;" onclick="toggleAuthMode()">Create Account</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- EasyPaisa Payment Modal -->
+  <div class="modal-backdrop" id="buyModal">
+    <div class="modal">
+      <button class="close-modal" onclick="closeModal('buyModal')"><i class="fa-solid fa-xmark"></i></button>
+      <h3 style="margin-bottom: 6px;">Upgrade Plan via EasyPaisa</h3>
+      <p style="color: var(--muted); font-size: 0.85rem; margin-bottom: 14px;">Send exact payment to the EasyPaisa account below and submit your TID.</p>
+
+      <div class="easypaisa-box">
+        <div><strong>Payment Method:</strong> EasyPaisa Only</div>
+        <div><strong>Account Number:</strong> <span style="color: var(--primary); font-weight: 800; font-size: 1rem;">03451212815</span></div>
+        <div><strong>Holder Name:</strong> <span style="color: var(--accent); font-weight: 700;">ANSARIQBAL</span></div>
+      </div>
+
+      <div class="form-group">
+        <label>Select Plan</label>
+        <select id="buyPlanSelect" class="form-control">
+          <option value="weekly">Weekly — Rs 50 (2,048 MB Storage / 300 MB File)</option>
+          <option value="monthly">Monthly — Rs 100 (1,024 MB Storage / 100 MB File)</option>
+          <option value="yearly">Yearly — Rs 500 (10,240 MB Storage / 500 MB File)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>EasyPaisa Transaction ID (TID)</label>
+        <input type="text" id="buyTidInput" class="form-control" placeholder="e.g. 29481047291" />
+      </div>
+
+      <div class="form-group">
+        <label>Sender Number / Screenshot Link (Optional)</label>
+        <input type="text" id="buyProofInput" class="form-control" placeholder="03XX-XXXXXXX or image link" />
+      </div>
+
+      <button class="btn btn-primary" style="width: 100%;" onclick="submitPaymentRequest()">
+        <i class="fa-solid fa-paper-plane"></i> Submit Payment Verification
+      </button>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <!-- Firebase SDKs & App Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      GoogleAuthProvider,
+      signInWithPopup,
+      onAuthStateChanged,
+      signOut,
+      EmailAuthProvider,
+      reauthenticateWithCredential,
+      updatePassword
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      setDoc,
+      getDoc,
+      updateDoc,
+      collection,
+      addDoc,
+      query,
+      where,
+      getDocs,
+      deleteDoc,
+      increment
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+      getStorage,
+      ref,
+      uploadBytesResumable,
+      getDownloadURL,
+      deleteObject
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+    // =========================================================================
+    // 1. APNE FIREBASE PROJECT KI DETAILS YAHAN PASTE KAREIN (Firebase Console se)
+    // =========================================================================
+    const firebaseConfig = {
+  apiKey: "AIzaSyDArsxH6hJCPeWpMQWCd5krqHUagkb1jcE",
+  authDomain: "file-to-link-4af77.firebaseapp.com",
+  projectId: "file-to-link-4af77",
+  storageBucket: "file-to-link-4af77.firebasestorage.app",
+  messagingSenderId: "5103511141",
+  appId: "1:5103511141:web:c13c56ef3574ff3af1088c"
+};
+
+    // =========================================================================
+    // 2. MANUAL ADMIN EMAIL & PASSWORD SETTINGS
+    // =========================================================================
+    const ADMIN_CONFIG = {
+      email: "ansarbubble43@gmail.com",
+      manualPassword: "HASSAN1DEV",
+      username: "hassan_admin"
+    };
+    // =========================================================================
+
+    const DEFAULT_AVATAR = "https://i.ibb.co/21qmyHBJ/jawadmd.jpg";
+
+    const PLANS = {
+      free:    { name: "Free",    price: 0,   storageMB: 1024,  maxFileMB: 100, days: 36500 },
+      weekly:  { name: "Weekly",  price: 50,  storageMB: 2048,  maxFileMB: 300, days: 7 },
+      monthly: { name: "Monthly", price: 100, storageMB: 1024,  maxFileMB: 100, days: 30 },
+      yearly:  { name: "Yearly",  price: 500, storageMB: 10240, maxFileMB: 500, days: 365 }
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+    const storage = getStorage(app);
+
+    let currentUser = null;
+    let currentUserData = null;
+    let authMode = "login";
+
+    function isAdminEmail(email) {
+      return email && email.trim().toLowerCase() === ADMIN_CONFIG.email.trim().toLowerCase();
+    }
+
+    // Toast helper
+    window.showToast = (msg) => {
+      const t = document.getElementById("toast");
+      t.textContent = msg;
+      t.style.display = "block";
+      setTimeout(() => { t.style.display = "none"; }, 4000);
+    };
+
+    // Modal controls
+    window.openModal = (id, mode = null) => {
+      if (mode) setAuthMode(mode);
+      if (id === "profileModal" && currentUser && currentUserData) {
+        document.getElementById("profileModalImg").src = currentUserData.photoURL || currentUser.photoURL || DEFAULT_AVATAR;
+        document.getElementById("profilePhotoUrlInput").value = currentUserData.photoURL || "";
+        document.getElementById("profileUsernameDisplay").value = currentUserData.username || "";
+        document.getElementById("profileEmailDisplay").value = currentUser.email || "";
+        document.getElementById("oldPasswordInput").value = "";
+        document.getElementById("newPasswordInput").value = "";
+        document.getElementById("confirmNewPasswordInput").value = "";
+      }
+      document.getElementById(id).classList.add("active");
+    };
+
+    window.closeModal = (id) => {
+      document.getElementById(id).classList.remove("active");
+    };
+
+    function setAuthMode(mode) {
+      authMode = mode;
+      const isSignup = mode === "signup";
+      document.getElementById("authTitle").textContent = isSignup ? "Create Free Account" : "Welcome Back";
+      document.getElementById("authSub").textContent = isSignup
+        ? "Sign up with Google or Email to generate instant links."
+        : "Sign in with Google or Email to access your dashboard.";
+      document.getElementById("usernameGroup").style.display = isSignup ? "block" : "none";
+      document.getElementById("authSubmitBtn").textContent = isSignup ? "Create Account" : "Sign In";
+      document.getElementById("authSwitchText").textContent = isSignup ? "Already have an account?" : "Don't have an account?";
+      document.getElementById("authSwitchLink").textContent = isSignup ? "Sign In" : "Create Account";
+    }
+
+    window.toggleAuthMode = () => {
+      setAuthMode(authMode === "login" ? "signup" : "login");
+    };
+
+    window.handleFreePlanClick = () => {
+      if (!currentUser) {
+        openModal("authModal", "signup");
+      } else {
+        document.getElementById("dashboardSection").scrollIntoView({ behavior: "smooth" });
+        showToast("You are already logged in! Upload files from your dashboard.");
+      }
+    };
+
+    window.selectPlanToBuy = (planKey) => {
+      if (!currentUser) {
+        showToast("Please login or create an account first!");
+        openModal("authModal", "signup");
+        return;
+      }
+      document.getElementById("buyPlanSelect").value = planKey;
+      openModal("buyModal");
+    };
+
+    // Email Sign Up & Sign In
+    window.handleEmailAuth = async () => {
+      const email = document.getElementById("authEmail").value.trim().toLowerCase();
+      const password = document.getElementById("authPassword").value;
+      const username = document.getElementById("authUsername").value.trim().toLowerCase();
+
+      if (!email || !password) return showToast("Please enter email and password.");
+
+      // Admin Manual Login Check
+      if (authMode === "login" && isAdminEmail(email) && password === ADMIN_CONFIG.manualPassword) {
+        try {
+          await signInWithEmailAndPassword(auth, email, password);
+          showToast("Admin logged in successfully!");
+          closeModal("authModal");
+          return;
+        } catch (loginErr) {
+          try {
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
+            await ensureUserProfile(cred.user, ADMIN_CONFIG.username);
+            showToast("Admin account initialized & logged in!");
+            closeModal("authModal");
+            return;
+          } catch (createErr) {
+            showToast("Ye Gmail Google se linked hai — upar 'Continue with Google' par click karke login karein!");
+            return;
+          }
+        }
+      }
+
+      try {
+        if (authMode === "signup") {
+          if (!username || username.length < 3) return showToast("Enter a username (min 3 characters).");
+          const cred = await createUserWithEmailAndPassword(auth, email, password);
+          await ensureUserProfile(cred.user, username);
+          showToast("Account created successfully!");
+        } else {
+          await signInWithEmailAndPassword(auth, email, password);
+          showToast("Logged in successfully!");
+        }
+        closeModal("authModal");
+      } catch (err) {
+        if (err.code === "auth/invalid-credential" || err.code === "auth/user-not-found" || err.code === "auth/wrong-password") {
+          showToast("Email ya password ghalat hai. Agar Google account hai toh 'Continue with Google' dabayein.");
+        } else {
+          showToast(err.message.replace("Firebase:", "").trim());
+        }
+      }
+    };
+
+    // Google Sign In
+    window.handleGoogleAuth = async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        const res = await signInWithPopup(auth, provider);
+        const defaultUsername = isAdminEmail(res.user.email)
+          ? ADMIN_CONFIG.username
+          : res.user.email.split("@")[0].toLowerCase().replace(/[^a-z0-9_]/g, "");
+        await ensureUserProfile(res.user, defaultUsername);
+        showToast(isAdminEmail(res.user.email) ? "Welcome Admin! Admin Panel Unlocked." : "Signed in with Google!");
+        closeModal("authModal");
+      } catch (err) {
+        showToast(err.message.replace("Firebase:", "").trim());
+      }
+    };
+
+    window.handleLogout = async () => {
+      await signOut(auth);
+      showToast("Logged out.");
+    };
+
+    // Safe Profile Loader (Works even if Firestore Rules block read/write initially)
+    async function ensureUserProfile(user, preferredUsername) {
+      const fallbackProfile = {
+        uid: user.uid,
+        email: user.email.toLowerCase(),
+        username: preferredUsername || user.email.split("@")[0].toLowerCase(),
+        plan: isAdminEmail(user.email) ? "yearly" : "free",
+        usedMB: 0,
+        photoURL: user.photoURL || DEFAULT_AVATAR,
+        createdAt: Date.now()
+      };
+
+      try {
+        const userRef = doc(db, "users", user.uid);
+        const snap = await getDoc(userRef);
+        if (!snap.exists()) {
+          await setDoc(userRef, fallbackProfile);
+          return fallbackProfile;
+        }
+        return { ...fallbackProfile, ...snap.data() };
+      } catch (err) {
+        console.warn("Firestore read/write warning (check rules):", err.message);
+        return fallbackProfile;
+      }
+    }
+
+    // Auth State Listener — Immediately updates Navbar, Hero Buttons, Dashboard & Admin Panel
+    onAuthStateChanged(auth, async (user) => {
+      currentUser = user;
+      const navArea = document.getElementById("navAuthArea");
+      const dashSection = document.getElementById("dashboardSection");
+      const adminBox = document.getElementById("adminPanelBox");
+      const heroCreateBtn = document.getElementById("heroCreateAccountBtn");
+      const heroUploadBtn = document.getElementById("heroUploadDirectBtn");
+
+      if (user) {
+        const adminStatus = isAdminEmail(user.email);
+        const defaultUname = adminStatus
+          ? ADMIN_CONFIG.username
+          : user.email.split("@")[0].toLowerCase();
+
+        // 1. Immediately switch UI so Login & Create Free Account disappear right away!
+        if (heroCreateBtn) heroCreateBtn.style.display = "none";
+        if (heroUploadBtn) heroUploadBtn.style.display = "inline-flex";
+        dashSection.style.display = "block";
+        adminBox.style.display = adminStatus ? "block" : "none";
+
+        // 2. Load profile data from Firestore (with safe fallback)
+        currentUserData = await ensureUserProfile(user, defaultUname);
+        const avatarSrc = currentUserData.photoURL || user.photoURL || DEFAULT_AVATAR;
+
+        // 3. Render Navbar with Dashboard, See Plans, Profile Chip, Admin Badge & Logout
+        navArea.innerHTML = `
+          ${adminStatus ? `<a href="#dashboardSection" class="btn btn-admin"><i class="fa-solid fa-crown"></i> Admin</a>` : ""}
+          <a href="#topHome" onclick="document.getElementById('dashboardSection').scrollIntoView({behavior:'smooth'})" class="btn btn-outline"><i class="fa-solid fa-gauge-high"></i> Dashboard</a>
+          <button class="btn btn-outline" onclick="openModal('plansPopupModal')"><i class="fa-solid fa-tags"></i> See Plans</button>
+          <button class="profile-chip" onclick="openModal('profileModal')" title="Open Profile & Password Settings">
+            <img src="${avatarSrc}" alt="Profile" />
+            <span>@${currentUserData.username}</span>
+          </button>
+          <button class="btn btn-danger" style="padding: 8px 11px;" onclick="handleLogout()" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></button>
+        `;
+
+        if (adminStatus) {
+          document.getElementById("adminBadgeEmail").textContent = `ADMIN: ${user.email}`;
+        }
+
+        updateDashboardUI();
+        loadUserFiles();
+        if (adminStatus) {
+          loadAdminRequests();
+          loadAllUsersForAdmin();
+        }
+      } else {
+        currentUserData = null;
+        if (heroCreateBtn) heroCreateBtn.style.display = "inline-flex";
+        if (heroUploadBtn) heroUploadBtn.style.display = "none";
+        dashSection.style.display = "none";
+        adminBox.style.display = "none";
+        navArea.innerHTML = `
+          <button class="btn btn-outline" onclick="openModal('plansPopupModal')">See Plans</button>
+          <button class="btn btn-outline" onclick="openModal('authModal', 'login')">Login</button>
+          <button class="btn btn-primary" onclick="openModal('authModal', 'signup')">Get Started</button>
+        `;
+      }
+    });
+
+    function updateDashboardUI() {
+      if (!currentUserData) return;
+      const planKey = currentUserData.plan || "free";
+      const plan = PLANS[planKey] || PLANS.free;
+      const used = Number(currentUserData.usedMB || 0).toFixed(2);
+      const avatarSrc = currentUserData.photoURL || currentUser?.photoURL || DEFAULT_AVATAR;
+
+      document.getElementById("dashUserAvatar").src = avatarSrc;
+      document.getElementById("dashWelcome").textContent = `Hello, @${currentUserData.username}`;
+      document.getElementById("dashUserMeta").textContent = `Email: ${currentUserData.email} · Username: ${currentUserData.username}`;
+      document.getElementById("dashPlanBadge").textContent = `${plan.name.toUpperCase()} PLAN`;
+      document.getElementById("dashStorageText").textContent = `${used} MB / ${plan.storageMB.toLocaleString()} MB used`;
+      document.getElementById("uploadLimitHint").textContent = `Max file size: ${plan.maxFileMB} MB (${plan.name} Plan)`;
+    }
+
+    // Update Profile Picture (via File Upload to Firebase Storage)
+    window.uploadProfilePhoto = async (file) => {
+      if (!file || !currentUser) return;
+      showToast("Uploading profile picture...");
+      try {
+        const photoPath = `avatars/${currentUser.uid}_${Date.now()}_${file.name}`;
+        const storageRef = ref(storage, photoPath);
+        const task = await uploadBytesResumable(storageRef, file);
+        const url = await getDownloadURL(task.ref);
+        await updateDoc(doc(db, "users", currentUser.uid), { photoURL: url });
+        currentUserData.photoURL = url;
+        document.getElementById("profileModalImg").src = url;
+        document.getElementById("profilePhotoUrlInput").value = url;
+        updateDashboardUI();
+        // Refresh navbar avatar
+        const navImg = document.querySelector(".profile-chip img");
+        if (navImg) navImg.src = url;
+        showToast("Profile picture updated!");
+      } catch (err) {
+        showToast("Photo upload error: " + err.message);
+      }
+    };
+
+    // Update Profile Picture (via URL)
+    window.saveProfilePhotoUrl = async () => {
+      const url = document.getElementById("profilePhotoUrlInput").value.trim();
+      if (!url || !currentUser) return showToast("Please paste a valid image link.");
+      try {
+        await updateDoc(doc(db, "users", currentUser.uid), { photoURL: url });
+        currentUserData.photoURL = url;
+        document.getElementById("profileModalImg").src = url;
+        updateDashboardUI();
+        const navImg = document.querySelector(".profile-chip img");
+        if (navImg) navImg.src = url;
+        showToast("Profile picture saved!");
+      } catch (err) {
+        showToast("Error: " + err.message);
+      }
+    };
+
+    // Change Password (Old Password + 2x New Password Verification)
+    window.handleChangePassword = async () => {
+      if (!currentUser) return;
+      const oldPass = document.getElementById("oldPasswordInput").value;
+      const newPass = document.getElementById("newPasswordInput").value;
+      const confirmPass = document.getElementById("confirmNewPasswordInput").value;
+
+      if (!oldPass || !newPass || !confirmPass) {
+        return showToast("Please fill in Old Password and both New Password fields.");
+      }
+      if (newPass.length < 6) {
+        return showToast("New password must be at least 6 characters long.");
+      }
+      if (newPass !== confirmPass) {
+        return showToast("Dono New Password match nahi kar rahe! Dobara check karein.");
+      }
+
+      try {
+        const credential = EmailAuthProvider.credential(currentUser.email, oldPass);
+        await reauthenticateWithCredential(currentUser, credential);
+        await updatePassword(currentUser, newPass);
+        document.getElementById("oldPasswordInput").value = "";
+        document.getElementById("newPasswordInput").value = "";
+        document.getElementById("confirmNewPasswordInput").value = "";
+        showToast("Password successfully updated!");
+      } catch (err) {
+        if (err.code === "auth/wrong-password" || err.code === "auth/invalid-credential") {
+          showToast("Old Password ghalat hai! Sahi purana password enter karein.");
+        } else {
+          showToast("Password update error: " + err.message.replace("Firebase:", "").trim());
+        }
+      }
+    };
+
+    // File Upload Handler
+    window.handleFileUpload = async (file) => {
+      if (!file || !currentUser || !currentUserData) return;
+
+      const plan = PLANS[currentUserData.plan || "free"];
+      const fileSizeMB = file.size / (1024 * 1024);
+
+      if (fileSizeMB > plan.maxFileMB) {
+        return showToast(`File too large! Your ${plan.name} plan allows up to ${plan.maxFileMB} MB per file.`);
+      }
+
+      if ((currentUserData.usedMB || 0) + fileSizeMB > plan.storageMB) {
+        return showToast(`Not enough storage! Upgrade your plan for more space.`);
+      }
+
+      const progressWrap = document.getElementById("progressWrap");
+      const progressFill = document.getElementById("progressFill");
+      const uploadPercent = document.getElementById("uploadPercent");
+      document.getElementById("uploadFileName").textContent = file.name;
+      progressWrap.style.display = "block";
+
+      const uniquePath = `uploads/${currentUser.uid}/${Date.now()}_${file.name}`;
+      const storageRef = ref(storage, uniquePath);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+          progressFill.style.width = pct + "%";
+          uploadPercent.textContent = pct + "%";
+        },
+        (error) => {
+          progressWrap.style.display = "none";
+          showToast("Upload failed: " + error.message);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          await addDoc(collection(db, "files"), {
+            ownerUid: currentUser.uid,
+            ownerUsername: currentUserData.username,
+            fileName: file.name,
+            sizeMB: Number(fileSizeMB.toFixed(2)),
+            storagePath: uniquePath,
+            downloadURL,
+            downloads: 0,
+            createdAt: Date.now()
+          });
+
+          const newUsed = Number(((currentUserData.usedMB || 0) + fileSizeMB).toFixed(2));
+          await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
+          currentUserData.usedMB = newUsed;
+
+          progressWrap.style.display = "none";
+          progressFill.style.width = "0%";
+          document.getElementById("fileInput").value = "";
+          showToast("File uploaded & link generated!");
+          updateDashboardUI();
+          loadUserFiles();
+        }
+      );
+    };
+
+    // Load User Files
+    async function loadUserFiles() {
+      const tbody = document.getElementById("userFilesTable");
+      try {
+        const q = query(collection(db, "files"), where("ownerUid", "==", currentUser.uid));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          tbody.innerHTML = `<tr><td colspan="5" style="color: var(--muted); text-align: center;">No files uploaded yet.</td></tr>`;
+          return;
+        }
+
+        const baseUrl = window.location.origin + window.location.pathname;
+        let rows = "";
+
+        snap.forEach((docSnap) => {
+          const f = docSnap.data();
+          const shareLink = `${baseUrl}?file=${docSnap.id}`;
+          rows += `
+            <tr>
+              <td><strong>${f.fileName}</strong></td>
+              <td>${f.sizeMB} MB</td>
+              <td>${f.downloads || 0}</td>
+              <td>
+                <button class="btn btn-outline" style="padding: 6px 10px; font-size: 0.8rem;" onclick="copyLink('${shareLink}')">
+                  <i class="fa-solid fa-copy"></i> Copy Link
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-danger" style="padding: 6px 10px; font-size: 0.8rem;" onclick="deleteUserFile('${docSnap.id}', '${f.storagePath}', ${f.sizeMB})">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+
+        tbody.innerHTML = rows;
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="5" style="color: #fca5a5; text-align: center;">Firestore rules check karein: ${err.message}</td></tr>`;
+      }
+    }
+
+    window.copyLink = (url) => {
+      navigator.clipboard.writeText(url);
+      showToast("Shareable link copied to clipboard!");
+    };
+
+    window.deleteUserFile = async (docId, storagePath, sizeMB) => {
+      try {
+        await deleteObject(ref(storage, storagePath));
+      } catch (e) { /* ignore if already removed */ }
+      await deleteDoc(doc(db, "files", docId));
+      const newUsed = Math.max(0, Number(((currentUserData.usedMB || 0) - sizeMB).toFixed(2)));
+      await updateDoc(doc(db, "users", currentUser.uid), { usedMB: newUsed });
+      currentUserData.usedMB = newUsed;
+      showToast("File deleted.");
+      updateDashboardUI();
+      loadUserFiles();
+    };
+
+    // Submit EasyPaisa Payment Request
+    window.submitPaymentRequest = async () => {
+      if (!currentUser || !currentUserData) return;
+      const planKey = document.getElementById("buyPlanSelect").value;
+      const tid = document.getElementById("buyTidInput").value.trim();
+      const proof = document.getElementById("buyProofInput").value.trim();
+
+      if (!tid) return showToast("Please enter your EasyPaisa Transaction ID (TID).");
+
+      try {
+        await addDoc(collection(db, "payment_requests"), {
+          uid: currentUser.uid,
+          username: currentUserData.username,
+          email: currentUserData.email,
+          plan: planKey,
+          amount: PLANS[planKey].price,
+          tid,
+          proof,
+          status: "pending",
+          createdAt: Date.now()
+        });
+
+        document.getElementById("buyTidInput").value = "";
+        document.getElementById("buyProofInput").value = "";
+        closeModal("buyModal");
+        showToast("Payment request submitted! Admin will verify & activate your plan shortly.");
+      } catch (err) {
+        showToast("Error submitting request: " + err.message);
+      }
+    };
+
+    // Admin: Assign Plan by Username or Email
+    window.adminAssignPlan = async () => {
+      if (!currentUser || !isAdminEmail(currentUser.email)) {
+        return showToast("Unauthorized.");
+      }
+
+      const target = document.getElementById("adminTargetUser").value.trim().toLowerCase();
+      const planKey = document.getElementById("adminTargetPlan").value;
+
+      if (!target) return showToast("Enter a username or email first.");
+
+      try {
+        const usersRef = collection(db, "users");
+        let snap = await getDocs(query(usersRef, where("username", "==", target)));
+        if (snap.empty) {
+          snap = await getDocs(query(usersRef, where("email", "==", target)));
+        }
+
+        if (snap.empty) {
+          return showToast("No user found with that username or email!");
+        }
+
+        const targetDoc = snap.docs[0];
+        await updateDoc(doc(db, "users", targetDoc.id), {
+          plan: planKey,
+          planUpdatedAt: Date.now()
+        });
+
+        if (targetDoc.id === currentUser.uid) {
+          currentUserData.plan = planKey;
+          updateDashboardUI();
+        }
+
+        document.getElementById("adminTargetUser").value = "";
+        showToast(`Success! Assigned ${PLANS[planKey].name} (Rs ${PLANS[planKey].price}) plan to @${targetDoc.data().username}.`);
+        loadAllUsersForAdmin();
+      } catch (err) {
+        showToast("Admin action failed (check Firestore Rules): " + err.message);
+      }
+    };
+
+    // Admin: Load All Registered Users Table
+    window.loadAllUsersForAdmin = async () => {
+      const tbody = document.getElementById("adminUsersTable");
+      if (!tbody) return;
+      try {
+        const snap = await getDocs(collection(db, "users"));
+        if (snap.empty) {
+          tbody.innerHTML = `<tr><td colspan="4" style="color: var(--muted);">No users found yet.</td></tr>`;
+          return;
+        }
+        let html = "";
+        snap.forEach((d) => {
+          const u = d.data();
+          html += `
+            <tr>
+              <td><strong>@${u.username}</strong></td>
+              <td>${u.email}</td>
+              <td><span class="plan-pill">${(u.plan || "free").toUpperCase()}</span></td>
+              <td>
+                <button class="btn btn-outline" style="padding: 4px 9px; font-size: 0.76rem;" onclick="document.getElementById('adminTargetUser').value='${u.username}'; showToast('Selected @${u.username} — choose plan above and click Activate!');">
+                  Select
+                </button>
+              </td>
+            </tr>
+          `;
+        });
+        tbody.innerHTML = html;
+      } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="4" style="color: #fca5a5;">Firestore Rules update karein taake users list load ho sake.</td></tr>`;
+      }
+    };
+
+    // Admin: Load & Approve EasyPaisa Requests
+    async function loadAdminRequests() {
+      const box = document.getElementById("adminRequestsList");
+      try {
+        const q = query(collection(db, "payment_requests"), where("status", "==", "pending"));
+        const snap = await getDocs(q);
+
+        if (snap.empty) {
+          box.innerHTML = "<p>No pending EasyPaisa requests.</p>";
+          return;
+        }
+
+        let html = "";
+        snap.forEach((d) => {
+          const r = d.data();
+          html += `
+            <div style="padding: 10px; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 8px; background: rgba(255,255,255,0.03);">
+              <div><strong style="color: var(--primary);">@${r.username}</strong> (${r.email})</div>
+              <div>Plan: <b>${r.plan.toUpperCase()} (Rs ${r.amount})</b> · TID: <b>${r.tid}</b></div>
+              ${r.proof ? `<div>Proof: ${r.proof}</div>` : ""}
+              <button class="btn btn-primary" style="padding: 5px 10px; font-size: 0.78rem; margin-top: 6px;" onclick="approveRequest('${d.id}', '${r.uid}', '${r.plan}')">
+                Approve & Activate
+              </button>
+            </div>
+          `;
+        });
+        box.innerHTML = html;
+      } catch (err) {
+        box.innerHTML = `<p style="color:#fca5a5;">Firestore rules check karein.</p>`;
+      }
+    }
+
+    window.approveRequest = async (reqId, uid, planKey) => {
+      await updateDoc(doc(db, "users", uid), { plan: planKey, planUpdatedAt: Date.now() });
+      await updateDoc(doc(db, "payment_requests", reqId), { status: "approved" });
+      showToast("Payment approved and user plan activated!");
+      loadAdminRequests();
+      loadAllUsersForAdmin();
+    };
+
+    // Check if URL has ?file=FILE_ID (Public Download Page)
+    async function checkPublicDownloadRoute() {
+      const params = new URLSearchParams(window.location.search);
+      const fileId = params.get("file");
+      if (!fileId) return;
+
+      document.getElementById("mainSiteView").style.display = "none";
+      document.getElementById("publicDownloadView").style.display = "flex";
+
+      try {
+        const fileRef = doc(db, "files", fileId);
+        const snap = await getDoc(fileRef);
+
+        if (!snap.exists()) {
+          document.getElementById("dlFileName").textContent = "File Not Found";
+          document.getElementById("dlFileMeta").textContent = "This link may have expired or been deleted by the owner.";
+          document.getElementById("dlBtn").style.display = "none";
+          return;
+        }
+
+        const f = snap.data();
+        document.getElementById("dlFileName").textContent = f.fileName;
+        document.getElementById("dlFileMeta").textContent = `Size: ${f.sizeMB} MB · Shared by @${f.ownerUsername} · Downloads: ${f.downloads || 0}`;
+        const dlBtn = document.getElementById("dlBtn");
+        dlBtn.href = f.downloadURL;
+        dlBtn.onclick = async () => {
+          await updateDoc(fileRef, { downloads: increment(1) });
+        };
+      } catch (err) {
+        document.getElementById("dlFileName").textContent = "Error loading file";
+        document.getElementById("dlFileMeta").textContent = err.message;
+      }
+    }
+
+    checkPublicDownloadRoute();
+  </script>
+</body>
+</html>
