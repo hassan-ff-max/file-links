@@ -116,6 +116,37 @@
             </div>
         </div>
 
+        <!-- WHATSAPP CHANNEL WELCOME POP-UP MODAL (Realistic Glassmorphic Shaders) -->
+        <div id="whatsapp-popup-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
+            <div class="glass-card rounded-3xl p-6 w-full max-w-[380px] text-center border-2 border-emerald-500/40 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-cyan-500/15 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto mb-4 text-3xl shadow-lg shadow-emerald-500/20 relative z-10">
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+                
+                <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-extrabold uppercase tracking-wider relative z-10">
+                    Official Update Channel
+                </span>
+                
+                <h3 class="text-base font-extrabold text-white mt-2 mb-2 relative z-10">HASSAN X SOURCE CODES</h3>
+                
+                <p class="text-xs text-slate-300 leading-relaxed mb-5 relative z-10">
+                    See all developments source codes on my Whatsapp channel
+                </p>
+
+                <div class="space-y-2.5 relative z-10">
+                    <a href="https://whatsapp.com/channel/0029VbE1NH99Bb65S8oOnS47" target="_blank" onclick="closeWhatsappPopup()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/30">
+                        <i class="fa-brands fa-whatsapp text-base"></i> Follow WhatsApp Channel
+                    </a>
+                    <button onclick="closeWhatsappPopup()" class="w-full py-3 rounded-2xl glass-card text-xs font-semibold text-slate-400 hover:text-white transition">
+                        Continue to App
+                    </button>
+                </div>
+            </div>
+        </div>
+
         <!-- ========================================================= -->
         <!-- 1. PUBLIC FILE DOWNLOAD VIEW (?file=...)                  -->
         <!-- ========================================================= -->
@@ -130,7 +161,6 @@
                         <p class="text-[10px] text-slate-400">DIRECT SECURE LINK</p>
                     </div>
                 </div>
-                <!-- Open App button removed completely as requested -->
             </div>
 
             <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl space-y-4">
@@ -146,14 +176,11 @@
                     <span><i class="fa-solid fa-user text-amber-400 mr-1"></i> <strong id="pub-file-owner" class="text-slate-200">--</strong></span>
                 </div>
 
-                <!-- Code / Text Content Preview Box -->
-                <div id="pub-code-preview-box" class="hidden text-left bg-slate-950 p-3.5 rounded-2xl border border-slate-800 max-h-48 overflow-y-auto no-scrollbar">
-                    <pre class="text-[11px] font-mono text-cyan-300 whitespace-pre-wrap"><code id="pub-code-preview-text"></code></pre>
-                </div>
+                <div id="pub-code-preview-box" class="hidden"></div>
 
-                <!-- LIVE PREVIEW BUTTON -->
-                <button id="pub-live-preview-btn" onclick="openLivePreviewFromPublic()" class="hidden w-full py-3 rounded-2xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-eye"></i> Live Preview
+                <!-- CRAZY & BEAUTIFUL LIVE PREVIEW BUTTON -->
+                <button id="pub-live-preview-btn" onclick="openLivePreviewFromPublic()" class="hidden w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 border border-emerald-500/50 text-emerald-300 text-xs font-extrabold flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition">
+                    <i class="fa-solid fa-eye text-emerald-400 text-sm"></i> Live Preview
                 </button>
 
                 <div class="space-y-3 pt-2">
@@ -165,7 +192,6 @@
                     </button>
                 </div>
 
-                <!-- PORTFOLIO & TOOLKIT BUTTONS RIGHT UNDER SHARED LINKS -->
                 <div class="pt-3 border-t border-slate-800/80 space-y-2">
                     <p class="text-[10px] uppercase font-bold text-slate-400">Developer Hub</p>
                     <div class="grid grid-cols-2 gap-2">
@@ -291,7 +317,7 @@
         <div id="main-app-view" class="hidden flex-1 flex flex-col pb-20">
             
             <header class="sticky top-0 z-30 glass-card border-b border-cyan-500/20 px-4 py-3 flex items-center justify-between">
-                <div class="flex items-center gap-2.5" onclick="navigateTo('dashboard')">
+                <div class="flex items-center gap-2.5 cursor-pointer" onclick="navigateTo('dashboard')">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
                         <i class="fa-solid fa-folder-tree text-sm"></i>
                     </div>
@@ -347,6 +373,9 @@
                     <button onclick="navigateTo('profile'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
                         <i class="fa-solid fa-user-gear w-4 text-cyan-400"></i> Profile Settings
                     </button>
+                    <button onclick="navigateTo('redeem'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-emerald-500/10 hover:text-emerald-300 text-left">
+                        <i class="fa-solid fa-ticket w-4 text-emerald-400"></i> Redeem Your Code
+                    </button>
                     <button id="drawer-admin-btn" onclick="navigateTo('admin'); toggleDrawer(false)" class="hidden flex items-center gap-3 px-3.5 py-3 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/30 text-left mt-1">
                         <i class="fa-solid fa-shield-halved w-4 text-amber-400"></i> Admin Panel
                     </button>
@@ -368,7 +397,7 @@
             </div>
 
             <!-- ===================================================== -->
-            <!-- VIEW A: DASHBOARD & DUAL GENERATOR (DRAG & DROP / MANUAL CODE) -->
+            <!-- VIEW A: DASHBOARD & DUAL GENERATOR + FAQ & MORE ISSUE -->
             <!-- ===================================================== -->
             <section id="view-dashboard" class="app-section p-4 space-y-4">
                 
@@ -473,6 +502,38 @@
                         <div class="text-center py-6 text-slate-500 text-xs">
                             No files uploaded yet. Create your first link above!
                         </div>
+                    </div>
+                </div>
+
+                <!-- FAQ'S SECTION (English, Safe, Detailed & Professional) -->
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
+                    <div class="flex items-center gap-2 pb-2 border-b border-slate-800">
+                        <i class="fa-solid fa-circle-question text-cyan-400 text-base"></i>
+                        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider">Frequently Asked Questions</h3>
+                    </div>
+
+                    <div class="space-y-3 text-xs">
+                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
+                            <h4 class="font-extrabold text-cyan-300 mb-1">1. What should I do if a link fails to generate?</h4>
+                            <p class="text-slate-300 leading-relaxed">If your file or code link fails to generate, first check your active storage quota to ensure you haven't exceeded your plan limit. Verify your internet connection, refresh the application, or try reducing the file size. If the issue persists, contact support immediately.</p>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
+                            <h4 class="font-extrabold text-cyan-300 mb-1">2. How secure are my uploaded files and codes?</h4>
+                            <p class="text-slate-300 leading-relaxed">All files and code snippets uploaded to Hassan X Files are stored securely on cloud infrastructure with encrypted direct links, ensuring absolute privacy and fast global access.</p>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
+                            <h4 class="font-extrabold text-cyan-300 mb-1">3. How can I earn points to upgrade my plan for free?</h4>
+                            <p class="text-slate-300 leading-relaxed">You can earn points by inviting your friends using your unique referral link found in the 'Refer' section or by redeeming official promotional coupon codes in 'Redeem Your Code'.</p>
+                        </div>
+                    </div>
+
+                    <!-- MORE ISSUE OPTION (Opens Support Modal Sending Message to ansarbubble43@gmail.com) -->
+                    <div class="pt-2 text-center">
+                        <button onclick="openSupportModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold hover:bg-cyan-500/25 transition">
+                            <i class="fa-solid fa-headset"></i> More Issue? Contact Support
+                        </button>
                     </div>
                 </div>
             </section>
@@ -686,7 +747,50 @@
             </section>
 
             <!-- ===================================================== -->
-            <!-- VIEW F: ADMIN PANEL (ONLY FOR ansarbubble43@gmail.com)-->
+            <!-- VIEW G: REDEEM YOUR CODE                              -->
+            <!-- ===================================================== -->
+            <section id="view-redeem" class="app-section hidden p-4 space-y-4">
+                <div class="glass-card rounded-3xl p-5 border border-emerald-500/35 text-center space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto text-2xl">
+                        <i class="fa-solid fa-ticket"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-lg font-extrabold text-white">Redeem Promo Code</h2>
+                        <p class="text-xs text-slate-300 mt-1">Enter your special coupon code to claim instant points! Note: Each code can only be redeemed once globally.</p>
+                    </div>
+
+                    <div class="space-y-3 text-left">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-slate-300 mb-1">Enter Redeem Code</label>
+                            <input type="text" id="redeem-code-input" placeholder="e.g. HASSANXFILE" class="w-full bg-slate-950 border border-emerald-500/30 rounded-xl px-3.5 py-3 text-xs text-emerald-300 uppercase font-mono focus:outline-none focus:border-emerald-400">
+                        </div>
+                        <button onclick="handleRedeemCode()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase tracking-wider shadow-lg shadow-emerald-500/30">
+                            Redeem Code Now
+                        </button>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800 text-left">
+                        <h4 class="text-xs font-bold text-slate-300 mb-2"><i class="fa-solid fa-circle-info text-cyan-400 mr-1"></i> Available Promo Codes & Details:</h4>
+                        <div class="space-y-2 text-[11px] text-slate-400 font-mono">
+                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                                <p class="text-cyan-300 font-bold">1. HASSANXFILE</p>
+                                <p>Points: +500 | Duration: 1 Day | Created: 2026-11-01</p>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                                <p class="text-cyan-300 font-bold">2. MYXFILEZ</p>
+                                <p>Points: +400 | Duration: 8 Days | Created: 2026-11-01</p>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
+                                <p class="text-cyan-300 font-bold">3. FILEXLINKS</p>
+                                <p>Points: +860 | Duration: 1 Week | Created: 2026-11-01</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================================================== -->
+            <!-- VIEW F: ADMIN PANEL                                   -->
             <!-- ===================================================== -->
             <section id="view-admin" class="app-section hidden p-4 space-y-4">
                 <div class="glass-gold rounded-3xl p-4 flex items-center justify-between">
@@ -740,33 +844,69 @@
                 </div>
             </section>
 
-            <!-- Bottom Mobile Tab Bar -->
-            <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-30 glass-card border-t border-cyan-500/20 px-2 py-2 flex items-center justify-around">
-                <button onclick="navigateTo('dashboard')" id="bnav-dashboard" class="flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-bold py-1 px-2">
-                    <i class="fa-solid fa-house text-sm"></i>
+            <!-- Bottom Mobile Tab Bar (Redesigned with Beautiful Shaders & Detailed Layout) -->
+            <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-30 glass-card border-t border-cyan-500/30 px-3 py-2.5 flex items-center justify-around shadow-2xl backdrop-blur-xl bg-[#070b16]/90">
+                <button onclick="navigateTo('dashboard')" id="bnav-dashboard" class="flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-extrabold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10">
+                    <i class="fa-solid fa-house text-base"></i>
                     <span>Home</span>
                 </button>
-                <button onclick="navigateTo('plans')" id="bnav-plans" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
-                    <i class="fa-solid fa-gem text-sm"></i>
+                <button onclick="navigateTo('plans')" id="bnav-plans" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-amber-500/10 hover:text-amber-300">
+                    <i class="fa-solid fa-gem text-base"></i>
                     <span>Plans</span>
                 </button>
-                <button onclick="navigateTo('referral')" id="bnav-referral" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
-                    <i class="fa-solid fa-gift text-sm"></i>
+                <button onclick="navigateTo('referral')" id="bnav-referral" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-purple-500/10 hover:text-purple-300">
+                    <i class="fa-solid fa-gift text-base"></i>
                     <span>Refer</span>
                 </button>
-                <button onclick="navigateTo('inbox')" id="bnav-inbox" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
-                    <i class="fa-solid fa-inbox text-sm"></i>
+                <button onclick="navigateTo('inbox')" id="bnav-inbox" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10 hover:text-cyan-300">
+                    <i class="fa-solid fa-inbox text-base"></i>
                     <span>Inbox</span>
                 </button>
-                <button onclick="navigateTo('profile')" id="bnav-profile" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2">
-                    <i class="fa-solid fa-user text-sm"></i>
+                <button onclick="navigateTo('profile')" id="bnav-profile" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10 hover:text-cyan-300">
+                    <i class="fa-solid fa-user text-base"></i>
                     <span>Profile</span>
                 </button>
             </nav>
         </div>
 
         <!-- ========================================================= -->
-        <!-- 4. PAYMENT MODAL (EASYPAISA / JAZZCASH / BANK)            -->
+        <!-- 4. SUPPORT / MORE ISSUE MODAL (Sends to ansarbubble43@gmail.com) -->
+        <!-- ========================================================= -->
+        <div id="support-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden p-4">
+            <div class="glass-card rounded-3xl p-5 w-full max-w-[400px] border border-cyan-500/40 relative shadow-2xl">
+                <button onclick="closeSupportModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+
+                <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-3 text-xl">
+                    <i class="fa-solid fa-envelope-circle-check"></i>
+                </div>
+
+                <h3 class="text-base font-extrabold text-white text-center mb-1">Contact Developer Support</h3>
+                <p class="text-[11px] text-slate-400 text-center mb-4">Send your issue directly to <strong class="text-cyan-300">ansarbubble43@gmail.com</strong></p>
+
+                <form onsubmit="submitSupportTicket(event)" class="space-y-3">
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Name</label>
+                        <input type="text" id="support-name" required placeholder="Enter your name..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Email</label>
+                        <input type="email" id="support-email" required placeholder="yourname@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Message / Issue</label>
+                        <textarea id="support-message" rows="4" required placeholder="Describe your issue or question in detail..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider shadow-lg">
+                        Send Message to Gmail
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 5. PAYMENT MODAL (EASYPAISA / JAZZCASH / BANK)            -->
         <!-- ========================================================= -->
         <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
             <div class="glass-card rounded-3xl p-5 w-full max-w-[420px] max-h-[90vh] overflow-y-auto border border-amber-500/35 relative">
@@ -846,24 +986,39 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- 5. LIVE CODE / TEXT PREVIEW MODAL                         -->
+        <!-- 6. CRAZY & BEAUTIFUL LIVE CODE / TEXT PREVIEW MODAL       -->
         <!-- ========================================================= -->
-        <div id="live-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
-            <div class="glass-card rounded-3xl p-5 w-full max-w-lg h-[80vh] flex flex-col border border-cyan-500/40 relative">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <h3 class="text-sm font-extrabold text-emerald-300 flex items-center gap-2">
-                        <i class="fa-solid fa-eye"></i> Live Code / Text Preview
-                    </h3>
-                    <button onclick="closeLivePreviewModal()" class="w-8 h-8 rounded-xl bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+        <div id="live-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md hidden p-4">
+            <div class="glass-card rounded-3xl p-5 w-full max-w-lg h-[85vh] flex flex-col border-2 border-cyan-500/50 shadow-2xl relative overflow-hidden">
+                <div class="absolute -top-12 -right-12 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                <div class="absolute -bottom-12 -left-12 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none"></div>
+
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800 relative z-10">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-emerald-500 flex items-center justify-center text-white text-xs shadow-md">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <h3 class="text-sm font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-emerald-300">
+                            Live Code / Text Preview
+                        </h3>
+                    </div>
+                    <button onclick="closeLivePreviewModal()" class="w-8 h-8 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
-                <div id="live-preview-content" class="flex-1 bg-slate-950 p-4 rounded-2xl border border-slate-800/80 my-3 overflow-auto font-mono text-xs text-cyan-300 whitespace-pre-wrap">
+
+                <div class="flex-1 bg-slate-950/90 p-4 rounded-2xl border border-cyan-500/20 my-3 overflow-auto font-mono text-xs text-cyan-300 whitespace-pre-wrap shadow-inner relative z-10 no-scrollbar" id="live-preview-content">
                     <!-- Dynamic preview content -->
                 </div>
-                <button onclick="closeLivePreviewModal()" class="w-full py-3 rounded-xl btn-cyan text-xs font-bold text-white uppercase tracking-wider">
-                    Close Preview
-                </button>
+
+                <div class="relative z-10 space-y-2">
+                    <button onclick="copyTextValue(document.getElementById('live-preview-content').innerText, 'Preview content copied!')" class="w-full py-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-cyan-300 text-xs font-bold flex items-center justify-center gap-2 transition">
+                        <i class="fa-solid fa-copy"></i> Copy Preview Code
+                    </button>
+                    <button onclick="closeLivePreviewModal()" class="w-full py-3 rounded-xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                        Close Preview
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -938,6 +1093,12 @@
         let currentGenMode = "file";
         let activePublicFileRecord = null;
 
+        const PROMO_CODES = {
+            "HASSANXFILE": { points: 500, durationDays: 1, createdAt: "2026-11-01" },
+            "MYXFILEZ": { points: 400, durationDays: 8, createdAt: "2026-11-01" },
+            "FILEXLINKS": { points: 860, durationDays: 7, createdAt: "2026-11-01" }
+        };
+
         const PLAN_LIMITS = {
             "Free Plan": 200 * 1024 * 1024,
             "Weekly Plan": 600 * 1024 * 1024,
@@ -954,6 +1115,32 @@
 
         window.closeAppModal = function() {
             document.getElementById("app-modal").classList.add("hidden");
+        };
+
+        window.closeWhatsappPopup = function() {
+            document.getElementById("whatsapp-popup-modal").classList.add("hidden");
+        };
+
+        window.openSupportModal = function() {
+            document.getElementById("support-modal").classList.remove("hidden");
+        };
+
+        window.closeSupportModal = function() {
+            document.getElementById("support-modal").classList.add("hidden");
+        };
+
+        window.submitSupportTicket = function(e) {
+            e.preventDefault();
+            const name = document.getElementById("support-name").value.trim();
+            const email = document.getElementById("support-email").value.trim();
+            const message = document.getElementById("support-message").value.trim();
+
+            const mailSubject = encodeURIComponent(`Support Request from ${name} (${email})`);
+            const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
+            window.location.href = `mailto:ansarbubble43@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+
+            closeSupportModal();
+            showAppModal("Support Email Triggered", "Your email client has been opened to send your message directly to ansarbubble43@gmail.com.", '<i class="fa-solid fa-paper-plane text-cyan-400"></i>');
         };
 
         window.copyTextValue = function(text, msg = "Copied to clipboard!") {
@@ -1000,8 +1187,8 @@
             }
         };
 
-        // Open Public File Download Page & Dynamically Update WhatsApp / OpenGraph Meta Tags
         async function loadPublicFileBySlug(fileSlug) {
+            document.getElementById("whatsapp-popup-modal").classList.add("hidden");
             document.getElementById("auth-screen").classList.add("hidden");
             document.getElementById("main-app-view").classList.add("hidden");
             document.getElementById("public-file-view").classList.remove("hidden");
@@ -1035,7 +1222,6 @@
                 const resolvedUrl = matchedFile.downloadURL || matchedFile.fileData || "";
                 const codeContent = matchedFile.codeContent || "";
 
-                // Dynamically update page title and OpenGraph metadata so WhatsApp preview matches the slug name (e.g. hassan-code)
                 document.title = resolvedName;
                 const ogTitleMeta = document.getElementById("meta-og-title");
                 if (ogTitleMeta) ogTitleMeta.setAttribute("content", resolvedName);
@@ -1046,16 +1232,10 @@
                 document.getElementById("pub-file-size").innerText = formatSize(resolvedSize);
                 document.getElementById("pub-file-owner").innerText = resolvedOwner;
 
-                const codeBox = document.getElementById("pub-code-preview-box");
-                const codeText = document.getElementById("pub-code-preview-text");
                 const liveBtn = document.getElementById("pub-live-preview-btn");
-
-                if (codeContent) {
-                    codeText.innerText = codeContent;
-                    codeBox.classList.remove("hidden");
+                if (codeContent || (resolvedUrl && (resolvedName.endsWith('.html') || resolvedName.endsWith('.py') || resolvedName.endsWith('.txt') || resolvedName.endsWith('.js')))) {
                     liveBtn.classList.remove("hidden");
                 } else {
-                    codeBox.classList.add("hidden");
                     liveBtn.classList.add("hidden");
                 }
 
@@ -1077,14 +1257,22 @@
                 document.getElementById("pub-file-size").innerText = "--";
                 document.getElementById("pub-file-owner").innerText = "--";
                 document.getElementById("pub-download-btn").classList.add("hidden");
-                document.getElementById("pub-code-preview-box").classList.add("hidden");
                 document.getElementById("pub-live-preview-btn").classList.add("hidden");
             }
         }
 
-        window.openLivePreviewFromPublic = function() {
-            if (activePublicFileRecord && activePublicFileRecord.codeContent) {
-                document.getElementById("live-preview-content").innerText = activePublicFileRecord.codeContent;
+        window.openLivePreviewFromPublic = async function() {
+            if (activePublicFileRecord) {
+                let contentToShow = activePublicFileRecord.codeContent || "";
+                if (!contentToShow && activePublicFileRecord.downloadURL) {
+                    try {
+                        const res = await fetch(activePublicFileRecord.downloadURL);
+                        contentToShow = await res.text();
+                    } catch (_) {
+                        contentToShow = "Unable to load file content preview.";
+                    }
+                }
+                document.getElementById("live-preview-content").innerText = contentToShow || "No preview text available.";
                 document.getElementById("live-preview-modal").classList.remove("hidden");
             }
         };
@@ -1246,6 +1434,7 @@
                 points: 0,
                 referralCode: generateReferralCode(username),
                 referralCount: 0,
+                redeemedCodes: [],
                 isAdmin: isAdmin
             };
             localStorage.setItem(`hxf_user_${uid}`, JSON.stringify(userProfile));
@@ -1294,6 +1483,7 @@
                 points: startingPoints,
                 referralCode: myRefCode,
                 referralCount: 0,
+                redeemedCodes: [],
                 isAdmin: isAdmin,
                 createdAt: serverTimestamp()
             };
@@ -1326,6 +1516,7 @@
                 onSnapshot(userRef, (docSnap) => {
                     if (docSnap.exists()) {
                         userProfile = docSnap.data();
+                        if (!userProfile.redeemedCodes) userProfile.redeemedCodes = [];
                         if ((userProfile.email || "").toLowerCase() === ADMIN_EMAIL && !userProfile.isAdmin) {
                             updateDoc(userRef, { isAdmin: true, username: "hassan_admin" });
                         }
@@ -1396,6 +1587,77 @@
 
             renderFilesList(userProfile.usedStorage || 0);
         }
+
+        window.handleRedeemCode = async function() {
+            if (!currentUser || !userProfile) return;
+            const codeInput = document.getElementById("redeem-code-input").value.trim().toUpperCase();
+            if (!codeInput) {
+                showAppModal("Code Required", "Please enter a valid promo code.");
+                return;
+            }
+
+            const promo = PROMO_CODES[codeInput];
+            if (!promo) {
+                showAppModal("Invalid Code", "The promo code you entered is invalid or does not exist.");
+                return;
+            }
+
+            const createdDate = new Date(promo.createdAt);
+            const expiryDate = new Date(createdDate.getTime() + promo.durationDays * 24 * 60 * 60 * 1000);
+            if (new Date() > expiryDate) {
+                showAppModal("Code Expired", `Sorry, this promo code expired on ${expiryDate.toDateString()}.`);
+                return;
+            }
+
+            const redeemedList = userProfile.redeemedCodes || [];
+            if (redeemedList.includes(codeInput)) {
+                showAppModal("Already Redeemed", "You have already redeemed this promo code on your account.");
+                return;
+            }
+
+            try {
+                const usersSnap = await getDocs(collection(db, "users"));
+                let globallyClaimed = false;
+                usersSnap.forEach((uDoc) => {
+                    const uData = uDoc.data();
+                    if (uData.redeemedCodes && uData.redeemedCodes.includes(codeInput)) {
+                        globallyClaimed = true;
+                    }
+                });
+
+                if (globallyClaimed) {
+                    showAppModal("Code Claimed", "Sorry! This code has already been claimed globally by another user. Each code can only be redeemed once by one single user worldwide.");
+                    return;
+                }
+
+                const updatedRedeemed = [...redeemedList, codeInput];
+                const newPoints = Number(userProfile.points || 0) + promo.points;
+
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    points: newPoints,
+                    redeemedCodes: updatedRedeemed
+                });
+
+                await addDoc(collection(db, "users", currentUser.uid, "notifications"), {
+                    title: "Promo Code Redeemed!",
+                    message: `Successfully redeemed code ${codeInput}! You received +${promo.points} Points.`,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById("redeem-code-input").value = "";
+                showAppModal("Success!", `Code successfully redeemed! +${promo.points} Points added to your account.`, '<i class="fa-solid fa-ticket text-emerald-400"></i>');
+            } catch (err) {
+                const updatedRedeemed = [...redeemedList, codeInput];
+                const newPoints = Number(userProfile.points || 0) + promo.points;
+                userProfile.points = newPoints;
+                userProfile.redeemedCodes = updatedRedeemed;
+                localStorage.setItem(`hxf_user_${currentUser.uid}`, JSON.stringify(userProfile));
+                syncProfileUI();
+                document.getElementById("redeem-code-input").value = "";
+                showAppModal("Success!", `Code successfully redeemed! +${promo.points} Points added.`, '<i class="fa-solid fa-ticket text-emerald-400"></i>');
+            }
+        };
 
         function renderFilesList(usedBytes) {
             const listEl = document.getElementById("user-files-list");
@@ -1984,12 +2246,12 @@
             const target = document.getElementById(`view-${sectionName}`);
             if (target) target.classList.remove("hidden");
 
-            ["dashboard", "plans", "referral", "inbox", "profile"].forEach((tab) => {
+            ["dashboard", "plans", "referral", "inbox", "profile", "redeem"].forEach((tab) => {
                 const btn = document.getElementById(`bnav-${tab}`);
                 if (btn) {
                     btn.className = tab === sectionName
-                        ? "flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-bold py-1 px-2"
-                        : "flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-2";
+                        ? "flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-extrabold py-1 px-3 rounded-2xl transition bg-cyan-500/10"
+                        : "flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10 hover:text-cyan-300";
                 }
             });
             window.scrollTo({ top: 0, behavior: "smooth" });
