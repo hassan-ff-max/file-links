@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!-- Dynamic OpenGraph / WhatsApp Meta Tags for Link Previews -->
-    <title id="meta-page-title">HASSAN X FILES LINKS</title>
-    <meta property="og:title" id="meta-og-title" content="HASSAN X FILES LINKS">
+    <title id="meta-page-title">HASSAN X FILES</title>
+    <meta property="og:title" id="meta-og-title" content="HASSAN X FILES">
     <meta property="og:description" id="meta-og-desc" content="Secure file and code sharing link generated via Hassan X Files.">
     <meta property="og:site_name" content="HASSAN X FILES">
     <!-- Tailwind CSS -->
@@ -97,9 +97,135 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+        /* Beautiful Floating Emoji / Heart Particle Effect */
+        .emoji-particle {
+            position: fixed;
+            font-size: 20px;
+            pointer-events: none;
+            z-index: 9999;
+            user-select: none;
+            animation: emojiFloatUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+        @keyframes emojiFloatUp {
+            0% {
+                transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+                opacity: 1;
+            }
+            50% {
+                transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 30px)) scale(1.3) rotate(15deg);
+                opacity: 0.9;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 65px)) scale(0.9) rotate(-15deg);
+                opacity: 0;
+            }
+        }
+        .powered-footer {
+            text-align: center;
+            font-size: 10px;
+            font-weight: 800;
+            color: #64748b;
+            letter-spacing: 0.05em;
+            padding: 12px 0 4px 0;
+            text-transform: uppercase;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Web Audio API + Beautiful Emoji Floating Particle Effect Engine -->
+    <script>
+        let sharedAudioCtx = null;
+        const EMOJI_SYMBOLS = ['💖', '❤️', '💎', '✨', '🔥', '🌟', '💫', '⚡', '💙', '🧡'];
+
+        function getAudioContext() {
+            if (!sharedAudioCtx) {
+                const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+                if (AudioContextClass) {
+                    sharedAudioCtx = new AudioContextClass();
+                }
+            }
+            if (sharedAudioCtx && sharedAudioCtx.state === 'suspended') {
+                sharedAudioCtx.resume().catch(() => {});
+            }
+            return sharedAudioCtx;
+        }
+
+        function playBubbleSound(type = 'tap') {
+            try {
+                const ctx = getAudioContext();
+                if (!ctx) return;
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gainNode = ctx.createGain();
+
+                osc.type = 'sine';
+                if (type === 'type') {
+                    const baseFreq = 420 + Math.random() * 140;
+                    osc.frequency.setValueAtTime(baseFreq, now);
+                    osc.frequency.exponentialRampToValueAtTime(baseFreq * 2.1, now + 0.065);
+                    gainNode.gain.setValueAtTime(0.14, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.065);
+                    osc.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.065);
+                } else {
+                    osc.frequency.setValueAtTime(280, now);
+                    osc.frequency.exponentialRampToValueAtTime(920, now + 0.09);
+                    gainNode.gain.setValueAtTime(0.18, now);
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+                    osc.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.09);
+                }
+            } catch (e) {}
+        }
+
+        function spawnEmojiParticles(x, y, count = 2) {
+            for (let i = 0; i < count; i++) {
+                const span = document.createElement('span');
+                span.className = 'emoji-particle';
+                span.innerText = EMOJI_SYMBOLS[Math.floor(Math.random() * EMOJI_SYMBOLS.length)];
+                const dx = (Math.random() - 0.5) * 44;
+                const offsetY = (Math.random() - 0.5) * 16;
+
+                span.style.left = `${x + (Math.random() - 0.5) * 16}px`;
+                span.style.top = `${y + offsetY}px`;
+                span.style.setProperty('--dx', `${dx}px`);
+
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 750);
+            }
+        }
+
+        ['pointerdown', 'touchstart', 'keydown'].forEach((evtName) => {
+            document.addEventListener(evtName, () => getAudioContext(), { passive: true });
+        });
+
+        document.addEventListener('pointerdown', (e) => {
+            const target = e.target.closest('button, a, input[type="checkbox"], select, label, .interactive-click');
+            if (target) {
+                playBubbleSound('tap');
+                const rect = target.getBoundingClientRect();
+                const cx = e.clientX || (rect.left + rect.width / 2);
+                const cy = e.clientY || (rect.top + rect.height / 2);
+                spawnEmojiParticles(cx, cy, 3);
+            }
+        });
+
+        document.addEventListener('input', (e) => {
+            const el = e.target;
+            if (el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA')) {
+                playBubbleSound('type');
+                const rect = el.getBoundingClientRect();
+                const randomX = rect.left + Math.min(rect.width - 16, Math.max(16, (el.value.length * 7) % (rect.width || 180)));
+                const topY = rect.top + Math.min(rect.height / 2, 18);
+                spawnEmojiParticles(randomX, topY, 1);
+            }
+        });
+    </script>
 
     <!-- Mobile App Wrapper -->
     <div class="mobile-shell">
@@ -116,7 +242,7 @@
             </div>
         </div>
 
-        <!-- WHATSAPP CHANNEL WELCOME POP-UP MODAL (Realistic Glassmorphic Shaders) -->
+        <!-- WHATSAPP CHANNEL WELCOME POP-UP MODAL -->
         <div id="whatsapp-popup-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4">
             <div class="glass-card rounded-3xl p-6 w-full max-w-[380px] text-center border-2 border-emerald-500/40 shadow-2xl relative overflow-hidden">
                 <div class="absolute -top-12 -right-12 w-32 h-32 bg-emerald-500/15 rounded-full blur-2xl pointer-events-none"></div>
@@ -148,64 +274,93 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- 1. PUBLIC FILE DOWNLOAD VIEW (?file=...)                  -->
+        <!-- 1. PUBLIC FILE DOWNLOAD / INTRO GATEWAY VIEW (?id=...)     -->
         <!-- ========================================================= -->
         <div id="public-file-view" class="hidden flex-1 flex flex-col justify-between p-5">
             <div class="flex items-center justify-between py-2">
                 <div class="flex items-center gap-2.5">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
-                        <i class="fa-solid fa-bolt"></i>
+                    <div class="w-9 h-9 rounded-xl overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/30">
+                        <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover" alt="Logo">
                     </div>
                     <div>
                         <h1 class="text-sm font-extrabold tracking-wide text-cyan-400">HASSAN X FILES</h1>
-                        <p class="text-[10px] text-slate-400">DIRECT SECURE LINK</p>
+                        <p class="text-[10px] text-slate-400">SECURE VERIFIED GATEWAY</p>
                     </div>
                 </div>
             </div>
 
             <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl space-y-4">
-                <div class="w-16 h-16 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 text-2xl">
-                    <i class="fa-solid fa-file-arrow-down"></i>
-                </div>
-                <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider">
-                    Verified File Ready
-                </span>
-                <h2 id="pub-file-name" class="text-lg font-extrabold text-white break-all">Loading file...</h2>
-                <div class="flex items-center justify-center gap-4 text-xs text-slate-400">
-                    <span><i class="fa-solid fa-hard-drive text-cyan-400 mr-1"></i> <strong id="pub-file-size" class="text-slate-200">--</strong></span>
-                    <span><i class="fa-solid fa-user text-amber-400 mr-1"></i> <strong id="pub-file-owner" class="text-slate-200">--</strong></span>
-                </div>
-
-                <div id="pub-code-preview-box" class="hidden"></div>
-
-                <!-- CRAZY & BEAUTIFUL LIVE PREVIEW BUTTON -->
-                <button id="pub-live-preview-btn" onclick="openLivePreviewFromPublic()" class="hidden w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 border border-emerald-500/50 text-emerald-300 text-xs font-extrabold flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition">
-                    <i class="fa-solid fa-eye text-emerald-400 text-sm"></i> Live Preview
-                </button>
-
-                <div class="space-y-3 pt-2">
-                    <a id="pub-download-btn" href="#" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Download File Now
-                    </a>
-                    <button onclick="copyTextValue(window.location.href, 'Shareable file URL copied!')" class="w-full py-3 rounded-2xl glass-card text-xs font-semibold text-slate-300 hover:text-white flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-copy text-cyan-400"></i> Copy Share Link
+                
+                <!-- STEP A: PASSWORD GATE (If enabled) -->
+                <div id="gateway-password-step" class="space-y-4">
+                    <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400 text-2xl">
+                        <i class="fa-solid fa-lock"></i>
+                    </div>
+                    <h2 class="text-lg font-extrabold text-white">Password Protected File</h2>
+                    <p class="text-xs text-slate-300">This file requires the security password set by the uploader.</p>
+                    <input type="password" id="gateway-pass-input" placeholder="Enter security password..." class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-4 py-3 text-xs text-amber-300 text-center focus:outline-none focus:border-amber-400">
+                    <button onclick="verifyGatewayPassword()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
+                        Unlock File Access
                     </button>
                 </div>
 
-                <div class="pt-3 border-t border-slate-800/80 space-y-2">
-                    <p class="text-[10px] uppercase font-bold text-slate-400">Developer Hub</p>
-                    <div class="grid grid-cols-2 gap-2">
-                        <a href="https://hassan-portfolio-v1-one.vercel.app" target="_blank" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 text-cyan-300 text-xs font-bold flex items-center justify-center gap-2 transition">
-                            <i class="fa-solid fa-address-card"></i> Portfolio
-                        </a>
-                        <a href="https://hassan-toolkit-pro.vercel.app" target="_blank" class="py-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 text-amber-300 text-xs font-bold flex items-center justify-center gap-2 transition">
-                            <i class="fa-solid fa-toolbox"></i> Toolkit
-                        </a>
+                <!-- STEP B: INTRO MESSAGE & SUBSCRIPTION/SOCIAL WALL (If enabled) -->
+                <div id="gateway-intro-step" class="hidden space-y-4 text-left">
+                    <div class="text-center pb-2 border-b border-slate-800">
+                        <div class="w-14 h-14 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center mx-auto text-cyan-400 text-2xl mb-2">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h2 id="pub-file-name" class="text-base font-extrabold text-white break-all">Loading file...</h2>
+                        <p id="pub-intro-message" class="text-xs text-slate-300 mt-2 bg-slate-950/80 p-3 rounded-xl border border-cyan-500/20 leading-relaxed italic">
+                            <!-- Intro message displayed here -->
+                        </p>
                     </div>
+
+                    <div>
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[11px] font-bold text-cyan-300 uppercase tracking-wider">Required Actions to Unlock</span>
+                            <span id="gateway-progress-label" class="text-[11px] font-bold text-amber-300">0% Completed</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-950 rounded-full overflow-hidden border border-slate-800">
+                            <div id="gateway-progress-bar" class="h-full bg-gradient-to-r from-cyan-400 to-emerald-400 rounded-full transition-all duration-300" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Social / Channel Follow List -->
+                    <div id="gateway-channels-list" class="space-y-2.5 max-h-[220px] overflow-y-auto no-scrollbar">
+                        <!-- Dynamic items -->
+                    </div>
+
+                    <button id="pub-download-btn" disabled class="w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 text-xs font-extrabold uppercase tracking-wider flex items-center justify-center gap-2 cursor-not-allowed">
+                        <i class="fa-solid fa-lock"></i> Complete All Actions to Download
+                    </button>
+                </div>
+
+                <!-- STEP C: FINAL UNLOCKED DOWNLOAD -->
+                <div id="gateway-success-step" class="hidden space-y-4">
+                    <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 text-2xl">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-300 border border-emerald-500/30 text-[10px] font-bold uppercase tracking-wider">
+                        Gateway Verification Passed
+                    </span>
+                    <h2 class="text-lg font-extrabold text-white break-all" id="success-file-title">File Ready</h2>
+                    <div class="flex items-center justify-center gap-4 text-xs text-slate-400">
+                        <span><i class="fa-solid fa-hard-drive text-cyan-400 mr-1"></i> <strong id="pub-file-size" class="text-slate-200">--</strong></span>
+                        <span><i class="fa-solid fa-user text-amber-400 mr-1"></i> <strong id="pub-file-owner" class="text-slate-200">--</strong></span>
+                    </div>
+
+                    <button id="pub-live-preview-btn" onclick="openLivePreviewFromPublic()" class="hidden w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 border border-emerald-500/50 text-emerald-300 text-xs font-extrabold flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-500/20 hover:scale-[1.02] transition">
+                        <i class="fa-solid fa-eye text-emerald-400 text-sm"></i> Live Preview
+                    </button>
+
+                    <a id="final-download-link" href="#" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-download"></i> Download File Now
+                    </a>
                 </div>
             </div>
 
-            <p class="text-center text-[11px] text-slate-500 py-2">Powered by HASSAN X FILES LINKS</p>
+            <div class="powered-footer">POWERED BY HASSAN FF</div>
         </div>
 
         <!-- Google Account Quick Fallback Modal -->
@@ -223,9 +378,9 @@
                     </div>
                     <button onclick="document.getElementById('google-fallback-modal').classList.add('hidden')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
                 </div>
-                <p class="text-[11px] text-slate-300 mb-4 leading-relaxed">Enter your Gmail address to sign in directly in this preview environment:</p>
+                <p class="text-[11px] text-slate-300 mb-4 leading-relaxed">Enter your email address to sign in directly in this preview environment:</p>
                 <form onsubmit="submitGoogleFallback(event)" class="space-y-3">
-                    <input type="email" id="google-fallback-email" required placeholder="yourname@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
+                    <input type="email" id="google-fallback-email" required placeholder="yourname@domain.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
                     <button type="submit" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">Continue</button>
                 </form>
             </div>
@@ -236,8 +391,8 @@
         <!-- ========================================================= -->
         <div id="auth-screen" class="flex-1 flex flex-col justify-center p-5">
             <div class="text-center mb-6">
-                <div class="w-16 h-16 rounded-3xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl shadow-cyan-500/30">
-                    <i class="fa-solid fa-cloud-bolt text-white text-2xl"></i>
+                <div class="w-16 h-16 rounded-3xl overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl shadow-cyan-500/30">
+                    <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover" alt="Logo">
                 </div>
                 <h1 class="text-xl font-extrabold tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-amber-300">
                     HASSAN X FILES LINKS
@@ -297,7 +452,7 @@
                     </div>
 
                     <div id="signup-referral-group" class="hidden">
-                        <label class="block text-[11px] font-semibold text-purple-300 mb-1">Referral Code (Optional - Earn +30 Pts)</label>
+                        <label class="block text-[11px] font-semibold text-purple-300 mb-1">Referral Code (Optional - Tier Rewards)</label>
                         <div class="relative">
                             <i class="fa-solid fa-gift absolute left-3.5 top-3 text-purple-400 text-xs"></i>
                             <input type="text" id="auth-referral-code" placeholder="Auto-filled if invited..." class="w-full bg-slate-950 border border-purple-500/30 rounded-xl pl-9 pr-3 py-2.5 text-xs text-purple-200 focus:outline-none focus:border-purple-400">
@@ -309,6 +464,7 @@
                     </button>
                 </form>
             </div>
+            <div class="powered-footer">POWERED BY HASSAN FF</div>
         </div>
 
         <!-- ========================================================= -->
@@ -318,8 +474,8 @@
             
             <header class="sticky top-0 z-30 glass-card border-b border-cyan-500/20 px-4 py-3 flex items-center justify-between">
                 <div class="flex items-center gap-2.5 cursor-pointer" onclick="navigateTo('dashboard')">
-                    <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
-                        <i class="fa-solid fa-folder-tree text-sm"></i>
+                    <div class="w-9 h-9 rounded-xl overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-md shadow-cyan-500/30">
+                        <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover" alt="Logo">
                     </div>
                     <div>
                         <h1 class="text-xs font-extrabold tracking-wide text-cyan-400 leading-tight">HASSAN X FILES</h1>
@@ -346,11 +502,12 @@
             <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#0a1020] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-800">
                     <div class="flex items-center gap-3">
-                        <img id="drawer-avatar" src="https://placehold.co/100x100/0f172a/00f2fe?text=U" class="w-11 h-11 rounded-full object-cover border-2 border-cyan-400">
+                        <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-400 shrink-0 relative">
+                            <img id="drawer-avatar-img" src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover">
+                        </div>
                         <div class="overflow-hidden">
                             <h4 id="drawer-username" class="text-xs font-bold text-white truncate">User</h4>
-                            <p id="drawer-email" class="text-[10px] text-slate-400 truncate">user@email.com</p>
-                            <span id="drawer-plan" class="inline-block mt-0.5 text-[9px] px-2 py-0.2 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">Free Plan</span>
+                            <span id="drawer-plan" class="inline-block mt-0.5 text-[9px] px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 font-bold">Free Plan</span>
                         </div>
                     </div>
                     <button onclick="toggleDrawer(false)" class="text-slate-400 hover:text-white p-1.5"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -363,8 +520,8 @@
                     <button onclick="navigateTo('plans'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-amber-500/10 hover:text-amber-300 text-left">
                         <i class="fa-solid fa-gem w-4 text-amber-400"></i> See Plans
                     </button>
-                    <button onclick="navigateTo('referral'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-purple-500/10 hover:text-purple-300 text-left">
-                        <i class="fa-solid fa-users w-4 text-purple-400"></i> Refer & Earn Points
+                    <button onclick="navigateTo('tasks'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-200 hover:bg-purple-500/10 hover:text-purple-300 text-left">
+                        <i class="fa-solid fa-gift w-4 text-purple-400"></i> Free Tasks & Spin Wheel
                     </button>
                     <button onclick="navigateTo('inbox'); toggleDrawer(false)" class="flex items-center justify-between px-3.5 py-3 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
                         <span class="flex items-center gap-3"><i class="fa-solid fa-inbox w-4 text-cyan-400"></i> Inbox</span>
@@ -397,7 +554,7 @@
             </div>
 
             <!-- ===================================================== -->
-            <!-- VIEW A: DASHBOARD & DUAL GENERATOR + FAQ & MORE ISSUE -->
+            <!-- VIEW A: DASHBOARD & DUAL GENERATOR + ADVANCED OPTIONS -->
             <!-- ===================================================== -->
             <section id="view-dashboard" class="app-section p-4 space-y-4">
                 
@@ -406,8 +563,8 @@
                         <div>
                             <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400">Live Storage Usage</span>
                             <div class="flex items-baseline gap-1.5 mt-0.5">
-                                <h2 id="dash-storage-remaining" class="text-lg font-extrabold text-cyan-300">200.00 MB</h2>
-                                <span class="text-[11px] text-slate-400">left of <span id="dash-storage-total">200 MB</span></span>
+                                <h2 id="dash-storage-remaining" class="text-lg font-extrabold text-cyan-300">100.00 MB</h2>
+                                <span class="text-[11px] text-slate-400">left of <span id="dash-storage-total">100 MB</span></span>
                             </div>
                         </div>
                         <button onclick="navigateTo('plans')" class="px-3 py-1.5 rounded-xl btn-gold text-[11px] font-extrabold">
@@ -425,7 +582,7 @@
                     </div>
                 </div>
 
-                <!-- Dual File/Code Generator Box -->
+                <!-- Dual File/Code Generator Box with Advanced Gateway Settings -->
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
                     <div class="flex items-center justify-between">
                         <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
@@ -433,14 +590,8 @@
                         </h3>
                         <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
                             <button id="gen-tab-file" onclick="switchGenMode('file')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300 transition">File Upload</button>
-                            <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">Manual Code/Text</button>
+                            <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition">Manual Code</button>
                         </div>
-                    </div>
-
-                    <!-- Custom URL Slug -->
-                    <div>
-                        <label class="block text-[10px] font-semibold text-slate-400 uppercase mb-1">Make URL / Custom Slug (Supports hassan-code, source-code, code-by-hassan)</label>
-                        <input type="text" id="custom-file-slug" placeholder="make url like hassan-code" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 placeholder-slate-500 focus:outline-none focus:border-cyan-400 font-mono">
                     </div>
 
                     <!-- TAB 1: Drag & Drop File Upload -->
@@ -463,11 +614,92 @@
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Paste Code or Text Content</label>
-                            <textarea id="manual-proj-content" rows="5" placeholder="Type or paste python codes, HTML, scripts or text notes here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-400"></textarea>
+                            <textarea id="manual-proj-content" rows="4" placeholder="Type or paste python codes, HTML, scripts or text notes here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none focus:border-cyan-400"></textarea>
                         </div>
                         <button onclick="submitManualCodeSnippet()" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
                             Generate Code Link
                         </button>
+                    </div>
+
+                    <!-- ADVANCED GATEWAY CONFIGURATION -->
+                    <div class="pt-3 border-t border-slate-800/80 space-y-3">
+                        <span class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Advanced Gateway Security & Social Walls</span>
+                        
+                        <!-- Password Protection Toggle & Input -->
+                        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-lock text-amber-400"></i> Password Protection</span>
+                                <input type="checkbox" id="enable-password-check" onchange="togglePasswordInput(this)" class="w-4 h-4 accent-cyan-400 cursor-pointer">
+                            </div>
+                            <div id="password-input-wrapper" class="hidden pt-1">
+                                <input type="text" id="file-security-password" placeholder="Set security password for file..." class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-amber-300 focus:outline-none focus:border-amber-400">
+                            </div>
+                        </div>
+
+                        <!-- Intro Message Toggle & Textarea -->
+                        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-message text-cyan-400"></i> Intro Message Popup</span>
+                                <input type="checkbox" id="enable-intro-check" onchange="toggleIntroInput(this)" class="w-4 h-4 accent-cyan-400 cursor-pointer">
+                            </div>
+                            <div id="intro-input-wrapper" class="hidden pt-1">
+                                <textarea id="file-intro-message" rows="2" placeholder="Write intro message shown to users before download..." class="w-full bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-xs text-cyan-300 focus:outline-none focus:border-cyan-400"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Follow / Subscription Channels Builder -->
+                        <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-white flex items-center gap-2"><i class="fa-solid fa-share-nodes text-emerald-400"></i> Follow / Subscribe Channels</span>
+                                <span class="text-[10px] text-slate-400 font-semibold">Mandatory Actions</span>
+                            </div>
+
+                            <div id="builder-channels-container" class="space-y-2.5">
+                                <div class="channel-row p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2">
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-cyan-300 uppercase mb-1">Select Platform Logo</label>
+                                        <select class="chan-logo-select w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
+                                            <option value="fa-brands fa-whatsapp">WhatsApp</option>
+                                            <option value="fa-brands fa-telegram">Telegram</option>
+                                            <option value="fa-brands fa-youtube">YouTube</option>
+                                            <option value="fa-brands fa-tiktok">TikTok</option>
+                                            <option value="fa-brands fa-instagram">Instagram</option>
+                                            <option value="fa-brands fa-github">GitHub</option>
+                                            <option value="fa-brands fa-facebook">Facebook</option>
+                                            <option value="fa-brands fa-twitter">Twitter / X</option>
+                                            <option value="fa-brands fa-discord">Discord</option>
+                                            <option value="fa-brands fa-spotify">Spotify</option>
+                                            <option value="fa-solid fa-globe">InfinityFree Website</option>
+                                            <option value="fa-solid fa-server">RailWay Hosting</option>
+                                            <option value="fa-solid fa-cloud">Vercel Hosting</option>
+                                            <option value="fa-solid fa-bolt">Netlify Drop</option>
+                                            <option value="fa-solid fa-fire">Firebase Cloud</option>
+                                            <option value="fa-solid fa-gamepad">Free Fire Game</option>
+                                            <option value="fa-solid fa-cube">Minecraft Bedrock</option>
+                                            <option value="fa-solid fa-headset">CapCut Editor</option>
+                                            <option value="fa-solid fa-robot">Telegram Bot API</option>
+                                            <option value="fa-solid fa-link">Custom Link</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-slate-300 uppercase mb-1">Channel / Website Name</label>
+                                        <input type="text" placeholder="e.g. Hassan Updates TG" class="chan-name-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-cyan-300 uppercase mb-1">Link URL</label>
+                                        <input type="url" placeholder="https://t.me/hassanff01" class="chan-link-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-cyan-300 focus:outline-none font-mono">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[10px] font-bold text-amber-300 uppercase mb-1">Button Title</label>
+                                        <input type="text" placeholder="e.g. Follow Channel Now" value="Follow Channel" class="chan-btn-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-amber-300 focus:outline-none">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button onclick="addChannelRow()" class="w-full py-2.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold hover:bg-cyan-500/25 transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-plus"></i> Add More Option
+                            </button>
+                        </div>
                     </div>
 
                     <div id="upload-progress-box" class="hidden mt-3 p-3 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-center">
@@ -504,42 +736,11 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- FAQ'S SECTION (English, Safe, Detailed & Professional) -->
-                <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
-                    <div class="flex items-center gap-2 pb-2 border-b border-slate-800">
-                        <i class="fa-solid fa-circle-question text-cyan-400 text-base"></i>
-                        <h3 class="text-sm font-extrabold text-white uppercase tracking-wider">Frequently Asked Questions</h3>
-                    </div>
-
-                    <div class="space-y-3 text-xs">
-                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
-                            <h4 class="font-extrabold text-cyan-300 mb-1">1. What should I do if a link fails to generate?</h4>
-                            <p class="text-slate-300 leading-relaxed">If your file or code link fails to generate, first check your active storage quota to ensure you haven't exceeded your plan limit. Verify your internet connection, refresh the application, or try reducing the file size. If the issue persists, contact support immediately.</p>
-                        </div>
-
-                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
-                            <h4 class="font-extrabold text-cyan-300 mb-1">2. How secure are my uploaded files and codes?</h4>
-                            <p class="text-slate-300 leading-relaxed">All files and code snippets uploaded to Hassan X Files are stored securely on cloud infrastructure with encrypted direct links, ensuring absolute privacy and fast global access.</p>
-                        </div>
-
-                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800/80">
-                            <h4 class="font-extrabold text-cyan-300 mb-1">3. How can I earn points to upgrade my plan for free?</h4>
-                            <p class="text-slate-300 leading-relaxed">You can earn points by inviting your friends using your unique referral link found in the 'Refer' section or by redeeming official promotional coupon codes in 'Redeem Your Code'.</p>
-                        </div>
-                    </div>
-
-                    <!-- MORE ISSUE OPTION (Opens Support Modal Sending Message to ansarbubble43@gmail.com) -->
-                    <div class="pt-2 text-center">
-                        <button onclick="openSupportModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-xs font-bold hover:bg-cyan-500/25 transition">
-                            <i class="fa-solid fa-headset"></i> More Issue? Contact Support
-                        </button>
-                    </div>
-                </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
-            <!-- VIEW B: SUBSCRIPTION PLANS & POINTS REDEMPTION        -->
+            <!-- VIEW B: SUBSCRIPTION PLANS & PRICING TIERS             -->
             <!-- ===================================================== -->
             <section id="view-plans" class="app-section hidden p-4 space-y-4">
                 <div class="text-center">
@@ -559,9 +760,8 @@
                         </div>
                     </div>
                     <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
-                        <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>200MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>100MB Storage</span> <span>✔️</span></li>
                     </ul>
                     <button disabled class="w-full py-2.5 rounded-xl bg-slate-800/80 text-slate-400 text-xs font-bold">Default Starter Tier</button>
                 </div>
@@ -569,106 +769,135 @@
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/35">
                     <div class="flex items-center justify-between mb-3">
                         <div>
-                            <h3 class="text-base font-extrabold text-cyan-300">Weekly Plan</h3>
-                            <p class="text-[11px] text-purple-300 font-semibold">Or 190 Referral Points</p>
+                            <h3 class="text-base font-extrabold text-cyan-300">Weekly Light</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Starter Weekly Tier</p>
                         </div>
                         <div class="text-right">
                             <span class="text-xl font-extrabold text-white">100 PKR</span>
                         </div>
                     </div>
                     <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
-                        <li class="flex justify-between"><span>Unlimited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>600MB Storage</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>200MB Storage</span> <span>✔️</span></li>
                     </ul>
-                    <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Weekly Plan', 190, 600)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">190 Points</button>
-                        <button onclick="openPaymentModal('Weekly Plan', '100 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
+                    <button onclick="openPaymentModal('Weekly Light', '100 PKR')" class="w-full py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
+                </div>
+
+                <div class="glass-card rounded-3xl p-5 border border-cyan-500/40">
+                    <div class="flex items-center justify-between mb-3">
+                        <div>
+                            <h3 class="text-base font-extrabold text-cyan-300">Weekly</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Standard Weekly Tier</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="text-xl font-extrabold text-white">200 PKR</span>
+                        </div>
                     </div>
+                    <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
+                        <li class="flex justify-between"><span>Limited Links</span> <span>✔️</span></li>
+                        <li class="flex justify-between"><span>270MB Storage</span> <span>✔️</span></li>
+                    </ul>
+                    <button onclick="openPaymentModal('Weekly', '200 PKR')" class="w-full py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
                 </div>
 
                 <div class="glass-gold rounded-3xl p-5 relative">
                     <span class="absolute -top-2.5 right-4 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[9px] font-extrabold uppercase">Most Popular</span>
                     <div class="flex items-center justify-between mb-3">
                         <div>
-                            <h3 class="text-base font-extrabold text-amber-300">Monthly Plan</h3>
-                            <p class="text-[11px] text-purple-300 font-semibold">Or 380 Referral Points</p>
+                            <h3 class="text-base font-extrabold text-amber-300">Monthly</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Extended Tier</p>
                         </div>
                         <div class="text-right">
-                            <span class="text-xl font-extrabold text-white">300 PKR</span>
+                            <span class="text-xl font-extrabold text-white">400 PKR</span>
                         </div>
                     </div>
                     <ul class="space-y-2 text-xs text-slate-200 border-t border-amber-500/20 pt-3 mb-4">
                         <li class="flex justify-between"><span>Unlimited Links</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>1000MB Storage</span> <span>✔️</span></li>
                     </ul>
-                    <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Monthly Plan', 380, 1000)" class="py-2.5 rounded-xl bg-purple-600/40 border border-purple-400/50 text-purple-200 text-xs font-bold">380 Points</button>
-                        <button onclick="openPaymentModal('Monthly Plan', '300 PKR')" class="py-2.5 rounded-xl btn-gold text-xs font-extrabold">Get Now</button>
-                    </div>
+                    <button onclick="openPaymentModal('Monthly', '400 PKR')" class="w-full py-2.5 rounded-xl btn-gold text-xs font-extrabold">Get Now</button>
                 </div>
 
                 <div class="glass-card rounded-3xl p-5 border border-purple-500/40">
                     <div class="flex items-center justify-between mb-3">
                         <div>
-                            <h3 class="text-base font-extrabold text-purple-300">Yearly Plan</h3>
-                            <p class="text-[11px] text-purple-300 font-semibold">Or 700 Referral Points</p>
+                            <h3 class="text-base font-extrabold text-purple-300">Yearly</h3>
+                            <p class="text-[11px] text-purple-300 font-semibold">Ultimate VIP Tier</p>
                         </div>
                         <div class="text-right">
-                            <span class="text-xl font-extrabold text-white">700 PKR</span>
+                            <span class="text-xl font-extrabold text-white">500 PKR</span>
                         </div>
                     </div>
                     <ul class="space-y-2 text-xs text-slate-300 border-t border-slate-800/80 pt-3 mb-4">
                         <li class="flex justify-between"><span>Unlimited Links Access</span> <span>✔️</span></li>
-                        <li class="flex justify-between"><span>Limited Links</span> <span>❌</span></li>
                         <li class="flex justify-between"><span>2048MB Storage</span> <span>✔️</span></li>
                     </ul>
-                    <div class="grid grid-cols-2 gap-2.5">
-                        <button onclick="redeemPlanPoints('Yearly Plan', 700, 2048)" class="py-2.5 rounded-xl bg-purple-600/30 border border-purple-500/50 text-purple-200 text-xs font-bold">700 Points</button>
-                        <button onclick="openPaymentModal('Yearly Plan', '700 PKR')" class="py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
-                    </div>
+                    <button onclick="openPaymentModal('Yearly', '500 PKR')" class="w-full py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
-            <!-- VIEW C: REFER & EARN POINTS                           -->
+            <!-- VIEW C: FREE TASKS & 24H SPIN WHEEL (Approval Pending) -->
             <!-- ===================================================== -->
-            <section id="view-referral" class="app-section hidden p-4 space-y-4">
-                <div class="glass-card rounded-3xl p-5 border border-purple-500/35 text-center">
-                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto mb-3 text-2xl">
+            <section id="view-tasks" class="app-section hidden p-4 space-y-4">
+                <div class="glass-card rounded-3xl p-5 border border-purple-500/35 text-center space-y-4">
+                    <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto text-2xl">
                         <i class="fa-solid fa-gift"></i>
                     </div>
-                    <h2 class="text-lg font-extrabold text-white">Refer & Earn Points</h2>
-                    <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                        Invite friends with your custom referral link! When they sign up, <strong class="text-cyan-300">BOTH of you get +30 Points</strong> instantly.
-                    </p>
+                    <div>
+                        <h2 class="text-lg font-extrabold text-white">Free Tasks & Referral Tiers</h2>
+                        <p class="text-xs text-slate-300 mt-1">Invite friends or spin the wheel daily to earn points!</p>
+                    </div>
 
-                    <div class="mt-4 p-3.5 rounded-2xl bg-slate-950 border border-purple-500/30 text-left">
-                        <label class="block text-[10px] font-bold text-purple-300 uppercase mb-1.5">Your Custom Referral Link</label>
-                        <div class="flex items-center gap-2">
-                            <input type="text" id="my-referral-link" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-purple-200 focus:outline-none">
-                            <button onclick="copyTextValue(document.getElementById('my-referral-link').value, 'Referral link copied!')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold shrink-0">
-                                Copy
-                            </button>
+                    <!-- Referral Milestone Tasks -->
+                    <div class="p-3.5 rounded-2xl bg-slate-950 border border-purple-500/30 text-left space-y-2.5">
+                        <span class="text-[10px] font-bold text-purple-300 uppercase">Referral Milestone Tiers</span>
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                                <span>👤 1 Friend (<strong class="text-cyan-300">50 Pts</strong>)</span>
+                                <span id="task-ref-1" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-bold">Go</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                                <span>👥 2 Friends (<strong class="text-amber-300">200 Pts</strong>)</span>
+                                <span id="task-ref-2" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-bold">Go</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                                <span>🔥 3 Friends (<strong class="text-emerald-300">500 Pts</strong>)</span>
+                                <span id="task-ref-3" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-bold">Go</span>
+                            </div>
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800">
+                                <span>👑 5 Friends (<strong class="text-purple-300">1000 Pts</strong>)</span>
+                                <span id="task-ref-5" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-bold">Go</span>
+                            </div>
+                        </div>
+
+                        <div class="pt-2">
+                            <label class="block text-[10px] font-bold text-purple-300 uppercase mb-1">Your Custom Referral Link</label>
+                            <div class="flex items-center gap-2">
+                                <input type="text" id="my-referral-link" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-purple-200 focus:outline-none">
+                                <button onclick="copyTextValue(document.getElementById('my-referral-link').value, 'Referral link copied!')" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white text-xs font-bold shrink-0">
+                                    Copy
+                                </button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-3 mt-4">
-                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">Total Invited</span>
-                            <h3 id="ref-total-count" class="text-xl font-extrabold text-cyan-400 mt-0.5">0</h3>
-                        </div>
-                        <div class="p-3.5 rounded-2xl bg-slate-950/90 border border-slate-800">
-                            <span class="text-[10px] text-slate-400 uppercase font-bold">Available Points</span>
-                            <h3 id="ref-total-points" class="text-xl font-extrabold text-purple-400 mt-0.5">0 Pts</h3>
-                        </div>
-                    </div>
+                    <!-- SPIN & WIN WHEEL SECTION -->
+                    <div class="p-4 rounded-2xl bg-slate-950 border border-cyan-500/30 space-y-3 text-center relative overflow-hidden">
+                        <span class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-extrabold uppercase">Daily Spin & Win Wheel</span>
+                        <p class="text-xs text-slate-300">You have <strong id="spins-left-label" class="text-cyan-400">5</strong> spins left in the last 24 hours.</p>
 
-                    <button onclick="navigateTo('plans')" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider mt-4">
-                        Redeem Points for Free Plans
-                    </button>
+                        <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-cyan-500/20 via-purple-500/25 to-amber-500/20 border-4 border-cyan-400 flex items-center justify-center mx-auto text-3xl shadow-xl shadow-cyan-500/20 animate-pulse relative" id="spin-wheel-circle">
+                            <i class="fa-solid fa-dharmachakra text-cyan-300"></i>
+                        </div>
+
+                        <button onclick="spinTheWheel()" id="spin-btn" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider shadow-lg shadow-cyan-500/30">
+                            Spin Wheel Now 🎡
+                        </button>
+                    </div>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
@@ -687,6 +916,7 @@
                         No messages in your inbox yet.
                     </div>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
@@ -699,7 +929,9 @@
                     </h2>
 
                     <div class="flex items-center gap-3.5">
-                        <img id="prof-avatar-img" src="https://placehold.co/100x100/0f172a/00f2fe?text=U" class="w-16 h-16 rounded-full object-cover border-2 border-cyan-400 shrink-0">
+                        <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-cyan-400 shrink-0 relative">
+                            <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover">
+                        </div>
                         <div class="flex-1 space-y-2">
                             <input type="text" id="prof-avatar-url" placeholder="Paste profile image URL..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
                             <label class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-300 text-[11px] font-bold cursor-pointer">
@@ -712,11 +944,6 @@
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
                         <input type="text" id="prof-username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-                    </div>
-
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Email Address</label>
-                        <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
                     </div>
 
                     <button onclick="updateUserProfile()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
@@ -744,6 +971,7 @@
                         CHANGE PASSWORD
                     </button>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
@@ -756,37 +984,20 @@
                     </div>
                     <div>
                         <h2 class="text-lg font-extrabold text-white">Redeem Promo Code</h2>
-                        <p class="text-xs text-slate-300 mt-1">Enter your special coupon code to claim instant points! Note: Each code can only be redeemed once globally.</p>
+                        <p class="text-xs text-slate-300 mt-1">Enter your special coupon code to claim instant points! Each code can only be redeemed once globally by the first user.</p>
                     </div>
 
                     <div class="space-y-3 text-left">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Enter Redeem Code</label>
-                            <input type="text" id="redeem-code-input" placeholder="e.g. HASSANXFILE" class="w-full bg-slate-950 border border-emerald-500/30 rounded-xl px-3.5 py-3 text-xs text-emerald-300 uppercase font-mono focus:outline-none focus:border-emerald-400">
+                            <input type="text" id="redeem-code-input" placeholder="e.g. HASSAN123" class="w-full bg-slate-950 border border-emerald-500/30 rounded-xl px-3.5 py-3 text-xs text-emerald-300 uppercase font-mono focus:outline-none focus:border-emerald-400">
                         </div>
                         <button onclick="handleRedeemCode()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase tracking-wider shadow-lg shadow-emerald-500/30">
                             Redeem Code Now
                         </button>
                     </div>
-
-                    <div class="pt-3 border-t border-slate-800 text-left">
-                        <h4 class="text-xs font-bold text-slate-300 mb-2"><i class="fa-solid fa-circle-info text-cyan-400 mr-1"></i> Available Promo Codes & Details:</h4>
-                        <div class="space-y-2 text-[11px] text-slate-400 font-mono">
-                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                                <p class="text-cyan-300 font-bold">1. HASSANXFILE</p>
-                                <p>Points: +500 | Duration: 1 Day | Created: 2026-11-01</p>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                                <p class="text-cyan-300 font-bold">2. MYXFILEZ</p>
-                                <p>Points: +400 | Duration: 8 Days | Created: 2026-11-01</p>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800">
-                                <p class="text-cyan-300 font-bold">3. FILEXLINKS</p>
-                                <p>Points: +860 | Duration: 1 Week | Created: 2026-11-01</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
             <!-- ===================================================== -->
@@ -805,7 +1016,7 @@
                     <h3 class="text-xs font-extrabold text-cyan-300 uppercase tracking-wider">
                         <i class="fa-solid fa-bullhorn mr-1.5"></i> Send Global Broadcast to All Users
                     </h3>
-                    <textarea id="admin-broadcast-text" rows="3" placeholder="Write message for everyone's Inbox..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400"></textarea>
+                    <textarea id="admin-broadcast-text" rows="3" placeholder="Write message for everyone's Inbox..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400 whitespace-pre-wrap"></textarea>
                     <button onclick="sendAdminBroadcast()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
                         Send Message to Everyone
                     </button>
@@ -816,17 +1027,18 @@
                         <i class="fa-solid fa-crown mr-1.5"></i> Assign Plan Rank to User
                     </h3>
                     <div>
-                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select or Enter Username / Gmail</label>
+                        <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select or Enter Username / Email</label>
                         <input type="text" id="admin-target-user" list="registered-users-datalist" placeholder="Type username or email..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
                         <datalist id="registered-users-datalist"></datalist>
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-400 uppercase font-bold mb-1">Select Plan Rank</label>
                         <select id="admin-target-plan" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
-                            <option value="Free Plan">Free Plan (200MB)</option>
-                            <option value="Weekly Plan">Weekly Plan (600MB)</option>
-                            <option value="Monthly Plan">Monthly Plan (1000MB)</option>
-                            <option value="Yearly Plan">Yearly Plan (2048MB)</option>
+                            <option value="Free Plan">Free Plan (100MB)</option>
+                            <option value="Weekly Light">Weekly Light (200MB)</option>
+                            <option value="Weekly">Weekly (270MB)</option>
+                            <option value="Monthly">Monthly (1000MB)</option>
+                            <option value="Yearly">Yearly (2048MB)</option>
                         </select>
                     </div>
                     <button onclick="adminGrantUserRank()" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
@@ -836,17 +1048,18 @@
 
                 <div class="glass-card rounded-3xl p-4 border border-emerald-500/25 space-y-3">
                     <h3 class="text-xs font-extrabold text-emerald-300 uppercase tracking-wider">
-                        <i class="fa-solid fa-receipt mr-1.5"></i> Payment Proofs (<span id="admin-payments-count">0</span>)
+                        <i class="fa-solid fa-receipt mr-1.5"></i> Payment & Point Approvals (<span id="admin-payments-count">0</span>)
                     </h3>
                     <div id="admin-payments-list" class="space-y-3">
-                        <p class="text-center text-xs text-slate-500 py-4">No payment submissions yet.</p>
+                        <p class="text-center text-xs text-slate-500 py-4">No submissions yet.</p>
                     </div>
                 </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- Bottom Mobile Tab Bar (Redesigned with Beautiful Shaders & Detailed Layout) -->
+            <!-- Bottom Mobile Tab Bar (Tasks instead of Profile) -->
             <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[480px] z-30 glass-card border-t border-cyan-500/30 px-3 py-2.5 flex items-center justify-around shadow-2xl backdrop-blur-xl bg-[#070b16]/90">
-                <button onclick="navigateTo('dashboard')" id="bnav-dashboard" class="flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-extrabold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10">
+                <button onclick="navigateTo('dashboard')" id="bnav-dashboard" class="flex flex-col items-center gap-1 text-cyan-400 text-[10px] font-extrabold py-1 px-3 rounded-2xl transition bg-cyan-500/10">
                     <i class="fa-solid fa-house text-base"></i>
                     <span>Home</span>
                 </button>
@@ -854,59 +1067,23 @@
                     <i class="fa-solid fa-gem text-base"></i>
                     <span>Plans</span>
                 </button>
-                <button onclick="navigateTo('referral')" id="bnav-referral" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-purple-500/10 hover:text-purple-300">
+                <button onclick="navigateTo('tasks')" id="bnav-tasks" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-purple-500/10 hover:text-purple-300">
                     <i class="fa-solid fa-gift text-base"></i>
-                    <span>Refer</span>
+                    <span>Tasks</span>
                 </button>
                 <button onclick="navigateTo('inbox')" id="bnav-inbox" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10 hover:text-cyan-300">
                     <i class="fa-solid fa-inbox text-base"></i>
                     <span>Inbox</span>
                 </button>
-                <button onclick="navigateTo('profile')" id="bnav-profile" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-cyan-500/10 hover:text-cyan-300">
-                    <i class="fa-solid fa-user text-base"></i>
-                    <span>Profile</span>
+                <button onclick="navigateTo('redeem')" id="bnav-redeem" class="flex flex-col items-center gap-1 text-slate-400 text-[10px] font-semibold py-1 px-3 rounded-2xl transition hover:bg-emerald-500/10 hover:text-emerald-300">
+                    <i class="fa-solid fa-ticket text-base"></i>
+                    <span>Redeem</span>
                 </button>
             </nav>
         </div>
 
         <!-- ========================================================= -->
-        <!-- 4. SUPPORT / MORE ISSUE MODAL (Sends to ansarbubble43@gmail.com) -->
-        <!-- ========================================================= -->
-        <div id="support-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden p-4">
-            <div class="glass-card rounded-3xl p-5 w-full max-w-[400px] border border-cyan-500/40 relative shadow-2xl">
-                <button onclick="closeSupportModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white p-1">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
-
-                <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center mx-auto mb-3 text-xl">
-                    <i class="fa-solid fa-envelope-circle-check"></i>
-                </div>
-
-                <h3 class="text-base font-extrabold text-white text-center mb-1">Contact Developer Support</h3>
-                <p class="text-[11px] text-slate-400 text-center mb-4">Send your issue directly to <strong class="text-cyan-300">ansarbubble43@gmail.com</strong></p>
-
-                <form onsubmit="submitSupportTicket(event)" class="space-y-3">
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Name</label>
-                        <input type="text" id="support-name" required placeholder="Enter your name..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Email</label>
-                        <input type="email" id="support-email" required placeholder="yourname@gmail.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-400">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Message / Issue</label>
-                        <textarea id="support-message" rows="4" required placeholder="Describe your issue or question in detail..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-cyan-400"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider shadow-lg">
-                        Send Message to Gmail
-                    </button>
-                </form>
-            </div>
-        </div>
-
-        <!-- ========================================================= -->
-        <!-- 5. PAYMENT MODAL (EASYPAISA / JAZZCASH / BANK)            -->
+        <!-- 5. PAYMENT MODAL                                          -->
         <!-- ========================================================= -->
         <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
             <div class="glass-card rounded-3xl p-5 w-full max-w-[420px] max-h-[90vh] overflow-y-auto border border-amber-500/35 relative">
@@ -915,32 +1092,18 @@
                 </button>
 
                 <span class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-bold uppercase">Plan Activation</span>
-                <h3 id="pay-modal-heading" class="text-base font-extrabold text-white mt-1.5">Weekly Plan — 100 PKR</h3>
+                <h3 id="pay-modal-heading" class="text-base font-extrabold text-white mt-1.5">Weekly — 200 PKR</h3>
 
                 <div class="mt-4">
                     <label class="block text-[11px] font-bold text-slate-300 mb-2">Select Payment Method Sent From:</label>
                     <div class="grid grid-cols-3 gap-2">
                         <button type="button" onclick="choosePayMethod('Easypaisa')" id="pm-btn-Easypaisa" class="p-2.5 rounded-2xl border-2 border-emerald-500 bg-emerald-500/15 flex flex-col items-center gap-1.5 transition">
-                            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
-                                <circle cx="24" cy="24" r="22" fill="#00A859"/>
-                                <path d="M16 25.5L21.5 31L33 18" stroke="white" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
-                            </svg>
                             <span class="text-[10px] font-extrabold text-emerald-300">Easypaisa</span>
                         </button>
-
                         <button type="button" onclick="choosePayMethod('JazzCash')" id="pm-btn-JazzCash" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
-                            <svg class="w-7 h-7" viewBox="0 0 48 48" fill="none">
-                                <rect x="2" y="2" width="44" height="44" rx="12" fill="#D71920"/>
-                                <circle cx="24" cy="24" r="11" fill="#FDB913"/>
-                                <path d="M24 16V26C24 28.5 22 30 19.5 30" stroke="#D71920" stroke-width="3.5" stroke-linecap="round"/>
-                            </svg>
                             <span class="text-[10px] font-extrabold text-slate-300">JazzCash</span>
                         </button>
-
                         <button type="button" onclick="choosePayMethod('Bank')" id="pm-btn-Bank" class="p-2.5 rounded-2xl border border-slate-700 bg-slate-900/70 flex flex-col items-center gap-1.5 transition">
-                            <div class="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm">
-                                <i class="fa-solid fa-building-columns"></i>
-                            </div>
                             <span class="text-[10px] font-extrabold text-slate-300">Bank 🏦</span>
                         </button>
                     </div>
@@ -960,24 +1123,10 @@
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Account Holder Name</label>
                         <input type="text" id="pay-holder-name" placeholder="Enter your account name..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
                     </div>
-
                     <div>
                         <label class="block text-[11px] font-semibold text-slate-300 mb-1">Your Account Number</label>
                         <input type="text" id="pay-account-number" placeholder="Enter your account number..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400">
                     </div>
-
-                    <div>
-                        <label class="block text-[11px] font-semibold text-slate-300 mb-1">
-                            Payment Screenshot <span class="text-red-400">* (Mandatory Screenshot Required)</span>
-                        </label>
-                        <div id="pay-ss-dropzone" onclick="document.getElementById('pay-ss-input').click()" class="border-2 border-dashed border-amber-500/40 rounded-2xl p-4 text-center bg-slate-950 cursor-pointer">
-                            <input type="file" id="pay-ss-input" accept="image/*" required class="hidden" onchange="handlePaymentProofFile(this.files[0])">
-                            <p id="pay-ss-status" class="text-xs text-slate-400">
-                                <i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot (Required)
-                            </p>
-                        </div>
-                    </div>
-
                     <button onclick="sendPaymentProofToAdmin()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase tracking-wider">
                         Sent Payment Message
                     </button>
@@ -986,7 +1135,26 @@
         </div>
 
         <!-- ========================================================= -->
-        <!-- 6. CRAZY & BEAUTIFUL LIVE CODE / TEXT PREVIEW MODAL       -->
+        <!-- 6. SPIN WIN RESULT MODAL (WhatsApp Redirect & Admin Approval) -->
+        <!-- ========================================================= -->
+        <div id="spin-win-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md hidden p-4">
+            <div class="glass-card rounded-3xl p-6 w-full max-w-[380px] text-center border-2 border-emerald-500/40 shadow-2xl space-y-4">
+                <div class="w-16 h-16 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto text-3xl shadow-lg">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <h3 class="text-base font-extrabold text-white" id="spin-win-title">YOU WON THE PRIZE!</h3>
+                <p class="text-xs text-slate-300 leading-relaxed" id="spin-win-desc">Request sent to admin for approval. Claim via WhatsApp as well!</p>
+                <a id="spin-whatsapp-btn" href="#" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/30">
+                    <i class="fa-brands fa-whatsapp text-base"></i> Claim via WhatsApp
+                </a>
+                <button onclick="document.getElementById('spin-win-modal').classList.add('hidden')" class="w-full py-2.5 rounded-2xl glass-card text-xs font-semibold text-slate-400 hover:text-white transition">
+                    Close
+                </button>
+            </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 7. LIVE CODE / TEXT PREVIEW MODAL                         -->
         <!-- ========================================================= -->
         <div id="live-preview-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-md hidden p-4">
             <div class="glass-card rounded-3xl p-5 w-full max-w-lg h-[85vh] flex flex-col border-2 border-cyan-500/50 shadow-2xl relative overflow-hidden">
@@ -1081,6 +1249,7 @@
 
         const ADMIN_EMAIL = "ansarbubble43@gmail.com";
         const ADMIN_PASS = "HASSAN1DEV";
+        const ADMIN_WHATSAPP = "923294675242";
 
         let authMode = "login";
         let currentUser = null;
@@ -1091,19 +1260,20 @@
         let selectedPayMethod = "Easypaisa";
         let selectedScreenshotFile = null;
         let currentGenMode = "file";
-        let activePublicFileRecord = null;
+        let activeGatewayFile = null;
+        let completedChannelsMap = {};
 
         const PROMO_CODES = {
-            "HASSANXFILE": { points: 500, durationDays: 1, createdAt: "2026-11-01" },
-            "MYXFILEZ": { points: 400, durationDays: 8, createdAt: "2026-11-01" },
-            "FILEXLINKS": { points: 860, durationDays: 7, createdAt: "2026-11-01" }
+            "HASSAN123": { points: 500, durationDays: 7, createdAt: "2026-11-14" },
+            "KHASSAN100": { points: 500, durationDays: 7, createdAt: "2026-11-14" }
         };
 
         const PLAN_LIMITS = {
-            "Free Plan": 200 * 1024 * 1024,
-            "Weekly Plan": 600 * 1024 * 1024,
-            "Monthly Plan": 1000 * 1024 * 1024,
-            "Yearly Plan": 2048 * 1024 * 1024
+            "Free Plan": 100 * 1024 * 1024,
+            "Weekly Light": 200 * 1024 * 1024,
+            "Weekly": 270 * 1024 * 1024,
+            "Monthly": 1000 * 1024 * 1024,
+            "Yearly": 2048 * 1024 * 1024
         };
 
         window.showAppModal = function(title, text, iconHtml = '<i class="fa-solid fa-circle-info"></i>') {
@@ -1119,28 +1289,6 @@
 
         window.closeWhatsappPopup = function() {
             document.getElementById("whatsapp-popup-modal").classList.add("hidden");
-        };
-
-        window.openSupportModal = function() {
-            document.getElementById("support-modal").classList.remove("hidden");
-        };
-
-        window.closeSupportModal = function() {
-            document.getElementById("support-modal").classList.add("hidden");
-        };
-
-        window.submitSupportTicket = function(e) {
-            e.preventDefault();
-            const name = document.getElementById("support-name").value.trim();
-            const email = document.getElementById("support-email").value.trim();
-            const message = document.getElementById("support-message").value.trim();
-
-            const mailSubject = encodeURIComponent(`Support Request from ${name} (${email})`);
-            const mailBody = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`);
-            window.location.href = `mailto:ansarbubble43@gmail.com?subject=${mailSubject}&body=${mailBody}`;
-
-            closeSupportModal();
-            showAppModal("Support Email Triggered", "Your email client has been opened to send your message directly to ansarbubble43@gmail.com.", '<i class="fa-solid fa-paper-plane text-cyan-400"></i>');
         };
 
         window.copyTextValue = function(text, msg = "Copied to clipboard!") {
@@ -1187,7 +1335,68 @@
             }
         };
 
-        async function loadPublicFileBySlug(fileSlug) {
+        window.togglePasswordInput = function(checkbox) {
+            const wrap = document.getElementById("password-input-wrapper");
+            if (checkbox.checked) wrap.classList.remove("hidden");
+            else wrap.classList.add("hidden");
+        };
+
+        window.toggleIntroInput = function(checkbox) {
+            const wrap = document.getElementById("intro-input-wrapper");
+            if (checkbox.checked) wrap.classList.remove("hidden");
+            else wrap.classList.add("hidden");
+        };
+
+        window.addChannelRow = function() {
+            const container = document.getElementById("builder-channels-container");
+            const div = document.createElement("div");
+            div.className = "channel-row p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-2";
+            div.innerHTML = `
+                <div>
+                    <label class="block text-[10px] font-bold text-cyan-300 uppercase mb-1">Select Platform Logo</label>
+                    <div class="flex items-center gap-2">
+                        <select class="chan-logo-select flex-1 bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
+                            <option value="fa-brands fa-whatsapp">WhatsApp</option>
+                            <option value="fa-brands fa-telegram">Telegram</option>
+                            <option value="fa-brands fa-youtube">YouTube</option>
+                            <option value="fa-brands fa-tiktok">TikTok</option>
+                            <option value="fa-brands fa-instagram">Instagram</option>
+                            <option value="fa-brands fa-github">GitHub</option>
+                            <option value="fa-brands fa-facebook">Facebook</option>
+                            <option value="fa-brands fa-twitter">Twitter / X</option>
+                            <option value="fa-brands fa-discord">Discord</option>
+                            <option value="fa-brands fa-spotify">Spotify</option>
+                            <option value="fa-solid fa-globe">InfinityFree Website</option>
+                            <option value="fa-solid fa-server">RailWay Hosting</option>
+                            <option value="fa-solid fa-cloud">Vercel Hosting</option>
+                            <option value="fa-solid fa-bolt">Netlify Drop</option>
+                            <option value="fa-solid fa-fire">Firebase Cloud</option>
+                            <option value="fa-solid fa-gamepad">Free Fire Game</option>
+                            <option value="fa-solid fa-cube">Minecraft Bedrock</option>
+                            <option value="fa-solid fa-headset">CapCut Editor</option>
+                            <option value="fa-solid fa-robot">Telegram Bot API</option>
+                            <option value="fa-solid fa-link">Custom Link</option>
+                        </select>
+                        <button type="button" onclick="this.closest('.channel-row').remove()" class="text-red-400 hover:text-red-300 px-2.5 py-2 text-xs bg-red-500/15 rounded-lg"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-slate-300 uppercase mb-1">Channel / Website Name</label>
+                    <input type="text" placeholder="e.g. Afzaal Hosting" class="chan-name-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-white focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-cyan-300 uppercase mb-1">Link URL</label>
+                    <input type="url" placeholder="https://..." class="chan-link-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-cyan-300 focus:outline-none font-mono">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-amber-300 uppercase mb-1">Button Title</label>
+                    <input type="text" placeholder="e.g. Follow Channel" value="Follow Channel" class="chan-btn-input w-full bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-2 text-xs text-amber-300 focus:outline-none">
+                </div>
+            `;
+            container.appendChild(div);
+        };
+
+        async function loadPublicFileById(fileId) {
             document.getElementById("whatsapp-popup-modal").classList.add("hidden");
             document.getElementById("auth-screen").classList.add("hidden");
             document.getElementById("main-app-view").classList.add("hidden");
@@ -1195,78 +1404,190 @@
 
             let matchedFile = null;
             try {
-                const filesSnap = await getDocs(collection(db, "files"));
-                filesSnap.forEach((docSnap) => {
-                    const data = docSnap.data();
-                    if (data.slug === fileSlug || docSnap.id === fileSlug || data.fileName === fileSlug) {
-                        matchedFile = { id: docSnap.id, ...data };
-                    }
-                });
+                const docRef = doc(db, "files", fileId);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    matchedFile = { id: docSnap.id, ...docSnap.data() };
+                } else {
+                    const filesSnap = await getDocs(collection(db, "files"));
+                    filesSnap.forEach((d) => {
+                        const data = d.data();
+                        if (d.id === fileId || data.fileId === fileId || data.slug === fileId) {
+                            matchedFile = { id: d.id, ...data };
+                        }
+                    });
+                }
             } catch (err) {
-                console.warn("Firestore file query fallback:", err);
+                console.warn("Firestore fetch error:", err);
             }
 
             if (!matchedFile) {
                 try {
                     const cached = JSON.parse(localStorage.getItem("hxf_cached_files") || "[]");
-                    matchedFile = cached.find((item) => item.slug === fileSlug || item.fileName === fileSlug) || null;
+                    matchedFile = cached.find((item) => item.id === fileId || item.fileId === fileId) || null;
                 } catch (_) {}
             }
 
-            activePublicFileRecord = matchedFile;
+            activeGatewayFile = matchedFile;
+            completedChannelsMap = {};
 
             if (matchedFile) {
-                const resolvedName = matchedFile.fileName || fileSlug;
-                const resolvedSize = matchedFile.size || matchedFile.fileSize || 0;
-                const resolvedOwner = matchedFile.uploaderName || matchedFile.ownerUsername || "User";
-                const resolvedUrl = matchedFile.downloadURL || matchedFile.fileData || "";
-                const codeContent = matchedFile.codeContent || "";
+                const passwordProt = matchedFile.securityPassword || "";
+                const introMsg = matchedFile.introMessage || "";
 
-                document.title = resolvedName;
-                const ogTitleMeta = document.getElementById("meta-og-title");
-                if (ogTitleMeta) ogTitleMeta.setAttribute("content", resolvedName);
-                const ogDescMeta = document.getElementById("meta-og-desc");
-                if (ogDescMeta) ogDescMeta.setAttribute("content", `Download ${resolvedName} securely via Hassan X Files.`);
-
-                document.getElementById("pub-file-name").innerText = resolvedName;
-                document.getElementById("pub-file-size").innerText = formatSize(resolvedSize);
-                document.getElementById("pub-file-owner").innerText = resolvedOwner;
-
-                const liveBtn = document.getElementById("pub-live-preview-btn");
-                if (codeContent || (resolvedUrl && (resolvedName.endsWith('.html') || resolvedName.endsWith('.py') || resolvedName.endsWith('.txt') || resolvedName.endsWith('.js')))) {
-                    liveBtn.classList.remove("hidden");
+                if (passwordProt) {
+                    document.getElementById("gateway-password-step").classList.remove("hidden");
+                    document.getElementById("gateway-intro-step").classList.add("hidden");
+                    document.getElementById("gateway-success-step").classList.add("hidden");
+                } else if (introMsg || (matchedFile.channels && matchedFile.channels.length > 0)) {
+                    setupGatewayIntroStep(matchedFile);
                 } else {
-                    liveBtn.classList.add("hidden");
-                }
-
-                const dlBtn = document.getElementById("pub-download-btn");
-                if (resolvedUrl) {
-                    dlBtn.href = resolvedUrl;
-                    dlBtn.setAttribute("download", resolvedName);
-                    dlBtn.classList.remove("hidden");
-                } else if (codeContent) {
-                    const blob = new Blob([codeContent], { type: "text/plain" });
-                    dlBtn.href = URL.createObjectURL(blob);
-                    dlBtn.setAttribute("download", resolvedName);
-                    dlBtn.classList.remove("hidden");
-                } else {
-                    dlBtn.classList.add("hidden");
+                    setupGatewaySuccessStep(matchedFile);
                 }
             } else {
-                document.getElementById("pub-file-name").innerText = "File Not Found";
-                document.getElementById("pub-file-size").innerText = "--";
-                document.getElementById("pub-file-owner").innerText = "--";
-                document.getElementById("pub-download-btn").classList.add("hidden");
-                document.getElementById("pub-live-preview-btn").classList.add("hidden");
+                document.getElementById("gateway-password-step").classList.add("hidden");
+                document.getElementById("gateway-intro-step").classList.remove("hidden");
+                document.getElementById("pub-file-name").innerText = "File Not Found or Expired";
+                document.getElementById("pub-intro-message").innerText = "The requested file ID does not exist or was removed.";
+            }
+        }
+
+        window.verifyGatewayPassword = function() {
+            const entered = document.getElementById("gateway-pass-input").value.trim();
+            const actual = activeGatewayFile?.securityPassword || "";
+            if (entered === actual) {
+                document.getElementById("gateway-password-step").classList.add("hidden");
+                const introMsg = activeGatewayFile.introMessage || "";
+                if (introMsg || (activeGatewayFile.channels && activeGatewayFile.channels.length > 0)) {
+                    setupGatewayIntroStep(activeGatewayFile);
+                } else {
+                    setupGatewaySuccessStep(activeGatewayFile);
+                }
+            } else {
+                showAppModal("Incorrect Password", "The security password entered is incorrect.");
+            }
+        };
+
+        function setupGatewayIntroStep(fileData) {
+            document.getElementById("gateway-password-step").classList.add("hidden");
+            document.getElementById("gateway-success-step").classList.add("hidden");
+            document.getElementById("gateway-intro-step").classList.remove("hidden");
+
+            document.getElementById("pub-file-name").innerText = fileData.fileName || "File";
+            const introBox = document.getElementById("pub-intro-message");
+            if (fileData.introMessage) {
+                introBox.innerText = fileData.introMessage;
+                introBox.classList.remove("hidden");
+            } else {
+                introBox.classList.add("hidden");
+            }
+
+            const channels = fileData.channels || [];
+            const chanContainer = document.getElementById("gateway-channels-list");
+
+            if (channels.length === 0) {
+                chanContainer.innerHTML = `<p class="text-xs text-slate-400 text-center py-2">No mandatory subscription channels required.</p>`;
+                enableGatewaySuccess(fileData);
+                return;
+            }
+
+            chanContainer.innerHTML = channels.map((ch, idx) => `
+                <div id="chan-card-${idx}" class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-2.5 overflow-hidden">
+                        <div class="w-9 h-9 rounded-xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center shrink-0 text-sm">
+                            <i class="${ch.logo || 'fa-solid fa-link'}"></i>
+                        </div>
+                        <div class="overflow-hidden">
+                            <h4 class="text-xs font-bold text-white truncate">${ch.name || 'Channel'}</h4>
+                            <span class="text-[10px] text-slate-400 truncate">Tap & visit to unlock</span>
+                        </div>
+                    </div>
+                    <a href="${ch.link}" target="_blank" onclick="markChannelVisited(${idx}, ${channels.length})" class="px-3.5 py-2 rounded-xl btn-cyan text-xs font-extrabold text-white shrink-0">
+                        ${ch.btnTitle || 'Follow'}
+                    </a>
+                </div>
+            `).join("");
+
+            updateGatewayProgress(0, channels.length);
+        }
+
+        window.markChannelVisited = function(idx, totalCount) {
+            completedChannelsMap[idx] = true;
+            const card = document.getElementById(`chan-card-${idx}`);
+            if (card) {
+                card.style.borderColor = "rgba(0, 242, 254, 0.5)";
+                card.style.background = "rgba(0, 242, 254, 0.05)";
+                const btn = card.querySelector("a");
+                if (btn) {
+                    btn.innerHTML = `<i class="fa-solid fa-check mr-1"></i> Completed`;
+                    btn.className = "px-3.5 py-2 rounded-xl bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-extrabold shrink-0";
+                }
+            }
+
+            const completedCount = Object.keys(completedChannelsMap).length;
+            updateGatewayProgress(completedCount, totalCount);
+
+            if (completedCount >= totalCount) {
+                enableGatewaySuccess(activeGatewayFile);
+            }
+        };
+
+        function updateGatewayProgress(done, total) {
+            const pct = Math.round((done / total) * 100);
+            document.getElementById("gateway-progress-label").innerText = `${pct}% Completed`;
+            document.getElementById("gateway-progress-bar").style.width = `${pct}%`;
+        }
+
+        function enableGatewaySuccess(fileData) {
+            const dlBtn = document.getElementById("pub-download-btn");
+            dlBtn.disabled = false;
+            dlBtn.className = "w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/30";
+            dlBtn.innerHTML = `<i class="fa-solid fa-unlock"></i> Proceed to File Download`;
+            dlBtn.onclick = () => setupGatewaySuccessStep(fileData);
+        }
+
+        function setupGatewaySuccessStep(fileData) {
+            document.getElementById("gateway-intro-step").classList.add("hidden");
+            document.getElementById("gateway-password-step").classList.add("hidden");
+            document.getElementById("gateway-success-step").classList.remove("hidden");
+
+            const resolvedName = fileData.fileName || "File";
+            const resolvedSize = fileData.size || fileData.fileSize || 0;
+            const resolvedOwner = fileData.uploaderName || fileData.ownerUsername || "User";
+            const resolvedUrl = fileData.downloadURL || fileData.fileData || "";
+            const codeContent = fileData.codeContent || "";
+
+            document.title = resolvedName;
+            document.getElementById("success-file-title").innerText = resolvedName;
+            document.getElementById("pub-file-size").innerText = formatSize(resolvedSize);
+            document.getElementById("pub-file-owner").innerText = resolvedOwner;
+
+            const liveBtn = document.getElementById("pub-live-preview-btn");
+            if (codeContent || (resolvedUrl && (resolvedName.endsWith('.html') || resolvedName.endsWith('.py') || resolvedName.endsWith('.txt')))) {
+                liveBtn.classList.remove("hidden");
+            } else {
+                liveBtn.classList.add("hidden");
+            }
+
+            const dlLink = document.getElementById("final-download-link");
+            if (resolvedUrl) {
+                dlLink.href = resolvedUrl;
+                dlLink.setAttribute("download", resolvedName);
+                dlLink.classList.remove("hidden");
+            } else if (codeContent) {
+                const blob = new Blob([codeContent], { type: "text/plain" });
+                dlLink.href = URL.createObjectURL(blob);
+                dlLink.setAttribute("download", resolvedName);
+                dlLink.classList.remove("hidden");
             }
         }
 
         window.openLivePreviewFromPublic = async function() {
-            if (activePublicFileRecord) {
-                let contentToShow = activePublicFileRecord.codeContent || "";
-                if (!contentToShow && activePublicFileRecord.downloadURL) {
+            if (activeGatewayFile) {
+                let contentToShow = activeGatewayFile.codeContent || "";
+                if (!contentToShow && activeGatewayFile.downloadURL) {
                     try {
-                        const res = await fetch(activePublicFileRecord.downloadURL);
+                        const res = await fetch(activeGatewayFile.downloadURL);
                         contentToShow = await res.text();
                     } catch (_) {
                         contentToShow = "Unable to load file content preview.";
@@ -1286,10 +1607,10 @@
             const fullUrl = document.getElementById("latest-link-url").value;
             try {
                 const parsed = new URL(fullUrl);
-                const slug = parsed.searchParams.get("file");
-                if (slug) {
-                    window.history.pushState({}, "", `?file=${encodeURIComponent(slug)}`);
-                    loadPublicFileBySlug(slug);
+                const fileId = parsed.searchParams.get("id");
+                if (fileId) {
+                    window.history.pushState({}, "", `?id=${encodeURIComponent(fileId)}`);
+                    loadPublicFileById(fileId);
                 }
             } catch (_) {
                 window.open(fullUrl, "_blank");
@@ -1298,7 +1619,7 @@
 
         async function checkUrlParamsOnLoad() {
             const params = new URLSearchParams(window.location.search);
-            const fileSlug = params.get("file");
+            const fileId = params.get("id") || params.get("file");
             const refCode = params.get("ref");
 
             if (refCode) {
@@ -1312,8 +1633,8 @@
                 }
             }
 
-            if (fileSlug) {
-                await loadPublicFileBySlug(fileSlug);
+            if (fileId) {
+                await loadPublicFileById(fileId);
             }
         }
 
@@ -1427,15 +1748,18 @@
                 uid,
                 username: isAdmin ? "hassan_admin" : username,
                 email: emailLower,
-                avatar: `https://placehold.co/100x100/0f172a/00f2fe?text=${(username[0] || "U").toUpperCase()}`,
-                plan: isAdmin ? "Yearly Plan" : "Free Plan",
-                storageLimit: isAdmin ? PLAN_LIMITS["Yearly Plan"] : PLAN_LIMITS["Free Plan"],
+                avatar: "https://i.ibb.co/21qmyHBJ/jawadmd.jpg",
+                plan: isAdmin ? "Yearly" : "Free Plan",
+                storageLimit: isAdmin ? PLAN_LIMITS["Yearly"] : PLAN_LIMITS["Free Plan"],
                 usedStorage: 0,
                 points: 0,
                 referralCode: generateReferralCode(username),
                 referralCount: 0,
                 redeemedCodes: [],
-                isAdmin: isAdmin
+                spinsUsedToday: 0,
+                lastSpinDate: "",
+                isAdmin: isAdmin,
+                createdAt: "2026-11-14"
             };
             localStorage.setItem(`hxf_user_${uid}`, JSON.stringify(userProfile));
             syncProfileUI();
@@ -1447,28 +1771,48 @@
             const emailLower = (user.email || "").toLowerCase();
             const isAdmin = emailLower === ADMIN_EMAIL;
             const myRefCode = generateReferralCode(username);
-            let startingPoints = 0;
 
             if (referredByCode) {
                 try {
                     const allUsersSnap = await getDocs(collection(db, "users"));
                     let referrerDocId = null;
+                    let referrerData = null;
                     allUsersSnap.forEach((uDoc) => {
                         const d = uDoc.data();
                         if (d.referralCode && d.referralCode.toLowerCase() === referredByCode.toLowerCase()) {
                             referrerDocId = uDoc.id;
+                            referrerData = d;
                         }
                     });
 
-                    if (referrerDocId && referrerDocId !== user.uid) {
-                        startingPoints = 30;
+                    if (referrerDocId && referrerDocId !== user.uid && referrerData) {
+                        const newRefCount = (referrerData.referralCount || 0) + 1;
+                        let addedPts = 50;
+                        if (newRefCount === 1) addedPts = 50;
+                        else if (newRefCount === 2) addedPts = 200;
+                        else if (newRefCount === 3) addedPts = 500;
+                        else if (newRefCount >= 5) addedPts = 1000;
+
                         await updateDoc(doc(db, "users", referrerDocId), {
-                            points: increment(30),
-                            referralCount: increment(1)
+                            referralCount: newRefCount
+                        });
+
+                        // Create approval request for referral reward instead of auto-adding
+                        await addDoc(collection(db, "payments"), {
+                            uid: referrerDocId,
+                            username: referrerData.username,
+                            plan: `Referral Milestone Reward: ${addedPts} Pts (${newRefCount} Friends)`,
+                            price: `${addedPts} Pts`,
+                            method: "Referral Milestone",
+                            holderName: referrerData.username,
+                            accountNumber: "Referral Reward",
+                            screenshotURL: "",
+                            status: "pending",
+                            createdAt: "2026-11-14"
                         });
                     }
                 } catch (e) {
-                    console.warn("Referral lookup note:", e);
+                    console.warn("Referral tier update note:", e);
                 }
             }
 
@@ -1476,32 +1820,26 @@
                 uid: user.uid,
                 username: isAdmin ? "hassan_admin" : username,
                 email: emailLower,
-                avatar: user.photoURL || `https://placehold.co/100x100/0f172a/00f2fe?text=${(username[0] || "U").toUpperCase()}`,
-                plan: isAdmin ? "Yearly Plan" : "Free Plan",
-                storageLimit: isAdmin ? PLAN_LIMITS["Yearly Plan"] : PLAN_LIMITS["Free Plan"],
+                avatar: "https://i.ibb.co/21qmyHBJ/jawadmd.jpg",
+                plan: isAdmin ? "Yearly" : "Free Plan",
+                storageLimit: isAdmin ? PLAN_LIMITS["Yearly"] : PLAN_LIMITS["Free Plan"],
                 usedStorage: 0,
-                points: startingPoints,
+                points: 0,
                 referralCode: myRefCode,
                 referralCount: 0,
                 redeemedCodes: [],
+                spinsUsedToday: 0,
+                lastSpinDate: new Date().toDateString(),
                 isAdmin: isAdmin,
-                createdAt: serverTimestamp()
+                createdAt: "2026-11-14"
             };
 
             await setDoc(doc(db, "users", user.uid), profileData);
-
-            if (startingPoints > 0) {
-                await addDoc(collection(db, "users", user.uid, "notifications"), {
-                    title: "Referral Bonus Unlocked!",
-                    message: "You received +30 Points for joining via a referral link!",
-                    createdAt: serverTimestamp()
-                });
-            }
         }
 
         onAuthStateChanged(auth, async (user) => {
             const params = new URLSearchParams(window.location.search);
-            const hasFileParam = Boolean(params.get("file"));
+            const hasIdParam = Boolean(params.get("id") || params.get("file"));
 
             if (user) {
                 currentUser = user;
@@ -1539,14 +1877,14 @@
 
                 setupInboxListeners(user.uid);
 
-                if (!hasFileParam) {
+                if (!hasIdParam) {
                     document.getElementById("auth-screen").classList.add("hidden");
                     document.getElementById("main-app-view").classList.remove("hidden");
                 }
             } else if (!currentUser || !String(currentUser.uid).startsWith("local_")) {
                 currentUser = null;
                 userProfile = null;
-                if (!hasFileParam) {
+                if (!hasIdParam) {
                     document.getElementById("main-app-view").classList.add("hidden");
                     document.getElementById("auth-screen").classList.remove("hidden");
                 }
@@ -1562,20 +1900,40 @@
             document.getElementById("dash-active-plan").innerText = userProfile.plan;
             document.getElementById("dash-storage-total").innerText = formatSize(limitBytes);
 
-            document.getElementById("drawer-avatar").src = userProfile.avatar;
             document.getElementById("drawer-username").innerText = userProfile.username;
-            document.getElementById("drawer-email").innerText = userProfile.email;
             document.getElementById("drawer-plan").innerText = userProfile.plan;
 
-            document.getElementById("prof-avatar-img").src = userProfile.avatar;
-            document.getElementById("prof-avatar-url").value = userProfile.avatar;
+            document.getElementById("prof-avatar-url").value = userProfile.avatar || "";
             document.getElementById("prof-username").value = userProfile.username;
-            document.getElementById("prof-email").value = userProfile.email;
 
             const baseOrigin = window.location.origin + window.location.pathname;
             document.getElementById("my-referral-link").value = `${baseOrigin}?ref=${userProfile.referralCode}`;
-            document.getElementById("ref-total-count").innerText = userProfile.referralCount || 0;
-            document.getElementById("ref-total-points").innerText = `${userProfile.points || 0} Pts`;
+
+            const todayStr = new Date().toDateString();
+            if (userProfile.lastSpinDate !== todayStr) {
+                userProfile.spinsUsedToday = 0;
+                userProfile.lastSpinDate = todayStr;
+            }
+            const spinsLeft = Math.max(0, 5 - (userProfile.spinsUsedToday || 0));
+            document.getElementById("spins-left-label").innerText = spinsLeft;
+
+            const refCount = userProfile.referralCount || 0;
+            const updateTaskStatus = (id, threshold) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    if (refCount >= threshold) {
+                        el.innerText = "Completed";
+                        el.className = "px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold";
+                    } else {
+                        el.innerText = "Go";
+                        el.className = "px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-bold";
+                    }
+                }
+            };
+            updateTaskStatus("task-ref-1", 1);
+            updateTaskStatus("task-ref-2", 2);
+            updateTaskStatus("task-ref-3", 3);
+            updateTaskStatus("task-ref-5", 5);
 
             const isAdmin = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL;
             if (isAdmin) {
@@ -1588,6 +1946,64 @@
             renderFilesList(userProfile.usedStorage || 0);
         }
 
+        // Custom Spin Wheel Logic (12 slots, excludes 7000, capped at 5 per 24 hours, sends to admin & WhatsApp)
+        window.spinTheWheel = async function() {
+            if (!currentUser || !userProfile) return;
+            const todayStr = new Date().toDateString();
+            if (userProfile.lastSpinDate !== todayStr) {
+                userProfile.spinsUsedToday = 0;
+                userProfile.lastSpinDate = todayStr;
+            }
+
+            const spinsUsed = userProfile.spinsUsedToday || 0;
+            if (spinsUsed >= 5) {
+                showAppModal("Limit Reached", "You have already completed your 5 daily spins for today. Come back tomorrow!");
+                return;
+            }
+
+            const slotValues = [0.5, 10.2, 70.5, 90.5, 100.2, 150.2, 2.5, 3.2, 7.3, 200, 5, 25];
+            const wonPoints = slotValues[Math.floor(Math.random() * slotValues.length)];
+
+            const newSpinsUsed = spinsUsed + 1;
+
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                await updateDoc(userRef, {
+                    spinsUsedToday: newSpinsUsed,
+                    lastSpinDate: todayStr
+                });
+
+                userProfile.spinsUsedToday = newSpinsUsed;
+                syncProfileUI();
+
+                // Send request to admin inbox (does NOT add points until admin approves)
+                await addDoc(collection(db, "payments"), {
+                    uid: currentUser.uid,
+                    username: userProfile.username,
+                    plan: `Spin Win Reward: ${wonPoints} Pts`,
+                    price: `${wonPoints} Pts`,
+                    method: "Spin & Win",
+                    holderName: userProfile.username,
+                    accountNumber: "Spin Reward",
+                    screenshotURL: "",
+                    status: "pending",
+                    createdAt: "2026-11-14"
+                });
+
+                const siteUrl = window.location.origin + window.location.pathname;
+                const waMessage = `I WON ${wonPoints} POINTS%0A%0AFROM YOUR HASSAN X WEBSITE%0A%0A${encodeURIComponent(siteUrl)}%0A%0A*PLEASE APPROVE MY POINTS*`;
+                const waLink = `https://wa.me/${ADMIN_WHATSAPP}?text=${waMessage}`;
+
+                document.getElementById("spin-win-title").innerText = `YOU WON ${wonPoints} POINTS! 🎉`;
+                document.getElementById("spin-win-desc").innerText = `Congratulations! Request sent to admin. Tap below to claim via WhatsApp!`;
+                document.getElementById("spin-whatsapp-btn").href = waLink;
+                document.getElementById("spin-win-modal").classList.remove("hidden");
+
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
+
         window.handleRedeemCode = async function() {
             if (!currentUser || !userProfile) return;
             const codeInput = document.getElementById("redeem-code-input").value.trim().toUpperCase();
@@ -1599,13 +2015,6 @@
             const promo = PROMO_CODES[codeInput];
             if (!promo) {
                 showAppModal("Invalid Code", "The promo code you entered is invalid or does not exist.");
-                return;
-            }
-
-            const createdDate = new Date(promo.createdAt);
-            const expiryDate = new Date(createdDate.getTime() + promo.durationDays * 24 * 60 * 60 * 1000);
-            if (new Date() > expiryDate) {
-                showAppModal("Code Expired", `Sorry, this promo code expired on ${expiryDate.toDateString()}.`);
                 return;
             }
 
@@ -1626,7 +2035,7 @@
                 });
 
                 if (globallyClaimed) {
-                    showAppModal("Code Claimed", "Sorry! This code has already been claimed globally by another user. Each code can only be redeemed once by one single user worldwide.");
+                    showAppModal("Code Claimed", "Sorry! This code has already been claimed globally by another user.");
                     return;
                 }
 
@@ -1687,12 +2096,13 @@
             }
 
             listEl.innerHTML = userFiles.map((f) => {
-                const fullUrl = `${window.location.origin}${window.location.pathname}?file=${encodeURIComponent(f.slug)}`;
+                const linkId = f.id;
+                const fullUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(linkId)}`;
                 return `
                     <div class="p-3 rounded-2xl bg-slate-950/90 border border-slate-800 flex items-center justify-between gap-2.5">
                         <div class="min-w-0 flex-1">
                             <p class="text-xs font-bold text-white truncate">${f.fileName}</p>
-                            <p class="text-[10px] text-cyan-400 truncate mt-0.5">?file=${f.slug} • <span class="text-slate-400">${formatSize(f.size)}</span></p>
+                            <p class="text-[10px] text-cyan-400 truncate mt-0.5">?id=${linkId} • <span class="text-slate-400">${formatSize(f.size)}</span></p>
                         </div>
                         <div class="flex items-center gap-1.5 shrink-0">
                             <button onclick="copyTextValue('${fullUrl}', 'Shareable link copied!')" class="w-8 h-8 rounded-xl bg-cyan-500/15 text-cyan-300 flex items-center justify-center text-xs">
@@ -1803,11 +2213,24 @@
             progressBox.classList.remove("hidden");
 
             try {
-                const customSlugInput = document.getElementById("custom-file-slug").value.trim();
-                const randCode = Math.random().toString(36).substring(2, 9);
-                const slug = customSlugInput
-                    ? customSlugInput.replace(/[^a-zA-Z0-9._-]/g, "-")
-                    : `${fileName.replace(/[^a-zA-Z0-9._-]/g, "_")}_${randCode}`;
+                const enablePassword = document.getElementById("enable-password-check").checked;
+                const securityPassword = enablePassword ? document.getElementById("file-security-password").value.trim() : "";
+                
+                const enableIntro = document.getElementById("enable-intro-check").checked;
+                const introMessage = enableIntro ? document.getElementById("file-intro-message").value.trim() : "";
+
+                const channels = [];
+                document.querySelectorAll(".channel-row").forEach((row) => {
+                    const logo = row.querySelector(".chan-logo-select").value;
+                    const name = row.querySelector(".chan-name-input").value.trim();
+                    const link = row.querySelector(".chan-link-input").value.trim();
+                    const btnTitle = row.querySelector(".chan-btn-input").value.trim() || "Follow";
+                    if (link) {
+                        channels.push({ logo, name, link, btnTitle });
+                    }
+                });
+
+                const numericId = Math.floor(1000000000 + Math.random() * 9000000000).toString();
 
                 const fileRecord = {
                     ownerId: currentUser.uid,
@@ -1818,19 +2241,23 @@
                     size: fileSize,
                     fileSize: fileSize,
                     fileType: fileType,
-                    slug: slug,
+                    fileId: numericId,
                     storagePath: storagePath,
                     downloadURL: downloadURL,
                     fileData: fileData,
                     codeContent: codeContent,
-                    createdAt: serverTimestamp()
+                    securityPassword: securityPassword,
+                    introMessage: introMessage,
+                    channels: channels,
+                    createdAt: "2026-11-14"
                 };
 
                 const addedDoc = await addDoc(collection(db, "files"), fileRecord);
+                const uniqueDocId = addedDoc.id;
 
                 try {
                     const cached = JSON.parse(localStorage.getItem("hxf_cached_files") || "[]");
-                    cached.unshift({ id: addedDoc.id, fileName, size: fileSize, slug, uploaderName: userProfile.username, codeContent });
+                    cached.unshift({ id: uniqueDocId, fileName, size: fileSize, securityPassword, introMessage, channels, codeContent });
                     localStorage.setItem("hxf_cached_files", JSON.stringify(cached.slice(0, 30)));
                 } catch (_) {}
 
@@ -1839,12 +2266,11 @@
                     usedStorage: currentUsed + fileSize
                 });
 
-                const generatedUrl = `${window.location.origin}${window.location.pathname}?file=${encodeURIComponent(slug)}`;
+                const generatedUrl = `${window.location.origin}${window.location.pathname}?id=${encodeURIComponent(uniqueDocId)}`;
                 document.getElementById("latest-link-url").value = generatedUrl;
                 document.getElementById("latest-link-open").href = generatedUrl;
                 document.getElementById("latest-file-size").innerText = formatSize(fileSize);
                 document.getElementById("latest-link-box").classList.remove("hidden");
-                document.getElementById("custom-file-slug").value = "";
 
                 showAppModal("Link Generated!", `Your secure shareable link for "${fileName}" is ready!`, '<i class="fa-solid fa-link text-emerald-400"></i>');
             } catch (err) {
@@ -1876,41 +2302,11 @@
             }
         };
 
-        window.redeemPlanPoints = async function(planName, requiredPts, storageMB) {
-            if (!userProfile || !currentUser) return;
-            const currentPts = Number(userProfile.points || 0);
-
-            if (currentPts < requiredPts) {
-                showAppModal("Not Enough Points", `You have ${currentPts} Points, but ${planName} requires ${requiredPts} Points. Refer friends to earn +30 Points per invite!`);
-                return;
-            }
-
-            try {
-                await updateDoc(doc(db, "users", currentUser.uid), {
-                    points: currentPts - requiredPts,
-                    plan: planName,
-                    storageLimit: storageMB * 1024 * 1024
-                });
-
-                await addDoc(collection(db, "users", currentUser.uid, "notifications"), {
-                    title: `${planName} Activated!`,
-                    message: `You redeemed ${requiredPts} Points and unlocked ${planName} (${storageMB}MB Storage).`,
-                    createdAt: serverTimestamp()
-                });
-
-                showAppModal("Plan Upgraded!", `${planName} is now active on your account!`, '<i class="fa-solid fa-crown text-amber-400"></i>');
-                navigateTo("dashboard");
-            } catch (err) {
-                showAppModal("Error", err.message);
-            }
-        };
-
         window.openPaymentModal = function(planName, priceStr) {
             selectedPlanName = planName;
             selectedPlanPrice = priceStr;
             selectedScreenshotFile = null;
             document.getElementById("pay-modal-heading").innerText = `${planName} — ${priceStr}`;
-            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-cloud-arrow-up text-amber-400 mr-1"></i> Drag & Drop or Tap to Upload Screenshot (Required)`;
             document.getElementById("payment-modal").classList.remove("hidden");
         };
 
@@ -1930,19 +2326,6 @@
             });
         };
 
-        const payDrop = document.getElementById("pay-ss-dropzone");
-        payDrop.addEventListener("dragover", (e) => e.preventDefault());
-        payDrop.addEventListener("drop", (e) => {
-            e.preventDefault();
-            if (e.dataTransfer.files[0]) handlePaymentProofFile(e.dataTransfer.files[0]);
-        });
-
-        window.handlePaymentProofFile = function(file) {
-            if (!file) return;
-            selectedScreenshotFile = file;
-            document.getElementById("pay-ss-status").innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ${file.name}`;
-        };
-
         window.sendPaymentProofToAdmin = async function() {
             if (!currentUser || !userProfile) return;
             const holderName = document.getElementById("pay-holder-name").value.trim();
@@ -1953,32 +2336,22 @@
                 return;
             }
 
-            if (!selectedScreenshotFile) {
-                showAppModal("Screenshot Required", "Payment screenshot is mandatory! Please upload or drop your payment screenshot.");
-                return;
-            }
-
             try {
-                const ssRef = ref(storage, `payments/${currentUser.uid}/${Date.now()}_${selectedScreenshotFile.name}`);
-                await uploadBytes(ssRef, selectedScreenshotFile);
-                const screenshotURL = await getDownloadURL(ssRef);
-
                 await addDoc(collection(db, "payments"), {
                     uid: currentUser.uid,
                     username: userProfile.username,
-                    email: userProfile.email,
                     plan: selectedPlanName,
                     price: selectedPlanPrice,
                     method: selectedPayMethod,
                     holderName: holderName,
                     accountNumber: accNumber,
-                    screenshotURL: screenshotURL,
+                    screenshotURL: "",
                     status: "pending",
-                    createdAt: serverTimestamp()
+                    createdAt: "2026-11-14"
                 });
 
                 closePaymentModal();
-                showAppModal("Payment Sent!", "Your payment screenshot and message have been sent to Admin successfully!", '<i class="fa-solid fa-paper-plane text-emerald-400"></i>');
+                showAppModal("Payment Sent!", "Your payment request has been sent to Admin successfully!", '<i class="fa-solid fa-paper-plane text-emerald-400"></i>');
             } catch (err) {
                 showAppModal("Error", err.message);
             }
@@ -2015,7 +2388,7 @@
                                 <i class="fa-solid ${m.isBroadcast ? "fa-bullhorn" : "fa-circle-check"} mr-1"></i> ${m.title}
                             </span>
                         </div>
-                        <p class="text-xs text-slate-200 leading-relaxed">${m.message}</p>
+                        <p class="text-xs text-slate-200 leading-relaxed whitespace-pre-wrap">${m.message}</p>
                     </div>
                 `).join("");
             };
@@ -2058,10 +2431,6 @@
                     const opt1 = document.createElement("option");
                     opt1.value = u.username;
                     datalist.appendChild(opt1);
-
-                    const opt2 = document.createElement("option");
-                    opt2.value = u.email;
-                    datalist.appendChild(opt2);
                 });
             });
 
@@ -2073,7 +2442,7 @@
                 countEl.innerText = items.length;
 
                 if (items.length === 0) {
-                    listEl.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No payment submissions yet.</p>`;
+                    listEl.innerHTML = `<p class="text-center text-xs text-slate-500 py-4">No submissions yet.</p>`;
                     return;
                 }
 
@@ -2082,19 +2451,16 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <p class="text-xs font-extrabold text-white">${p.username} <span class="text-amber-300">(${p.plan})</span></p>
-                                <p class="text-[10px] text-slate-400">${p.email}</p>
                             </div>
                             <span class="px-2 py-0.5 rounded text-[9px] font-bold uppercase ${p.status === "approved" ? "bg-emerald-500/20 text-emerald-300" : "bg-amber-500/20 text-amber-300"}">
                                 ${p.status}
                             </span>
                         </div>
                         <div class="text-[11px] text-slate-300 bg-slate-900/70 p-2.5 rounded-xl">
-                            <p>Method: <strong>${p.method}</strong> | Holder: <strong>${p.holderName}</strong></p>
-                            <p>Account #: <strong class="text-cyan-300">${p.accountNumber}</strong></p>
+                            <p>Type: <strong>${p.method}</strong> | User: <strong>${p.holderName}</strong></p>
                         </div>
-                        ${p.screenshotURL ? `<a href="${p.screenshotURL}" target="_blank" class="inline-block text-[11px] text-cyan-400 underline"><i class="fa-solid fa-image mr-1"></i> View Payment Screenshot</a>` : ""}
                         <button onclick="approvePaymentProof('${p.id}', '${p.uid}', '${p.plan}', '${p.username}')" class="w-full py-2.5 rounded-xl btn-gold text-xs font-extrabold uppercase">
-                            Approve & Notify User
+                            Approve & Add Points/Rank
                         </button>
                     </div>
                 `).join("");
@@ -2102,8 +2468,8 @@
         }
 
         window.sendAdminBroadcast = async function() {
-            const msg = document.getElementById("admin-broadcast-text").value.trim();
-            if (!msg) return;
+            const msg = document.getElementById("admin-broadcast-text").value;
+            if (!msg.trim()) return;
             try {
                 await addDoc(collection(db, "broadcasts"), {
                     message: msg,
@@ -2111,7 +2477,7 @@
                     createdAt: serverTimestamp()
                 });
                 document.getElementById("admin-broadcast-text").value = "";
-                showAppModal("Broadcast Sent!", "Message delivered to every user's Inbox!", '<i class="fa-solid fa-bullhorn text-cyan-400"></i>');
+                showAppModal("Broadcast Sent!", "Message delivered with line formatting to every user's Inbox!", '<i class="fa-solid fa-bullhorn text-cyan-400"></i>');
             } catch (err) {
                 showAppModal("Error", err.message);
             }
@@ -2122,20 +2488,35 @@
                 await updateDoc(doc(db, "payments", paymentId), { status: "approved" });
 
                 if (targetUid) {
-                    const storageLimit = PLAN_LIMITS[planName] || PLAN_LIMITS["Weekly Plan"];
-                    await updateDoc(doc(db, "users", targetUid), {
-                        plan: planName,
-                        storageLimit: storageLimit
-                    });
-
-                    await addDoc(collection(db, "users", targetUid, "notifications"), {
-                        title: "Payment Approved",
-                        message: `YOU GOT ${planName.toUpperCase()} RANK BY ADMIN HASSAN (${targetUsername})`,
-                        createdAt: serverTimestamp()
-                    });
+                    if (planName.includes("Pts")) {
+                        const ptsMatch = planName.match(/(\d+(\.\d+)?) Pts/);
+                        const ptsToAdd = ptsMatch ? parseFloat(ptsMatch[1]) : 0;
+                        const userRef = doc(db, "users", targetUid);
+                        const uSnap = await getDoc(userRef);
+                        if (uSnap.exists()) {
+                            const currentPts = Number(uSnap.data().points || 0);
+                            await updateDoc(userRef, { points: currentPts + ptsToAdd });
+                        }
+                        await addDoc(collection(db, "users", targetUid, "notifications"), {
+                            title: "Points Approved!",
+                            message: `Admin approved your reward of +${ptsToAdd} Points! Date: 2026-11-14`,
+                            createdAt: serverTimestamp()
+                        });
+                    } else {
+                        const storageLimit = PLAN_LIMITS[planName] || PLAN_LIMITS["Weekly"];
+                        await updateDoc(doc(db, "users", targetUid), {
+                            plan: planName,
+                            storageLimit: storageLimit
+                        });
+                        await addDoc(collection(db, "users", targetUid, "notifications"), {
+                            title: "Payment Approved",
+                            message: `YOU GOT ${planName.toUpperCase()} RANK BY ADMIN HASSAN (${targetUsername}). Date: 2026-11-14`,
+                            createdAt: serverTimestamp()
+                        });
+                    }
                 }
 
-                showAppModal("Approved!", "User notified in their Inbox & plan rank updated!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
+                showAppModal("Approved!", "Request approved and user notified successfully!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
             } catch (err) {
                 showAppModal("Error", err.message);
             }
@@ -2145,7 +2526,7 @@
             const identifier = document.getElementById("admin-target-user").value.trim().toLowerCase();
             const chosenPlan = document.getElementById("admin-target-plan").value;
             if (!identifier) {
-                showAppModal("Input Required", "Please enter a username or Gmail.");
+                showAppModal("Input Required", "Please enter a username.");
                 return;
             }
 
@@ -2154,13 +2535,13 @@
                 let targetDoc = null;
                 snap.forEach((d) => {
                     const u = d.data();
-                    if ((u.username || "").toLowerCase() === identifier || (u.email || "").toLowerCase() === identifier) {
+                    if ((u.username || "").toLowerCase() === identifier) {
                         targetDoc = { id: d.id, ...u };
                     }
                 });
 
                 if (!targetDoc) {
-                    showAppModal("User Not Found", "No registered user matched that username or Gmail.");
+                    showAppModal("User Not Found", "No registered user matched that username.");
                     return;
                 }
 
@@ -2172,7 +2553,7 @@
 
                 await addDoc(collection(db, "users", targetDoc.id, "notifications"), {
                     title: "Rank Updated by Admin",
-                    message: `YOU GOT ${chosenPlan.toUpperCase()} RANK BY ADMIN HASSAN (${targetDoc.username})`,
+                    message: `YOU GOT ${chosenPlan.toUpperCase()} RANK BY ADMIN HASSAN (${targetDoc.username}). Date: 2026-11-14`,
                     createdAt: serverTimestamp()
                 });
 
@@ -2189,7 +2570,6 @@
                 await uploadBytes(avatarRef, file);
                 const url = await getDownloadURL(avatarRef);
                 document.getElementById("prof-avatar-url").value = url;
-                document.getElementById("prof-avatar-img").src = url;
                 showAppModal("Image Ready", "Tap 'Save Profile Changes' to apply your new profile picture.");
             } catch (err) {
                 showAppModal("Upload Error", err.message);
@@ -2199,13 +2579,11 @@
         window.updateUserProfile = async function() {
             if (!currentUser) return;
             const newUsername = document.getElementById("prof-username").value.trim();
-            const newEmail = document.getElementById("prof-email").value.trim().toLowerCase();
             const newAvatar = document.getElementById("prof-avatar-url").value.trim();
 
             try {
                 await updateDoc(doc(db, "users", currentUser.uid), {
                     username: newUsername || userProfile.username,
-                    email: newEmail || userProfile.email,
                     avatar: newAvatar || userProfile.avatar
                 });
                 showAppModal("Profile Saved", "Your profile information has been updated!", '<i class="fa-solid fa-circle-check text-emerald-400"></i>');
@@ -2246,7 +2624,7 @@
             const target = document.getElementById(`view-${sectionName}`);
             if (target) target.classList.remove("hidden");
 
-            ["dashboard", "plans", "referral", "inbox", "profile", "redeem"].forEach((tab) => {
+            ["dashboard", "plans", "tasks", "inbox", "profile", "redeem", "admin"].forEach((tab) => {
                 const btn = document.getElementById(`bnav-${tab}`);
                 if (btn) {
                     btn.className = tab === sectionName
