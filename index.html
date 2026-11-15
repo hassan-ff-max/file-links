@@ -20,7 +20,7 @@
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
-                        appbg: '#060913',
+                        appbg: '#030712',
                         surface: '#0d1326',
                         neoncyan: '#00f2fe',
                         neongold: '#ffd700',
@@ -32,48 +32,50 @@
 
     <!-- Font Awesome 6.5.1 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html, body {
-            margin: 0; padding: 0; background-color: #03050a; color: #f8fafc;
+            margin: 0; padding: 0; background-color: #030712; color: #f8fafc;
             font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh;
         }
         .mobile-shell {
             width: 100%; max-width: 480px; min-height: 100vh; margin: 0 auto;
-            background: radial-gradient(circle at top right, rgba(0, 242, 254, 0.09), transparent 45%),
-                        radial-gradient(circle at bottom left, rgba(255, 215, 0, 0.07), transparent 45%), #070b16;
-            border-left: 1px solid rgba(56, 189, 248, 0.14);
-            border-right: 1px solid rgba(56, 189, 248, 0.14);
+            background: linear-gradient(rgba(3, 7, 18, 0.78), rgba(6, 15, 30, 0.85)),
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80') no-repeat center center fixed;
+            background-size: cover;
+            border-left: 1px solid rgba(56, 189, 248, 0.2);
+            border-right: 1px solid rgba(56, 189, 248, 0.2);
             position: relative; display: flex; flex-direction: column;
-            box-shadow: 0 0 60px rgba(0, 0, 0, 0.9); padding-bottom: 24px;
+            box-shadow: 0 0 70px rgba(0, 0, 0, 0.95); padding-bottom: 24px;
         }
         .glass-card {
-            background: rgba(15, 23, 42, 0.80);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(56, 189, 248, 0.18);
+            background: rgba(13, 19, 38, 0.86);
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(56, 189, 248, 0.22);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
         }
         .glass-gold {
-            background: rgba(24, 20, 12, 0.85);
-            backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 215, 0, 0.32);
+            background: rgba(24, 20, 12, 0.88);
+            backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 215, 0, 0.35);
         }
         .box-3d {
             background: linear-gradient(145deg, rgba(22, 33, 66, 0.92), rgba(9, 14, 28, 0.96));
-            border: 1px solid rgba(0, 242, 254, 0.28);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.12), 0 0 18px rgba(0, 242, 254, 0.08);
-            transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
+            transition: transform 0.2s ease;
         }
         .box-3d:active { transform: scale(0.98); }
         .btn-cyan {
             background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
-            box-shadow: 0 4px 18px rgba(0, 198, 255, 0.38);
+            box-shadow: 0 4px 20px rgba(0, 198, 255, 0.4);
         }
         .btn-gold {
             background: linear-gradient(135deg, #f59e0b 0%, #ffd700 100%);
-            color: #070b16; box-shadow: 0 4px 18px rgba(255, 215, 0, 0.32);
+            color: #030712; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
@@ -87,7 +89,7 @@
             100% { transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 68px)) scale(0.85) rotate(-14deg); opacity: 0; }
         }
         .powered-footer {
-            text-align: center; font-size: 10px; font-weight: 800; color: #64748b;
+            text-align: center; font-size: 10px; font-weight: 800; color: #94a3b8;
             letter-spacing: 0.08em; padding: 16px 0 6px 0; text-transform: uppercase;
         }
     </style>
@@ -275,7 +277,7 @@
 
             <!-- Slide-out Menu Drawer -->
             <div id="mobile-drawer-overlay" onclick="toggleDrawer(false)" class="fixed inset-0 z-40 bg-black/75 backdrop-blur-xs hidden"></div>
-            <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#0a1020] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col">
+            <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#060e1d] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-800">
                     <div class="flex items-center gap-3">
                         <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-400 shrink-0">
@@ -295,13 +297,12 @@
                         <i class="fa-solid fa-gauge w-4 text-cyan-400"></i> Dashboard
                     </button>
 
-                    <button onclick="navigateTo('login'); toggleDrawer(false)" id="menu-login-btn" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-emerald-300 bg-emerald-500/10 border border-emerald-500/25 text-left">
-                        <i class="fa-solid fa-right-to-bracket w-4 text-emerald-400"></i> Login Now
-                    </button>
-
-                    <!-- 3rd Option: File To Link -->
                     <button onclick="navigateTo('filetolink'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
                         <i class="fa-solid fa-file-arrow-up w-4 text-cyan-400"></i> File To Link
+                    </button>
+
+                    <button onclick="navigateTo('plans'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-amber-500/10 text-left">
+                        <i class="fa-solid fa-gem w-4 text-amber-400"></i> SEE Plans
                     </button>
 
                     <button onclick="navigateTo('referral'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-purple-500/10 text-left">
@@ -309,11 +310,7 @@
                     </button>
 
                     <button onclick="navigateTo('tasks'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-purple-500/10 text-left">
-                        <i class="fa-solid fa-list-check w-4 text-purple-400"></i> Tasks & Spin Wheel
-                    </button>
-
-                    <button onclick="navigateTo('plans'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-amber-500/10 text-left">
-                        <i class="fa-solid fa-gem w-4 text-amber-400"></i> Storage Plans
+                        <i class="fa-solid fa-list-check w-4 text-purple-400"></i> Tasks
                     </button>
 
                     <button onclick="navigateTo('redeem'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-emerald-500/10 text-left">
@@ -336,14 +333,14 @@
                         <i class="fa-solid fa-users w-4 text-cyan-400"></i> Total Users
                     </button>
 
+                    <!-- Admin Panel Button -->
                     <button onclick="navigateTo('admin'); toggleDrawer(false)" id="drawer-admin-btn" class="hidden flex items-center gap-3 px-3.5 py-3 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/30 text-left mt-1">
                         <i class="fa-solid fa-shield-halved w-4 text-amber-400"></i> Admin Panel
                     </button>
                 </nav>
 
-                <!-- Sign Out: Visible ONLY when logged in -->
                 <div class="mt-auto pt-3 border-t border-slate-800">
-                    <button id="drawer-signout-btn" onclick="logoutUser()" class="hidden w-full py-2.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-xs flex items-center justify-center gap-2">
+                    <button onclick="logoutUser()" class="w-full py-2.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                     </button>
                 </div>
@@ -362,7 +359,7 @@
                             <i class="fa-solid fa-server"></i>
                         </div>
                         <span class="text-[11px] font-extrabold uppercase tracking-widest text-cyan-300">Storage Usage</span>
-                        <h2 id="dash-box-storage" class="text-lg font-extrabold text-white mt-1 font-mono">0 KB / 100 MB</h2>
+                        <h2 id="dash-box-storage" class="text-lg font-extrabold text-white mt-1 font-mono">0 KB / 400 MB</h2>
                     </div>
                     <div class="box-3d rounded-3xl p-5 text-center relative overflow-hidden">
                         <div class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 flex items-center justify-center mx-auto mb-2.5 text-xl shadow-lg">
@@ -376,13 +373,13 @@
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
                     <h3 class="text-sm font-extrabold text-white">About Hassan X Files</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Hassan X Files is your ultimate cloud file hosting and secure link generator platform. Upload Python scripts, HTML files, or documents and generate instant secure download links with password protection and channel locks.
+                        Hassan X Files is your ultimate cloud file hosting and secure link generator platform. Upload Python scripts, HTML files, or documents and generate instant secure download links.
                     </p>
                 </div>
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 2: FILE TO LINK (Dedicated Tool View) -->
+            <!-- SECTION 2: FILE TO LINK -->
             <section id="view-filetolink" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
                     <div class="flex items-center justify-between">
@@ -429,7 +426,103 @@
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 3: LOGIN -->
+            <!-- SECTION 3: SEE PLANS -->
+            <section id="view-plans" class="app-section hidden p-4 space-y-4">
+                <div class="text-center mb-2">
+                    <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-[10px] font-bold uppercase border border-amber-500/30">SEE Plans Selection</span>
+                    <h2 class="text-lg font-extrabold text-white mt-1.5">Choose Your Storage Plan</h2>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-white">Free Plan</h3>
+                                <p class="text-xs text-cyan-400 font-bold mt-0.5">400 MB Storage</p>
+                            </div>
+                            <span class="text-base font-extrabold text-emerald-400">0 PKR</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center justify-between"><span>Limited Links</span> <span class="text-cyan-400">✔</span></li>
+                            <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-400">✔</span></li>
+                        </ul>
+                        <button class="w-full py-3 rounded-xl bg-slate-800/80 text-cyan-300 text-xs font-bold border border-cyan-500/20 cursor-default">
+                            Active to your account
+                        </button>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-5 border border-cyan-500/40 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-cyan-300">Weekly Light</h3>
+                                <p class="text-xs text-purple-300 font-bold mt-0.5">500 MB Storage</p>
+                            </div>
+                            <span class="text-base font-extrabold text-amber-300">50 PKR</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-400">✔</span></li>
+                            <li class="flex items-center justify-between"><span>Unlimited Links</span> <span class="text-cyan-400">✔</span></li>
+                        </ul>
+                        <button onclick="getPlanOnWhatsApp('Weekly Light', '50 PKR', '500 MB')" class="w-full py-3 rounded-xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                            Get Plan
+                        </button>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-5 border border-purple-500/40 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-purple-300">Weekly</h3>
+                                <p class="text-xs text-cyan-300 font-bold mt-0.5">700 MB Storage</p>
+                            </div>
+                            <span class="text-base font-extrabold text-amber-300">150 PKR</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-400">✔</span></li>
+                            <li class="flex items-center justify-between"><span>Unlimited Links</span> <span class="text-cyan-400">✔</span></li>
+                        </ul>
+                        <button onclick="getPlanOnWhatsApp('Weekly', '150 PKR', '700 MB')" class="w-full py-3 rounded-xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                            Get Plan
+                        </button>
+                    </div>
+
+                    <div class="glass-gold rounded-3xl p-5 space-y-3">
+                        <div class="flex items-center justify-between border-b border-amber-500/30 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-amber-300">Monthly</h3>
+                                <p class="text-xs text-purple-300 font-bold mt-0.5">1024 MB Storage</p>
+                            </div>
+                            <span class="text-base font-extrabold text-white">300 PKR</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-200">
+                            <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-300">✔</span></li>
+                            <li class="flex items-center justify-between"><span>Unlimited Links</span> <span class="text-cyan-300">✔</span></li>
+                        </ul>
+                        <button onclick="getPlanOnWhatsApp('Monthly', '300 PKR', '1024 MB')" class="w-full py-3 rounded-xl btn-gold text-xs font-extrabold uppercase tracking-wider">
+                            Get Plan
+                        </button>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-5 border border-emerald-500/40 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+                            <div>
+                                <h3 class="text-sm font-extrabold text-emerald-300">Yearly VIP</h3>
+                                <p class="text-xs text-purple-300 font-bold mt-0.5">2048 MB Storage</p>
+                            </div>
+                            <span class="text-base font-extrabold text-amber-300">500 PKR</span>
+                        </div>
+                        <ul class="space-y-2 text-xs text-slate-300">
+                            <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-400">✔</span></li>
+                            <li class="flex items-center justify-between"><span>Unlimited Links</span> <span class="text-cyan-400">✔</span></li>
+                        </ul>
+                        <button onclick="getPlanOnWhatsApp('Yearly', '500 PKR', '2048 MB')" class="w-full py-3 rounded-xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">
+                            Get Plan
+                        </button>
+                    </div>
+                </div>
+                <div class="powered-footer">POWERED BY HASSAN FF</div>
+            </section>
+
+            <!-- SECTION 4: LOGIN -->
             <section id="view-login" class="app-section hidden p-4 space-y-4">
                 <div class="text-center mb-2">
                     <div class="w-16 h-16 rounded-3xl overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl">
@@ -445,6 +538,23 @@
                         <button id="tab-btn-signup" onclick="setAuthMode('signup')" class="py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white">Create Account</button>
                     </div>
 
+                    <!-- Google Sign-In -->
+                    <button onclick="loginWithGoogle()" class="w-full py-3.5 rounded-2xl bg-white text-slate-950 font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg active:scale-98 transition mb-4">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                            <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+                            <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+                            <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.9z"/>
+                            <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.9C3.5 21.1 7.4 24 12 24z"/>
+                        </svg>
+                        Continue with Google
+                    </button>
+
+                    <div class="flex items-center gap-2 my-3">
+                        <div class="h-px bg-slate-800 flex-1"></div>
+                        <span class="text-[10px] text-slate-500 uppercase font-semibold">Or Manual Email</span>
+                        <div class="h-px bg-slate-800 flex-1"></div>
+                    </div>
+
                     <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
                         <div id="signup-username-group" class="hidden">
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
@@ -452,11 +562,11 @@
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Email Address</label>
-                            <input type="email" id="auth-email" required placeholder="Email..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="email" id="auth-email" required placeholder="Enter your email" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Password</label>
-                            <input type="password" id="auth-password" required placeholder="Password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="password" id="auth-password" required placeholder="Enter your password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div id="signup-referral-group" class="hidden">
                             <label class="block text-[11px] font-semibold text-purple-300 mb-1">Referral Code</label>
@@ -468,7 +578,7 @@
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 4: REFFER AND EARN -->
+            <!-- SECTION 5: REFFER AND EARN -->
             <section id="view-referral" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-purple-500/35 text-center space-y-4">
                     <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center mx-auto text-2xl">
@@ -489,7 +599,7 @@
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 5: TASKS (Go button redirects to referral page) -->
+            <!-- SECTION 6: TASKS -->
             <section id="view-tasks" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-4">
                     <div class="flex items-center gap-3">
@@ -520,25 +630,6 @@
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 6: STORAGE PLANS -->
-            <section id="view-plans" class="app-section hidden p-4 space-y-4">
-                <div class="text-center">
-                    <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-[10px] font-bold uppercase">Membership Tiers</span>
-                    <h2 class="text-lg font-extrabold text-white mt-1.5">Choose Your Storage Plan</h2>
-                </div>
-                <div class="glass-card rounded-3xl p-5 border border-cyan-500/35">
-                    <div class="flex items-center justify-between mb-3">
-                        <div>
-                            <h3 class="text-base font-extrabold text-cyan-300">Weekly</h3>
-                            <p class="text-[11px] text-purple-300 font-semibold">270 MB Storage</p>
-                        </div>
-                        <span class="text-xl font-extrabold text-white">200 PKR</span>
-                    </div>
-                    <button onclick="openPaymentModal('Weekly', '200 PKR')" class="w-full py-2.5 rounded-xl btn-cyan text-xs font-extrabold text-white">Get Now</button>
-                </div>
-                <div class="powered-footer">POWERED BY HASSAN FF</div>
-            </section>
-
             <!-- SECTION 7: REDEEM -->
             <section id="view-redeem" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-emerald-500/35 text-center space-y-4">
@@ -563,7 +654,7 @@
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
 
-            <!-- SECTION 8: PROFILE (Saved Password with 5 Stars ***** and Toggle Eye Icon) -->
+            <!-- SECTION 8: PROFILE -->
             <section id="view-profile" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
                     <h2 class="text-base font-extrabold text-white flex items-center gap-2">
@@ -582,7 +673,6 @@
                     </div>
                 </div>
 
-                <!-- Current Saved Password Box with 5 Stars and Eye Icon -->
                 <div class="glass-card rounded-3xl p-5 border border-amber-500/25 space-y-3 text-xs">
                     <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
                         <i class="fa-solid fa-key"></i> Current Saved Password
@@ -659,24 +749,41 @@
                     </div>
                     <i class="fa-solid fa-shield-halved text-2xl text-amber-400"></i>
                 </div>
-                <div class="glass-card rounded-3xl p-4 border border-cyan-500/25 space-y-3">
-                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase"><i class="fa-solid fa-bullhorn mr-1.5"></i> Global Broadcast</h3>
-                    <textarea id="admin-broadcast-text" rows="3" placeholder="Write message..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none"></textarea>
-                    <button onclick="sendAdminBroadcast()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Send Announcement</button>
+
+                <!-- Admin Give Plan directly to User Username -->
+                <div class="glass-card rounded-3xl p-4 border border-amber-500/30 space-y-3">
+                    <h3 class="text-xs font-extrabold text-amber-300 uppercase"><i class="fa-solid fa-gem mr-1.5"></i> Assign Plan To User</h3>
+                    <div>
+                        <label class="block text-[10px] text-slate-300 mb-1">User Username</label>
+                        <input type="text" id="admin-plan-username" placeholder="Enter username..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-300 mb-1">Select Plan</label>
+                        <select id="admin-plan-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                            <option value="Weekly Light">Weekly Light (500 MB)</option>
+                            <option value="Weekly">Weekly (700 MB)</option>
+                            <option value="Monthly">Monthly (1024 MB)</option>
+                            <option value="Yearly">Yearly VIP (2048 MB)</option>
+                        </select>
+                    </div>
+                    <button onclick="adminGivePlanToUser()" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase">Give To User</button>
                 </div>
+
+                <div class="glass-card rounded-3xl p-4 border border-cyan-500/25 space-y-3">
+                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase"><i class="fa-solid fa-paper-plane mr-1.5"></i> Send Message / Broadcast</h3>
+                    <div>
+                        <label class="block text-[10px] text-slate-300 mb-1">Add username for personal chat (leave empty for ALL users)</label>
+                        <input type="text" id="admin-dm-username" placeholder="e.g. hassan_user (optional)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] text-slate-300 mb-1">Message Text</label>
+                        <textarea id="admin-msg-text" rows="3" placeholder="Type your message..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none"></textarea>
+                    </div>
+                    <button onclick="sendAdminMessage()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Send Message</button>
+                </div>
+
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
             </section>
-        </div>
-
-        <!-- Payment Modal -->
-        <div id="payment-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-sm hidden p-4">
-            <div class="glass-card rounded-3xl p-5 w-full max-w-[420px] border border-amber-500/35 relative">
-                <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
-                <h3 id="pay-modal-heading" class="text-base font-extrabold text-white">Plan Activation</h3>
-                <div class="mt-4 p-3 rounded-2xl bg-slate-950 border border-emerald-500/30 text-xs space-y-1">
-                    <p class="font-bold text-emerald-400">Easypaisa: <strong class="text-cyan-300">03451212815</strong> (ANSARIQBAL)</p>
-                </div>
-            </div>
         </div>
 
     </div>
@@ -686,12 +793,13 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
         import {
             getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword,
-            onAuthStateChanged, signOut, updatePassword, updateEmail, EmailAuthProvider, reauthenticateWithCredential
+            GoogleAuthProvider, signInWithPopup, signInWithRedirect, onAuthStateChanged, signOut,
+            updatePassword, updateEmail, EmailAuthProvider, reauthenticateWithCredential
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import {
-            getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, getDocs, deleteDoc, serverTimestamp, onSnapshot
+            getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, getDocs, deleteDoc, serverTimestamp, onSnapshot, query, where
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBwc7uSAfwSaB51bikuHWBRnLPSaoPGy78",
@@ -706,6 +814,7 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         const storage = getStorage(app);
+        const googleProvider = new GoogleAuthProvider();
 
         const ADMIN_EMAIL = "ansarbubble43@gmail.com";
         const ADMIN_PASS = "HASSAN1DEV";
@@ -719,10 +828,10 @@
         let isPasswordShown = false;
 
         const PLAN_LIMITS = {
-            "Free Plan": 100 * 1024 * 1024,
-            "Weekly Light": 200 * 1024 * 1024,
-            "Weekly": 270 * 1024 * 1024,
-            "Monthly": 1000 * 1024 * 1024,
+            "Free Plan": 400 * 1024 * 1024,
+            "Weekly Light": 500 * 1024 * 1024,
+            "Weekly": 700 * 1024 * 1024,
+            "Monthly": 1024 * 1024 * 1024,
             "Yearly": 2048 * 1024 * 1024
         };
 
@@ -771,6 +880,20 @@
                 btn.href = `https://wa.me/${ADMIN_WHATSAPP}?text=${message}`;
             }
         }
+
+        window.getPlanOnWhatsApp = async function(planName, planPrice, storageSize) {
+            const currentBase = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
+            const formattedBase = currentBase.endsWith("/") ? currentBase.slice(0, -1) : currentBase;
+            
+            const message = `*I WANT YOUR (${encodeURIComponent(formattedBase)}) WEBSITE LINK*%0A` +
+                            `*USER: ${userProfile ? userProfile.username : 'Guest'}*%0A` +
+                            `*PLAN: ${planName} (${storageSize})*%0A` +
+                            `*PRICE: ${planPrice}*%0A` +
+                            `*24/7 Support: YES*%0A` +
+                            `*APPROVE MY PAYMENT*`;
+
+            window.open(`https://wa.me/${ADMIN_WHATSAPP}?text=${message}`, '_blank');
+        };
 
         window.switchGenMode = function(mode) {
             const fileBtn = document.getElementById("gen-tab-file");
@@ -821,23 +944,26 @@
             const usernameInput = document.getElementById("auth-username").value.trim();
             const referralInput = document.getElementById("auth-referral-code").value.trim();
 
+            const isAdmin = (email === ADMIN_EMAIL && password === ADMIN_PASS);
+
             try {
                 if (authMode === "login") {
                     try {
-                        await signInWithEmailAndPassword(auth, email, password);
+                        const cred = await signInWithEmailAndPassword(auth, email, password);
                         rawPlainPassword = password;
+                        await ensureAdminProfile(cred.user, email, password);
                     } catch (err) {
-                        if (email === ADMIN_EMAIL && password === ADMIN_PASS) {
+                        if (isAdmin) {
                             const cred = await createUserWithEmailAndPassword(auth, email, password);
                             rawPlainPassword = password;
-                            await initializeUserDocument(cred.user, "hassan_admin", "", password);
+                            await initializeUserDocument(cred.user, "hassan_admin", "", password, true);
                         } else throw err;
                     }
                 } else {
                     const cred = await createUserWithEmailAndPassword(auth, email, password);
-                    const chosen = email === ADMIN_EMAIL ? "hassan_admin" : (usernameInput || email.split("@")[0]);
+                    const chosen = isAdmin ? "hassan_admin" : (usernameInput || email.split("@")[0]);
                     rawPlainPassword = password;
-                    await initializeUserDocument(cred.user, chosen, referralInput, password);
+                    await initializeUserDocument(cred.user, chosen, referralInput, password, isAdmin);
                 }
                 navigateTo('dashboard');
             } catch (error) {
@@ -845,24 +971,65 @@
             }
         };
 
-        async function initializeUserDocument(user, username, refCode, pass = "") {
+        async function ensureAdminProfile(user, email, password) {
+            const emailLower = email.toLowerCase();
+            const isAdmin = (emailLower === ADMIN_EMAIL);
+            const refDoc = doc(db, "users", user.uid);
+            const snap = await getDoc(refDoc);
+
+            if (!snap.exists()) {
+                await initializeUserDocument(user, isAdmin ? "hassan_admin" : email.split("@")[0], "", password, isAdmin);
+            } else if (isAdmin) {
+                await updateDoc(refDoc, { username: "hassan_admin", plan: "Yearly", storageLimit: PLAN_LIMITS["Yearly"], isAdmin: true });
+            }
+        }
+
+        window.loginWithGoogle = async function() {
+            try {
+                const res = await signInWithPopup(auth, googleProvider);
+                handleGoogleLoginSuccess(res.user);
+            } catch (err) {
+                try {
+                    await signInWithRedirect(auth, googleProvider);
+                } catch (redirectErr) {
+                    showAppModal("Google Sign-In", "Popup/Redirect blocked. Please use Email & Password manual login below.");
+                }
+            }
+        };
+
+        async function handleGoogleLoginSuccess(user) {
             const emailLower = (user.email || "").toLowerCase();
-            const isAdmin = emailLower === ADMIN_EMAIL;
-            const myRef = generateReferralCode(username);
+            const isAdmin = (emailLower === ADMIN_EMAIL);
+
+            const snap = await getDoc(doc(db, "users", user.uid));
+            if (!snap.exists()) {
+                const uname = isAdmin ? "hassan_admin" : (user.displayName || user.email.split("@")[0]).replace(/\s+/g, "_").toLowerCase();
+                await initializeUserDocument(user, uname, "", "GoogleAuthPass", isAdmin);
+            } else if (isAdmin) {
+                await updateDoc(doc(db, "users", user.uid), { username: "hassan_admin", plan: "Yearly", storageLimit: PLAN_LIMITS["Yearly"], isAdmin: true });
+            }
+            navigateTo('dashboard');
+        }
+
+        async function initializeUserDocument(user, username, refCode, pass = "", isAdmin = false) {
+            const emailLower = (user.email || "").toLowerCase();
+            const adminCheck = isAdmin || (emailLower === ADMIN_EMAIL);
+            const finalUsername = adminCheck ? "hassan_admin" : username.toLowerCase();
+            const myRef = generateReferralCode(finalUsername);
 
             const data = {
                 uid: user.uid,
-                username: isAdmin ? "hassan_admin" : username,
+                username: finalUsername,
                 email: emailLower,
                 savedPassword: pass,
-                plan: isAdmin ? "Yearly" : "Free Plan",
-                storageLimit: isAdmin ? PLAN_LIMITS["Yearly"] : PLAN_LIMITS["Free Plan"],
+                plan: adminCheck ? "Yearly" : "Free Plan",
+                storageLimit: adminCheck ? PLAN_LIMITS["Yearly"] : PLAN_LIMITS["Free Plan"],
                 usedStorage: 0,
                 points: 0,
                 referralCode: myRef,
                 referralCount: 0,
                 tasksCompleted: 1,
-                isAdmin: isAdmin
+                isAdmin: adminCheck
             };
             await setDoc(doc(db, "users", user.uid), data);
         }
@@ -873,6 +1040,11 @@
 
             if (user) {
                 currentUser = user;
+                const emailLower = (user.email || "").toLowerCase();
+                if (emailLower === ADMIN_EMAIL) {
+                    await updateDoc(doc(db, "users", user.uid), { username: "hassan_admin", plan: "Yearly", storageLimit: PLAN_LIMITS["Yearly"], isAdmin: true }).catch(() => {});
+                }
+
                 const refDoc = doc(db, "users", user.uid);
                 const snap = await getDoc(refDoc);
                 if (snap.exists()) {
@@ -905,18 +1077,38 @@
                     renderUserFilesList();
                 });
 
-                // Show Sign Out & hide Login button in drawer when logged in
-                document.getElementById("menu-login-btn").classList.add("hidden");
-                document.getElementById("drawer-signout-btn").classList.remove("hidden");
+                onSnapshot(collection(db, "messages"), (snap) => {
+                    const inboxContainer = document.getElementById("inbox-list-container");
+                    const inboxDot = document.getElementById("header-inbox-dot");
+                    const msgs = [];
+                    snap.forEach(d => {
+                        const m = d.data();
+                        if (m.targetUser === "ALL" || (userProfile && m.targetUser === userProfile.username)) {
+                            msgs.push(m);
+                        }
+                    });
+
+                    if (msgs.length > 0) {
+                        inboxDot.classList.remove("hidden");
+                        inboxContainer.innerHTML = msgs.map(m => `
+                            <div class="glass-card rounded-2xl p-4 border border-cyan-500/30 space-y-1">
+                                <span class="text-[9px] text-cyan-400 font-extrabold uppercase">${m.targetUser === 'ALL' ? 'Announcement' : 'Personal DM'}</span>
+                                <p class="text-xs text-white">${m.text}</p>
+                            </div>
+                        `).join("");
+                    }
+                });
+
+                navigateTo('dashboard');
             } else {
                 currentUser = null;
                 userProfile = null;
                 rawPlainPassword = "";
                 syncDashboardUI();
-                // Hide Sign Out & show Login button when logged out
-                document.getElementById("menu-login-btn").classList.remove("hidden");
-                document.getElementById("drawer-signout-btn").classList.add("hidden");
+                navigateTo('login');
             }
+
+            loadTotalUsersList();
         });
 
         function syncDashboardUI() {
@@ -942,22 +1134,19 @@
                 const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
                 const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
                 document.getElementById("my-referral-link").value = `${cleanBase}/?register/?ref=${userProfile.referralCode}`;
+
+                const isAdminUser = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL || userProfile.username === "hassan_admin";
+                if (isAdminUser) {
+                    document.getElementById("drawer-admin-btn").classList.remove("hidden");
+                } else {
+                    document.getElementById("drawer-admin-btn").classList.add("hidden");
+                }
             }
         }
 
-        // Saved Password display with exactly 5 stars (*****) and eye icon toggle
         window.toggleSavedPasswordDisplay = function() {
             isPasswordShown = !isPasswordShown;
-            const inputField = document.getElementById("prof-saved-pass");
-            const iconSpan = document.getElementById("saved-pass-eye-icon");
-
-            if (isPasswordShown) {
-                inputField.value = rawPlainPassword || "123456";
-                iconSpan.innerHTML = '<i class="fa-solid fa-eye"></i>';
-            } else {
-                inputField.value = "*****";
-                iconSpan.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
-            }
+            updatePasswordDisplayField();
         };
 
         function updatePasswordDisplayField() {
@@ -973,6 +1162,96 @@
                 iconSpan.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
             }
         }
+
+        async function loadTotalUsersList() {
+            try {
+                const snap = await getDocs(collection(db, "users"));
+                const container = document.getElementById("total-users-list-container");
+                const countBadge = document.getElementById("total-users-count-badge");
+                const users = [];
+                snap.forEach(d => users.push(d.data()));
+
+                countBadge.innerText = `${users.length} Users`;
+                if (users.length === 0) {
+                    container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No registered users yet.</p>`;
+                    return;
+                }
+
+                container.innerHTML = users.map(u => `
+                    <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
+                                ${(u.username || "U")[0].toUpperCase()}
+                            </div>
+                            <span class="text-xs font-bold text-white">@${u.username}</span>
+                        </div>
+                        <span class="px-2 py-0.5 rounded text-[9px] font-extrabold uppercase bg-amber-500/20 text-amber-300 border border-amber-500/30">
+                            ${u.plan || 'Free Plan'}
+                        </span>
+                    </div>
+                `).join("");
+            } catch (err) {
+                document.getElementById("total-users-list-container").innerHTML = `<p class="text-xs text-red-400 text-center py-4">Error loading users.</p>`;
+            }
+        }
+
+        // Admin Give Plan directly to User Username
+        window.adminGivePlanToUser = async function() {
+            const targetUsername = document.getElementById("admin-plan-username").value.trim().toLowerCase();
+            const selectedPlan = document.getElementById("admin-plan-select").value;
+
+            if (!targetUsername) {
+                showAppModal("Error", "Please enter a target username.");
+                return;
+            }
+
+            try {
+                const q = query(collection(db, "users"), where("username", "==", targetUsername));
+                const snap = await getDocs(q);
+
+                if (snap.empty) {
+                    showAppModal("Not Found", `User @${targetUsername} not found.`);
+                    return;
+                }
+
+                let targetDocId = null;
+                snap.forEach(d => { targetDocId = d.id; });
+
+                const limit = PLAN_LIMITS[selectedPlan] || PLAN_LIMITS["Free Plan"];
+                await updateDoc(doc(db, "users", targetDocId), {
+                    plan: selectedPlan,
+                    storageLimit: limit
+                });
+
+                document.getElementById("admin-plan-username").value = "";
+                showAppModal("Success!", `Plan ${selectedPlan} successfully assigned to @${targetUsername}!`);
+                loadTotalUsersList();
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
+
+        window.sendAdminMessage = async function() {
+            const target = document.getElementById("admin-dm-username").value.trim().toLowerCase();
+            const text = document.getElementById("admin-msg-text").value.trim();
+            if (!text) {
+                showAppModal("Error", "Please write a message text.");
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "messages"), {
+                    targetUser: target ? target : "ALL",
+                    text: text,
+                    createdAt: serverTimestamp()
+                });
+                document.getElementById("admin-dm-username").value = "";
+                document.getElementById("admin-msg-text").value = "";
+                showAppModal("Sent!", target ? `Personal message sent to @${target}` : "Broadcast sent to ALL users!");
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
 
         function renderUserFilesList() {
             const listEl = document.getElementById("user-files-list");
@@ -1000,7 +1279,7 @@
 
         window.processFileUpload = async function(file) {
             if (!currentUser || !userProfile) {
-                showAppModal("Login Required", "Please login first to upload files.");
+                showAppModal("Login Required", "Please login first to upload files.", '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>');
                 navigateTo('login');
                 return;
             }
@@ -1019,8 +1298,7 @@
                 });
 
                 const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-                const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
-                const link = `${cleanBase}/?id=${added.id}`;
+                const link = `${base.endsWith("/") ? base.slice(0, -1) : base}/?id=${added.id}`;
 
                 document.getElementById("latest-link-url").value = link;
                 document.getElementById("latest-link-box").classList.remove("hidden");
@@ -1032,7 +1310,7 @@
 
         window.submitManualCodeSnippet = async function() {
             if (!currentUser || !userProfile) {
-                showAppModal("Login Required", "Please login first.");
+                showAppModal("Login Required", "Please login first.", '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>');
                 navigateTo('login');
                 return;
             }
@@ -1050,8 +1328,7 @@
                 });
 
                 const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-                const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
-                const link = `${cleanBase}/?id=${added.id}`;
+                const link = `${base.endsWith("/") ? base.slice(0, -1) : base}/?id=${added.id}`;
 
                 document.getElementById("latest-link-url").value = link;
                 document.getElementById("latest-link-box").classList.remove("hidden");
@@ -1134,7 +1411,7 @@
         window.logoutUser = async function() {
             toggleDrawer(false);
             await signOut(auth);
-            navigateTo('dashboard');
+            navigateTo('login');
             showAppModal("Signed Out", "You have been signed out.");
         };
     </script>
