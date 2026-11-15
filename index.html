@@ -18,6 +18,7 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
+                        heading: ['Fredoka', 'sans-serif'],
                     },
                     colors: {
                         appbg: '#030712',
@@ -33,7 +34,7 @@
     <!-- Font Awesome 6.5.1 Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
     <style>
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -41,42 +42,101 @@
             margin: 0; padding: 0; background-color: #030712; color: #f8fafc;
             font-family: 'Inter', sans-serif; overflow-x: hidden; min-height: 100vh;
         }
+        h1, h2, h3, .clay-font {
+            font-family: 'Fredoka', sans-serif;
+        }
         .mobile-shell {
             width: 100%; max-width: 480px; min-height: 100vh; margin: 0 auto;
-            background: linear-gradient(rgba(3, 7, 18, 0.78), rgba(6, 15, 30, 0.85)),
+            background: linear-gradient(rgba(3, 7, 18, 0.88), rgba(6, 15, 30, 0.92)),
                         url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1000&q=80') no-repeat center center fixed;
             background-size: cover;
-            border-left: 1px solid rgba(56, 189, 248, 0.2);
-            border-right: 1px solid rgba(56, 189, 248, 0.2);
+            border-left: 1px solid rgba(56, 189, 248, 0.25);
+            border-right: 1px solid rgba(56, 189, 248, 0.25);
             position: relative; display: flex; flex-direction: column;
             box-shadow: 0 0 70px rgba(0, 0, 0, 0.95); padding-bottom: 24px;
         }
+
+        /* 3D Claymorphism Glass Cards with Tilt Depth */
         .glass-card {
-            background: rgba(13, 19, 38, 0.86);
+            background: rgba(13, 19, 38, 0.92);
             backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(56, 189, 248, 0.22);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            border-radius: 28px;
+            box-shadow: 
+                14px 14px 30px rgba(0, 0, 0, 0.7),
+                -8px -8px 24px rgba(56, 189, 248, 0.1),
+                inset -4px -4px 10px rgba(0, 0, 0, 0.6),
+                inset 5px 5px 12px rgba(56, 189, 248, 0.18);
+            border: 1.5px solid rgba(56, 189, 248, 0.3);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
         }
+        .glass-card:hover {
+            transform: translateY(-3px) scale(1.005);
+            box-shadow: 
+                18px 20px 36px rgba(0, 0, 0, 0.8),
+                -10px -10px 28px rgba(56, 189, 248, 0.15),
+                inset -4px -4px 10px rgba(0, 0, 0, 0.6),
+                inset 5px 5px 12px rgba(56, 189, 248, 0.22);
+        }
+
         .glass-gold {
-            background: rgba(24, 20, 12, 0.88);
+            background: rgba(24, 20, 12, 0.94);
             backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
-            border: 1px solid rgba(255, 215, 0, 0.35);
+            border-radius: 28px;
+            box-shadow: 
+                14px 14px 30px rgba(0, 0, 0, 0.75),
+                -8px -8px 24px rgba(255, 215, 0, 0.12),
+                inset -4px -4px 10px rgba(0, 0, 0, 0.6),
+                inset 5px 5px 12px rgba(255, 215, 0, 0.22);
+            border: 1.5px solid rgba(255, 215, 0, 0.45);
         }
+
         .box-3d {
-            background: linear-gradient(145deg, rgba(22, 33, 66, 0.92), rgba(9, 14, 28, 0.96));
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-            transition: transform 0.2s ease;
+            background: linear-gradient(145deg, rgba(22, 33, 66, 0.94), rgba(9, 14, 28, 0.98));
+            border-radius: 26px;
+            border: 1.5px solid rgba(0, 242, 254, 0.4);
+            box-shadow: 
+                10px 12px 26px rgba(0, 0, 0, 0.7),
+                inset -4px -4px 8px rgba(0, 0, 0, 0.7),
+                inset 4px 4px 10px rgba(0, 242, 254, 0.3);
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
-        .box-3d:active { transform: scale(0.98); }
+        .box-3d:active { transform: scale(0.97); }
+
+        /* 3D Tactile Buttons */
         .btn-cyan {
-            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
-            box-shadow: 0 4px 20px rgba(0, 198, 255, 0.4);
+            background: linear-gradient(145deg, #00c6ff, #0072ff);
+            color: white; border-radius: 20px;
+            box-shadow: 
+                6px 8px 18px rgba(0, 198, 255, 0.4),
+                inset -3px -3px 8px rgba(0, 60, 140, 0.6),
+                inset 3px 3px 10px rgba(150, 230, 255, 0.85);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        .btn-cyan:hover { transform: translateY(-2px); }
+        .btn-cyan:active { transform: scale(0.95); }
+
         .btn-gold {
-            background: linear-gradient(135deg, #f59e0b 0%, #ffd700 100%);
-            color: #030712; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.35);
+            background: linear-gradient(145deg, #f59e0b, #ffd700);
+            color: #030712; border-radius: 20px;
+            box-shadow: 
+                6px 8px 18px rgba(255, 215, 0, 0.35),
+                inset -3px -3px 8px rgba(160, 100, 0, 0.6),
+                inset 3px 3px 10px rgba(255, 245, 180, 0.9);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
+        .btn-gold:hover { transform: translateY(-2px); }
+        .btn-gold:active { transform: scale(0.95); }
+
+        /* Clay Pressed Input Box */
+        .clay-inset {
+            background: #090d18;
+            border-radius: 18px;
+            box-shadow: 
+                inset 5px 5px 10px rgba(0, 0, 0, 0.8),
+                inset -5px -5px 10px rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+        }
+
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         .heart-particle {
@@ -175,7 +235,7 @@
                 <div id="app-modal-icon" class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-3 text-xl">
                     <i class="fa-solid fa-circle-info"></i>
                 </div>
-                <h3 id="app-modal-title" class="text-base font-extrabold text-white mb-1.5">Notification</h3>
+                <h3 id="app-modal-title" class="text-base font-extrabold text-white mb-1.5 clay-font">Notification</h3>
                 <p id="app-modal-text" class="text-xs text-slate-300 leading-relaxed mb-5">Message</p>
                 <button onclick="closeAppModal()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase tracking-wider">Continue</button>
             </div>
@@ -188,10 +248,10 @@
                     <i class="fa-brands fa-whatsapp"></i>
                 </div>
                 <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-extrabold uppercase">Official Channel</span>
-                <h3 class="text-base font-extrabold text-white mt-2 mb-2">HASSAN X SOURCE CODES</h3>
+                <h3 class="text-base font-extrabold text-white mt-2 mb-2 clay-font">HASSAN X SOURCE CODES</h3>
                 <p class="text-xs text-slate-300 leading-relaxed mb-5">See all developments source codes on my Whatsapp channel</p>
                 <div class="space-y-2.5">
-                    <a href="https://whatsapp.com/channel/0029VbE1NH99Bb65S8oOnS47" target="_blank" onclick="closeWhatsappPopup()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
+                    <a href="https://whatsapp.com/channel/0029VbE1NH99Bb65S8oOnS47" target="_blank" onclick="closeWhatsappPopup()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2 shadow-lg">
                         <i class="fa-brands fa-whatsapp text-base"></i> Follow WhatsApp Channel
                     </a>
                     <button onclick="closeWhatsappPopup()" class="w-full py-3 rounded-2xl glass-card text-xs font-semibold text-slate-400 hover:text-white">Continue to App</button>
@@ -207,7 +267,7 @@
                         <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h1 class="text-sm font-extrabold tracking-wide text-cyan-400">HASSAN X FILES</h1>
+                        <h1 class="text-sm font-extrabold tracking-wide text-cyan-400 clay-font">HASSAN X FILES</h1>
                         <p class="text-[10px] text-slate-400">SECURE GATEWAY</p>
                     </div>
                 </div>
@@ -221,14 +281,14 @@
                     <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400 text-2xl">
                         <i class="fa-solid fa-lock"></i>
                     </div>
-                    <h2 class="text-lg font-extrabold text-white">Password Protected File</h2>
-                    <input type="password" id="gateway-pass-input" placeholder="Enter password..." class="w-full bg-slate-950 border border-amber-500/40 rounded-xl px-4 py-3 text-xs text-amber-300 text-center focus:outline-none">
+                    <h2 class="text-lg font-extrabold text-white clay-font">Password Protected File</h2>
+                    <input type="password" id="gateway-pass-input" placeholder="Enter password..." class="w-full clay-inset border border-amber-500/40 rounded-xl px-4 py-3 text-xs text-amber-300 text-center focus:outline-none">
                     <button onclick="verifyGatewayPassword()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase">Unlock File</button>
                 </div>
 
                 <div id="gateway-intro-step" class="hidden space-y-4 text-left">
                     <div class="text-center pb-2 border-b border-slate-800">
-                        <h2 id="pub-file-name" class="text-base font-extrabold text-white break-all">Loading...</h2>
+                        <h2 id="pub-file-name" class="text-base font-extrabold text-white break-all clay-font">Loading...</h2>
                         <p id="pub-intro-message" class="text-xs text-slate-300 mt-2 bg-slate-950/80 p-3 rounded-xl border border-cyan-500/20 italic"></p>
                     </div>
                     <div id="gateway-channels-list" class="space-y-2.5 max-h-[220px] overflow-y-auto no-scrollbar"></div>
@@ -239,7 +299,7 @@
                     <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 text-2xl">
                         <i class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h2 class="text-lg font-extrabold text-white break-all" id="success-file-title">Ready</h2>
+                    <h2 class="text-lg font-extrabold text-white break-all clay-font" id="success-file-title">Ready</h2>
                     <a id="final-download-link" href="#" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
                         <i class="fa-solid fa-download"></i> Download File Now
                     </a>
@@ -256,7 +316,7 @@
                         <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover">
                     </div>
                     <div>
-                        <h1 class="text-xs font-extrabold tracking-wide text-cyan-400 leading-tight">HASSAN X FILES</h1>
+                        <h1 class="text-xs font-extrabold tracking-wide text-cyan-400 leading-tight clay-font">HASSAN X FILES</h1>
                         <div class="flex items-center gap-1.5 mt-0.5">
                             <span id="header-plan-badge" class="text-[9px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-bold border border-amber-500/30">Free Plan</span>
                             <span id="header-points-badge" class="text-[9px] text-purple-300 font-bold">0 Pts</span>
@@ -277,7 +337,7 @@
 
             <!-- Slide-out Menu Drawer -->
             <div id="mobile-drawer-overlay" onclick="toggleDrawer(false)" class="fixed inset-0 z-40 bg-black/75 backdrop-blur-xs hidden"></div>
-            <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#060e1d] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col">
+            <aside id="mobile-drawer" class="fixed top-0 bottom-0 right-0 z-50 w-72 bg-[#060e1d] border-l border-cyan-500/25 p-5 transform translate-x-full transition-transform duration-300 flex flex-col shadow-2xl">
                 <div class="flex items-center justify-between pb-4 border-b border-slate-800">
                     <div class="flex items-center gap-3">
                         <div class="w-11 h-11 rounded-full overflow-hidden border-2 border-cyan-400 shrink-0">
@@ -303,6 +363,11 @@
 
                     <button onclick="navigateTo('plans'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-amber-500/10 text-left">
                         <i class="fa-solid fa-gem w-4 text-amber-400"></i> SEE Plans
+                    </button>
+
+                    <!-- JOIN CHANNEL OPTION (Added right above Reffer and Earn & below 3rd option) -->
+                    <button onclick="window.open('https://whatsapp.com/channel/0029VbE1NH99Bb65S8oOnS47', '_blank'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-emerald-300 hover:bg-emerald-500/10 text-left border border-emerald-500/20">
+                        <i class="fa-brands fa-whatsapp w-4 text-emerald-400"></i> Join Channel
                     </button>
 
                     <button onclick="navigateTo('referral'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-purple-500/10 text-left">
@@ -339,7 +404,8 @@
                     </button>
                 </nav>
 
-                <div class="mt-auto pt-3 border-t border-slate-800">
+                <!-- Sign Out button (Only shows when user is logged in) -->
+                <div id="drawer-signout-container" class="mt-auto pt-3 border-t border-slate-800 hidden">
                     <button onclick="logoutUser()" class="w-full py-2.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-right-from-bracket"></i> Sign Out
                     </button>
@@ -352,7 +418,7 @@
                     <div class="box-3d rounded-3xl p-5 text-center relative overflow-hidden">
                         <div class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-300 border border-purple-500/40 flex items-center justify-center mx-auto mb-2.5 text-xl shadow-lg">🎁</div>
                         <span class="text-[11px] font-extrabold uppercase tracking-widest text-purple-300">Total Referrals</span>
-                        <h2 id="dash-box-referrals" class="text-3xl font-black text-white mt-1">0</h2>
+                        <h2 id="dash-box-referrals" class="text-3xl font-black text-white mt-1 clay-font">0</h2>
                     </div>
                     <div class="box-3d rounded-3xl p-5 text-center relative overflow-hidden">
                         <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 flex items-center justify-center mx-auto mb-2.5 text-xl shadow-lg">
@@ -366,12 +432,12 @@
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                         <span class="text-[11px] font-extrabold uppercase tracking-widest text-emerald-300">Tasks Completed</span>
-                        <h2 id="dash-box-tasks" class="text-3xl font-black text-white mt-1">0</h2>
+                        <h2 id="dash-box-tasks" class="text-3xl font-black text-white mt-1 clay-font">0</h2>
                     </div>
                 </div>
 
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
-                    <h3 class="text-sm font-extrabold text-white">About Hassan X Files</h3>
+                    <h3 class="text-sm font-extrabold text-white clay-font">About Hassan X Files</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         Hassan X Files is your ultimate cloud file hosting and secure link generator platform. Upload Python scripts, HTML files, or documents and generate instant secure download links.
                     </p>
@@ -383,17 +449,17 @@
             <section id="view-filetolink" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
                     <div class="flex items-center justify-between">
-                        <h3 class="text-sm font-extrabold text-white flex items-center gap-2">
+                        <h3 class="text-sm font-extrabold text-white flex items-center gap-2 clay-font">
                             <i class="fa-solid fa-file-arrow-up text-cyan-400"></i> File To Link Generator
                         </h3>
-                        <div class="flex bg-slate-950 p-1 rounded-xl border border-slate-800">
+                        <div class="flex clay-inset p-1 rounded-xl">
                             <button id="gen-tab-file" onclick="switchGenMode('file')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300">File</button>
                             <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white">Code</button>
                         </div>
                     </div>
 
                     <div id="gen-mode-file-section" class="space-y-3">
-                        <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 bg-slate-950/70 rounded-2xl p-6 text-center cursor-pointer">
+                        <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 clay-inset rounded-2xl p-6 text-center cursor-pointer">
                             <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0], 'file'); this.value='';">
                             <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-2 text-xl">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
@@ -403,22 +469,22 @@
                     </div>
 
                     <div id="gen-mode-code-section" class="space-y-3 hidden">
-                        <input type="text" id="manual-proj-name" placeholder="File name (e.g. script.py)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
-                        <textarea id="manual-proj-content" rows="4" placeholder="Paste code here..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none"></textarea>
+                        <input type="text" id="manual-proj-name" placeholder="File name (e.g. script.py)" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <textarea id="manual-proj-content" rows="4" placeholder="Paste code here..." class="w-full clay-inset border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none"></textarea>
                         <button onclick="submitManualCodeSnippet()" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Generate Link</button>
                     </div>
 
                     <div id="latest-link-box" class="hidden p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
                         <span class="text-[10px] font-bold text-emerald-300 uppercase">Link Ready</span>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="latest-link-url" readonly class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-cyan-300 font-mono focus:outline-none">
+                            <input type="text" id="latest-link-url" readonly class="w-full clay-inset border border-slate-800 rounded-xl px-3 py-2 text-[11px] text-cyan-300 font-mono focus:outline-none">
                             <button onclick="copyTextValue(document.getElementById('latest-link-url').value, 'Link copied!')" class="px-3 py-2 rounded-xl btn-cyan text-xs font-bold text-white">Copy</button>
                         </div>
                     </div>
                 </div>
 
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/20">
-                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase mb-3"><i class="fa-solid fa-folder-open mr-1.5"></i> My Uploads</h3>
+                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase mb-3 clay-font"><i class="fa-solid fa-folder-open mr-1.5"></i> My Uploads</h3>
                     <div id="user-files-list" class="space-y-2.5">
                         <p class="text-center py-4 text-slate-500 text-xs">No files uploaded yet.</p>
                     </div>
@@ -430,14 +496,14 @@
             <section id="view-plans" class="app-section hidden p-4 space-y-4">
                 <div class="text-center mb-2">
                     <span class="px-3 py-1 rounded-full bg-amber-500/15 text-amber-300 text-[10px] font-bold uppercase border border-amber-500/30">SEE Plans Selection</span>
-                    <h2 class="text-lg font-extrabold text-white mt-1.5">Choose Your Storage Plan</h2>
+                    <h2 class="text-lg font-extrabold text-white mt-1.5 clay-font">Choose Your Storage Plan</h2>
                 </div>
 
                 <div class="space-y-4">
                     <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                             <div>
-                                <h3 class="text-sm font-extrabold text-white">Free Plan</h3>
+                                <h3 class="text-sm font-extrabold text-white clay-font">Free Plan</h3>
                                 <p class="text-xs text-cyan-400 font-bold mt-0.5">400 MB Storage</p>
                             </div>
                             <span class="text-base font-extrabold text-emerald-400">0 PKR</span>
@@ -446,7 +512,7 @@
                             <li class="flex items-center justify-between"><span>Limited Links</span> <span class="text-cyan-400">✔</span></li>
                             <li class="flex items-center justify-between"><span>24/7 Support</span> <span class="text-cyan-400">✔</span></li>
                         </ul>
-                        <button class="w-full py-3 rounded-xl bg-slate-800/80 text-cyan-300 text-xs font-bold border border-cyan-500/20 cursor-default">
+                        <button class="w-full py-3 rounded-xl clay-inset text-cyan-300 text-xs font-bold border border-cyan-500/20 cursor-default">
                             Active to your account
                         </button>
                     </div>
@@ -454,7 +520,7 @@
                     <div class="glass-card rounded-3xl p-5 border border-cyan-500/40 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                             <div>
-                                <h3 class="text-sm font-extrabold text-cyan-300">Weekly Light</h3>
+                                <h3 class="text-sm font-extrabold text-cyan-300 clay-font">Weekly Light</h3>
                                 <p class="text-xs text-purple-300 font-bold mt-0.5">500 MB Storage</p>
                             </div>
                             <span class="text-base font-extrabold text-amber-300">50 PKR</span>
@@ -471,7 +537,7 @@
                     <div class="glass-card rounded-3xl p-5 border border-purple-500/40 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                             <div>
-                                <h3 class="text-sm font-extrabold text-purple-300">Weekly</h3>
+                                <h3 class="text-sm font-extrabold text-purple-300 clay-font">Weekly</h3>
                                 <p class="text-xs text-cyan-300 font-bold mt-0.5">700 MB Storage</p>
                             </div>
                             <span class="text-base font-extrabold text-amber-300">150 PKR</span>
@@ -488,7 +554,7 @@
                     <div class="glass-gold rounded-3xl p-5 space-y-3">
                         <div class="flex items-center justify-between border-b border-amber-500/30 pb-2.5">
                             <div>
-                                <h3 class="text-sm font-extrabold text-amber-300">Monthly</h3>
+                                <h3 class="text-sm font-extrabold text-amber-300 clay-font">Monthly</h3>
                                 <p class="text-xs text-purple-300 font-bold mt-0.5">1024 MB Storage</p>
                             </div>
                             <span class="text-base font-extrabold text-white">300 PKR</span>
@@ -505,7 +571,7 @@
                     <div class="glass-card rounded-3xl p-5 border border-emerald-500/40 space-y-3">
                         <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
                             <div>
-                                <h3 class="text-sm font-extrabold text-emerald-300">Yearly VIP</h3>
+                                <h3 class="text-sm font-extrabold text-emerald-300 clay-font">Yearly VIP</h3>
                                 <p class="text-xs text-purple-300 font-bold mt-0.5">2048 MB Storage</p>
                             </div>
                             <span class="text-base font-extrabold text-amber-300">500 PKR</span>
@@ -528,12 +594,12 @@
                     <div class="w-16 h-16 rounded-3xl overflow-hidden bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center mx-auto mb-3 shadow-xl">
                         <img src="https://i.ibb.co/21qmyHBJ/jawadmd.jpg" class="w-full h-full object-cover">
                     </div>
-                    <h2 class="text-xl font-extrabold text-white">HASSAN X FILES</h2>
+                    <h2 class="text-xl font-extrabold text-white clay-font">HASSAN X FILES</h2>
                     <p class="text-xs text-slate-400 mt-1">Authentication Portal</p>
                 </div>
 
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 shadow-2xl">
-                    <div class="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-slate-950 border border-slate-800 mb-4">
+                    <div class="grid grid-cols-2 gap-2 p-1 clay-inset rounded-2xl mb-4">
                         <button id="tab-btn-login" onclick="setAuthMode('login')" class="py-2.5 rounded-xl text-xs font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Sign In</button>
                         <button id="tab-btn-signup" onclick="setAuthMode('signup')" class="py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white">Create Account</button>
                     </div>
@@ -558,19 +624,19 @@
                     <form onsubmit="handleAuthSubmit(event)" class="space-y-3.5">
                         <div id="signup-username-group" class="hidden">
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
-                            <input type="text" id="auth-username" placeholder="Username..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="text" id="auth-username" placeholder="Username..." class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Email Address</label>
-                            <input type="email" id="auth-email" required placeholder="Enter your email" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="email" id="auth-email" required placeholder="Enter your email" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Password</label>
-                            <input type="password" id="auth-password" required placeholder="Enter your password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="password" id="auth-password" required placeholder="Enter your password" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div id="signup-referral-group" class="hidden">
                             <label class="block text-[11px] font-semibold text-purple-300 mb-1">Referral Code</label>
-                            <input type="text" id="auth-referral-code" placeholder="Referral code..." class="w-full bg-slate-950 border border-purple-500/30 rounded-xl px-3.5 py-2.5 text-xs text-purple-200 focus:outline-none">
+                            <input type="text" id="auth-referral-code" placeholder="Referral code..." class="w-full clay-inset border border-purple-500/30 rounded-xl px-3.5 py-2.5 text-xs text-purple-200 focus:outline-none">
                         </div>
                         <button type="submit" id="auth-submit-btn" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase mt-2">Sign In Now</button>
                     </form>
@@ -585,13 +651,13 @@
                         <i class="fa-solid fa-gift"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg font-extrabold text-white">Reffer and Earn</h2>
+                        <h2 class="text-lg font-extrabold text-white clay-font">Reffer and Earn</h2>
                         <p class="text-xs text-slate-300 mt-1">Share your unique referral link to earn points and storage!</p>
                     </div>
-                    <div class="p-4 rounded-2xl bg-slate-950 border border-purple-500/30 text-left space-y-3">
+                    <div class="p-4 rounded-2xl clay-inset border border-purple-500/30 text-left space-y-3">
                         <span class="text-[10px] font-bold text-purple-300 uppercase">Your Referral Link</span>
                         <div class="flex items-center gap-2">
-                            <input type="text" id="my-referral-link" readonly class="w-full bg-slate-900 border border-slate-800 rounded-xl px-3 py-2.5 text-[11px] text-purple-200 font-mono focus:outline-none">
+                            <input type="text" id="my-referral-link" readonly class="w-full clay-inset border border-slate-800 rounded-xl px-3 py-2.5 text-[11px] text-purple-200 font-mono focus:outline-none">
                             <button onclick="copyTextValue(document.getElementById('my-referral-link').value, 'Referral link copied!')" class="px-4 py-2.5 rounded-xl bg-purple-600 text-white text-xs font-bold shrink-0">Copy</button>
                         </div>
                     </div>
@@ -607,21 +673,21 @@
                             <i class="fa-solid fa-list-check"></i>
                         </div>
                         <div>
-                            <h2 class="text-base font-extrabold text-white">Tasks & Milestones</h2>
+                            <h2 class="text-base font-extrabold text-white clay-font">Tasks & Milestones</h2>
                             <p class="text-xs text-slate-400">Complete tasks to unlock points</p>
                         </div>
                     </div>
 
                     <div class="space-y-2.5 text-xs">
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+                        <div class="flex items-center justify-between p-3 rounded-xl clay-inset border border-slate-800">
                             <span>👤 Invite 1 Friend (<strong class="text-cyan-300">50 Pts</strong>)</span>
                             <button onclick="navigateTo('referral')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold text-[10px]">Go</button>
                         </div>
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+                        <div class="flex items-center justify-between p-3 rounded-xl clay-inset border border-slate-800">
                             <span>👥 Invite 2 Friends (<strong class="text-amber-300">200 Pts</strong>)</span>
                             <button onclick="navigateTo('referral')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold text-[10px]">Go</button>
                         </div>
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-950 border border-slate-800">
+                        <div class="flex items-center justify-between p-3 rounded-xl clay-inset border border-slate-800">
                             <span>🔥 Invite 3 Friends (<strong class="text-emerald-300">500 Pts</strong>)</span>
                             <button onclick="navigateTo('referral')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold text-[10px]">Go</button>
                         </div>
@@ -637,16 +703,16 @@
                         <i class="fa-solid fa-ticket"></i>
                     </div>
                     <div>
-                        <h2 class="text-lg font-extrabold text-white">Redeem Your Code</h2>
+                        <h2 class="text-lg font-extrabold text-white clay-font">Redeem Your Code</h2>
                         <p class="text-xs text-slate-300 mt-1">Enter your special coupon code to claim instant points!</p>
                     </div>
                     <div class="space-y-3 text-left">
-                        <input type="text" id="redeem-code-input" placeholder="e.g. HASSAN123" class="w-full bg-slate-950 border border-emerald-500/30 rounded-xl px-3.5 py-3 text-xs text-emerald-300 font-mono uppercase focus:outline-none">
+                        <input type="text" id="redeem-code-input" placeholder="e.g. HASSAN123" class="w-full clay-inset border border-emerald-500/30 rounded-xl px-3.5 py-3 text-xs text-emerald-300 font-mono uppercase focus:outline-none">
                         <button onclick="handleRedeemCode()" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 text-xs font-extrabold text-white uppercase">Redeem Code Now</button>
                     </div>
                     <div class="pt-4 border-t border-slate-800 text-center space-y-2.5">
                         <p class="text-xs text-slate-300 font-semibold">Redeem codes ke liye developer ko contact karein:</p>
-                        <a id="whatsapp-redeem-btn" href="#" target="_blank" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
+                        <a id="whatsapp-redeem-btn" href="#" target="_blank" class="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2 shadow-lg">
                             <i class="fa-brands fa-whatsapp text-lg"></i> Contact on WhatsApp
                         </a>
                     </div>
@@ -657,28 +723,28 @@
             <!-- SECTION 8: PROFILE -->
             <section id="view-profile" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
-                    <h2 class="text-base font-extrabold text-white flex items-center gap-2">
+                    <h2 class="text-base font-extrabold text-white flex items-center gap-2 clay-font">
                         <i class="fa-solid fa-user-pen text-cyan-400"></i> Profile Settings
                     </h2>
                     <div class="space-y-3 text-xs">
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Username</label>
-                            <input type="text" id="prof-username" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                            <input type="text" id="prof-username" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-slate-300 mb-1">Gmail Address</label>
-                            <input type="email" id="prof-email" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 focus:outline-none">
+                            <input type="email" id="prof-email" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-cyan-300 focus:outline-none">
                         </div>
                         <button onclick="updateUserProfile()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Save Profile</button>
                     </div>
                 </div>
 
                 <div class="glass-card rounded-3xl p-5 border border-amber-500/25 space-y-3 text-xs">
-                    <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2">
+                    <h3 class="text-sm font-extrabold text-amber-300 flex items-center gap-2 clay-font">
                         <i class="fa-solid fa-key"></i> Current Saved Password
                     </h3>
                     <div class="relative">
-                        <input type="text" id="prof-saved-pass" readonly value="*****" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-amber-300 font-mono focus:outline-none">
+                        <input type="text" id="prof-saved-pass" readonly value="*****" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-amber-300 font-mono focus:outline-none">
                         <span id="saved-pass-eye-icon" onclick="toggleSavedPasswordDisplay()" class="absolute right-3.5 top-2.5 text-slate-400 hover:text-white cursor-pointer text-base">
                             <i class="fa-solid fa-eye-slash"></i>
                         </span>
@@ -686,9 +752,9 @@
 
                     <div class="pt-2 space-y-2">
                         <label class="block text-[11px] font-semibold text-slate-300">Change Password</label>
-                        <input type="password" id="prof-old-pass" placeholder="Old password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
-                        <input type="password" id="prof-new-pass-1" placeholder="New password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
-                        <input type="password" id="prof-new-pass-2" placeholder="Confirm new password..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <input type="password" id="prof-old-pass" placeholder="Old password..." class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <input type="password" id="prof-new-pass-1" placeholder="New password..." class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <input type="password" id="prof-new-pass-2" placeholder="Confirm new password..." class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
                         <button onclick="handleChangePassword()" class="w-full py-3 rounded-2xl btn-gold text-xs font-extrabold uppercase">CHANGE PASSWORD</button>
                     </div>
                 </div>
@@ -698,7 +764,7 @@
             <!-- SECTION 9: PRIVACY -->
             <section id="view-privacy" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
-                    <h2 class="text-base font-extrabold text-cyan-300"><i class="fa-solid fa-shield-cat mr-2"></i> Privacy Policy</h2>
+                    <h2 class="text-base font-extrabold text-cyan-300 clay-font"><i class="fa-solid fa-shield-cat mr-2"></i> Privacy Policy</h2>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         At Hassan X Files, your privacy is our top priority. We securely store your uploaded files and protect your account data with Firebase encryption.
                     </p>
@@ -709,7 +775,7 @@
             <!-- SECTION 10: TERMS -->
             <section id="view-terms" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-amber-500/30 space-y-3">
-                    <h2 class="text-base font-extrabold text-amber-300"><i class="fa-solid fa-file-contract mr-2"></i> Terms & Conditions</h2>
+                    <h2 class="text-base font-extrabold text-amber-300 clay-font"><i class="fa-solid fa-file-contract mr-2"></i> Terms & Conditions</h2>
                     <p class="text-xs text-slate-300 leading-relaxed">
                         By using Hassan X Files, you agree to comply with our acceptable use policy. No malicious files or copyrighted material sharing is permitted.
                     </p>
@@ -721,7 +787,7 @@
             <section id="view-totalusers" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
                     <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                        <h2 class="text-base font-extrabold text-cyan-300"><i class="fa-solid fa-users mr-2"></i> Total Registered Users</h2>
+                        <h2 class="text-base font-extrabold text-cyan-300 clay-font"><i class="fa-solid fa-users mr-2"></i> Total Registered Users</h2>
                         <span id="total-users-count-badge" class="px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 text-xs font-extrabold">0 Users</span>
                     </div>
                     <div id="total-users-list-container" class="space-y-2.5 max-h-[420px] overflow-y-auto no-scrollbar">
@@ -733,7 +799,7 @@
 
             <!-- SECTION 12: INBOX -->
             <section id="view-inbox" class="app-section hidden p-4 space-y-4">
-                <h2 class="text-base font-extrabold text-cyan-300"><i class="fa-solid fa-inbox mr-2"></i> Inbox Messages</h2>
+                <h2 class="text-base font-extrabold text-cyan-300 clay-font"><i class="fa-solid fa-inbox mr-2"></i> Inbox Messages</h2>
                 <div id="inbox-list-container" class="space-y-3">
                     <div class="glass-card rounded-2xl p-6 text-center text-xs text-slate-500">No messages in your inbox.</div>
                 </div>
@@ -745,21 +811,21 @@
                 <div class="glass-gold rounded-3xl p-4 flex items-center justify-between">
                     <div>
                         <span class="text-[9px] px-2 py-0.5 rounded bg-amber-400 text-slate-950 font-extrabold uppercase">Admin Access</span>
-                        <h2 class="text-base font-extrabold text-white mt-1">Hassan Admin Panel</h2>
+                        <h2 class="text-base font-extrabold text-white mt-1 clay-font">Hassan Admin Panel</h2>
                     </div>
                     <i class="fa-solid fa-shield-halved text-2xl text-amber-400"></i>
                 </div>
 
                 <!-- Admin Give Plan directly to User Username -->
                 <div class="glass-card rounded-3xl p-4 border border-amber-500/30 space-y-3">
-                    <h3 class="text-xs font-extrabold text-amber-300 uppercase"><i class="fa-solid fa-gem mr-1.5"></i> Assign Plan To User</h3>
+                    <h3 class="text-xs font-extrabold text-amber-300 uppercase clay-font"><i class="fa-solid fa-gem mr-1.5"></i> Assign Plan To User</h3>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-1">User Username</label>
-                        <input type="text" id="admin-plan-username" placeholder="Enter username..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                        <input type="text" id="admin-plan-username" placeholder="Enter username..." class="w-full clay-inset border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-1">Select Plan</label>
-                        <select id="admin-plan-select" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                        <select id="admin-plan-select" class="w-full clay-inset border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
                             <option value="Weekly Light">Weekly Light (500 MB)</option>
                             <option value="Weekly">Weekly (700 MB)</option>
                             <option value="Monthly">Monthly (1024 MB)</option>
@@ -770,14 +836,14 @@
                 </div>
 
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/25 space-y-3">
-                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase"><i class="fa-solid fa-paper-plane mr-1.5"></i> Send Message / Broadcast</h3>
+                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase clay-font"><i class="fa-solid fa-paper-plane mr-1.5"></i> Send Message / Broadcast</h3>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-1">Add username for personal chat (leave empty for ALL users)</label>
-                        <input type="text" id="admin-dm-username" placeholder="e.g. hassan_user (optional)" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
+                        <input type="text" id="admin-dm-username" placeholder="e.g. hassan_user (optional)" class="w-full clay-inset border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none">
                     </div>
                     <div>
                         <label class="block text-[10px] text-slate-300 mb-1">Message Text</label>
-                        <textarea id="admin-msg-text" rows="3" placeholder="Type your message..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none"></textarea>
+                        <textarea id="admin-msg-text" rows="3" placeholder="Type your message..." class="w-full clay-inset border border-slate-800 rounded-2xl p-3 text-xs text-white focus:outline-none"></textarea>
                     </div>
                     <button onclick="sendAdminMessage()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Send Message</button>
                 </div>
@@ -1038,8 +1104,12 @@
             const currentBase = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
             updateWhatsAppRedeemLink(currentBase.endsWith("/") ? currentBase.slice(0, -1) : currentBase);
 
+            const signoutContainer = document.getElementById("drawer-signout-container");
+
             if (user) {
                 currentUser = user;
+                if (signoutContainer) signoutContainer.classList.remove("hidden"); // Show Sign Out when logged in
+
                 const emailLower = (user.email || "").toLowerCase();
                 if (emailLower === ADMIN_EMAIL) {
                     await updateDoc(doc(db, "users", user.uid), { username: "hassan_admin", plan: "Yearly", storageLimit: PLAN_LIMITS["Yearly"], isAdmin: true }).catch(() => {});
@@ -1104,6 +1174,7 @@
                 currentUser = null;
                 userProfile = null;
                 rawPlainPassword = "";
+                if (signoutContainer) signoutContainer.classList.add("hidden"); // Hide Sign Out when NOT logged in
                 syncDashboardUI();
                 navigateTo('login');
             }
@@ -1178,7 +1249,7 @@
                 }
 
                 container.innerHTML = users.map(u => `
-                    <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between">
+                    <div class="p-3 rounded-2xl clay-inset border border-slate-800 flex items-center justify-between">
                         <div class="flex items-center gap-2.5">
                             <div class="w-8 h-8 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-xs">
                                 ${(u.username || "U")[0].toUpperCase()}
@@ -1195,7 +1266,6 @@
             }
         }
 
-        // Admin Give Plan directly to User Username
         window.adminGivePlanToUser = async function() {
             const targetUsername = document.getElementById("admin-plan-username").value.trim().toLowerCase();
             const selectedPlan = document.getElementById("admin-plan-select").value;
@@ -1266,7 +1336,7 @@
             listEl.innerHTML = userFiles.map(f => {
                 const fullUrl = `${cleanBase}/?id=${encodeURIComponent(f.id)}`;
                 return `
-                    <div class="p-3 rounded-2xl bg-slate-950 border border-slate-800 flex items-center justify-between gap-2">
+                    <div class="p-3 rounded-2xl clay-inset border border-slate-800 flex items-center justify-between gap-2">
                         <div class="min-w-0 flex-1">
                             <p class="text-xs font-bold text-white truncate">${f.fileName}</p>
                             <p class="text-[10px] text-cyan-400 truncate">${formatSize(f.size)}</p>
