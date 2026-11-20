@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title id="meta-page-title">HASSAN X FILES — Secure Cloud Link & Code Gateway</title>
     <meta property="og:title" id="meta-og-title" content="HASSAN X FILES">
-    <meta property="og:description" id="meta-og-desc" content="Instant cloud file-to-link generator with password protection, social lock walls, and live code previews.">
+    <meta property="og:description" id="meta-og-desc" content="Instant cloud file-to-link generator with numeric gateway links, source code sharing, and custom links/messages.">
     <meta property="og:site_name" content="HASSAN X FILES">
 
     <!-- Tailwind CSS -->
@@ -61,7 +61,7 @@
             background: rgba(13, 19, 38, 0.92);
             backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
             border-radius: 28px;
-            box-shadow: 
+            box-shadow:
                 14px 14px 30px rgba(0, 0, 0, 0.7),
                 -8px -8px 24px rgba(56, 189, 248, 0.1),
                 inset -4px -4px 10px rgba(0, 0, 0, 0.6),
@@ -71,7 +71,7 @@
         }
         .glass-card:hover {
             transform: translateY(-3px) scale(1.005);
-            box-shadow: 
+            box-shadow:
                 18px 20px 36px rgba(0, 0, 0, 0.8),
                 -10px -10px 28px rgba(56, 189, 248, 0.15),
                 inset -4px -4px 10px rgba(0, 0, 0, 0.6),
@@ -82,7 +82,7 @@
             background: rgba(24, 20, 12, 0.94);
             backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
             border-radius: 28px;
-            box-shadow: 
+            box-shadow:
                 14px 14px 30px rgba(0, 0, 0, 0.75),
                 -8px -8px 24px rgba(255, 215, 0, 0.12),
                 inset -4px -4px 10px rgba(0, 0, 0, 0.6),
@@ -94,7 +94,7 @@
             background: linear-gradient(145deg, rgba(22, 33, 66, 0.94), rgba(9, 14, 28, 0.98));
             border-radius: 26px;
             border: 1.5px solid rgba(0, 242, 254, 0.4);
-            box-shadow: 
+            box-shadow:
                 10px 12px 26px rgba(0, 0, 0, 0.7),
                 inset -4px -4px 8px rgba(0, 0, 0, 0.7),
                 inset 4px 4px 10px rgba(0, 242, 254, 0.3);
@@ -106,7 +106,7 @@
         .btn-cyan {
             background: linear-gradient(145deg, #00c6ff, #0072ff);
             color: white; border-radius: 20px;
-            box-shadow: 
+            box-shadow:
                 6px 8px 18px rgba(0, 198, 255, 0.4),
                 inset -3px -3px 8px rgba(0, 60, 140, 0.6),
                 inset 3px 3px 10px rgba(150, 230, 255, 0.85);
@@ -118,7 +118,7 @@
         .btn-gold {
             background: linear-gradient(145deg, #f59e0b, #ffd700);
             color: #030712; border-radius: 20px;
-            box-shadow: 
+            box-shadow:
                 6px 8px 18px rgba(255, 215, 0, 0.35),
                 inset -3px -3px 8px rgba(160, 100, 0, 0.6),
                 inset 3px 3px 10px rgba(255, 245, 180, 0.9);
@@ -131,7 +131,7 @@
         .clay-inset {
             background: #090d18;
             border-radius: 18px;
-            box-shadow: 
+            box-shadow:
                 inset 5px 5px 10px rgba(0, 0, 0, 0.8),
                 inset -5px -5px 10px rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(56, 189, 248, 0.25);
@@ -259,7 +259,7 @@
             </div>
         </div>
 
-        <!-- Public Gateway View -->
+        <!-- Public Gateway View (Opens when ?id=<numeric_id> is visited) -->
         <div id="public-file-view" class="hidden flex-1 flex flex-col justify-between p-5">
             <div class="flex items-center justify-between py-2">
                 <div class="flex items-center gap-2.5">
@@ -277,32 +277,51 @@
             </div>
 
             <div class="glass-card rounded-3xl p-6 text-center border border-cyan-500/30 my-auto shadow-2xl space-y-4">
-                <div id="gateway-password-step" class="space-y-4">
-                    <div class="w-16 h-16 rounded-2xl bg-amber-500/15 border border-amber-500/30 flex items-center justify-center mx-auto text-amber-400 text-2xl">
-                        <i class="fa-solid fa-lock"></i>
+                <div id="gateway-loading-step" class="space-y-3 py-4">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto text-xl animate-spin">
+                        <i class="fa-solid fa-circle-notch"></i>
                     </div>
-                    <h2 class="text-lg font-extrabold text-white clay-font">Password Protected File</h2>
-                    <input type="password" id="gateway-pass-input" placeholder="Enter password..." class="w-full clay-inset border border-amber-500/40 rounded-xl px-4 py-3 text-xs text-amber-300 text-center focus:outline-none">
-                    <button onclick="verifyGatewayPassword()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase">Unlock File</button>
+                    <p class="text-xs font-bold text-slate-300">Fetching item from gateway...</p>
                 </div>
 
-                <div id="gateway-intro-step" class="hidden space-y-4 text-left">
-                    <div class="text-center pb-2 border-b border-slate-800">
-                        <h2 id="pub-file-name" class="text-base font-extrabold text-white break-all clay-font">Loading...</h2>
-                        <p id="pub-intro-message" class="text-xs text-slate-300 mt-2 bg-slate-950/80 p-3 rounded-xl border border-cyan-500/20 italic"></p>
+                <div id="gateway-error-step" class="hidden space-y-4 py-3">
+                    <div class="w-16 h-16 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center mx-auto text-red-400 text-2xl">
+                        <i class="fa-solid fa-link-slash"></i>
                     </div>
-                    <div id="gateway-channels-list" class="space-y-2.5 max-h-[220px] overflow-y-auto no-scrollbar"></div>
-                    <button id="pub-download-btn" disabled class="w-full py-3.5 rounded-2xl bg-slate-800 text-slate-500 text-xs font-extrabold uppercase cursor-not-allowed">Complete Actions to Download</button>
+                    <h2 class="text-base font-extrabold text-white clay-font">Link Not Found</h2>
+                    <p id="gateway-error-msg" class="text-xs text-slate-400">This ID does not match any saved item or has been removed.</p>
+                    <button onclick="exitPublicGateway()" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Go To Generator</button>
                 </div>
 
-                <div id="gateway-success-step" class="hidden space-y-4">
+                <div id="gateway-ready-step" class="hidden space-y-4">
+                    <div id="gateway-badge" class="inline-block px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/30 text-[10px] font-extrabold uppercase">
+                        FILE GATEWAY
+                    </div>
                     <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mx-auto text-emerald-400 text-2xl">
-                        <i class="fa-solid fa-circle-check"></i>
+                        <i id="gateway-item-icon" class="fa-solid fa-circle-check"></i>
                     </div>
-                    <h2 class="text-lg font-extrabold text-white break-all clay-font" id="success-file-title">Ready</h2>
-                    <a id="final-download-link" href="#" download class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-download"></i> Download File Now
-                    </a>
+                    <div>
+                        <h2 id="gateway-item-title" class="text-lg font-extrabold text-white break-all clay-font">Item Title</h2>
+                        <p id="gateway-item-meta" class="text-[11px] text-slate-400 font-mono mt-1"></p>
+                    </div>
+
+                    <!-- For File & Source Code -->
+                    <div id="gateway-download-box" class="hidden space-y-2.5">
+                        <a id="final-download-link" href="#" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-download"></i> Download Now
+                        </a>
+                    </div>
+
+                    <!-- For "Others" (Website links / Messages / Anything) -->
+                    <div id="gateway-others-box" class="hidden space-y-3 text-left">
+                        <div id="gateway-others-message" class="p-3.5 rounded-2xl clay-inset text-xs text-slate-200 whitespace-pre-wrap break-words leading-relaxed"></div>
+                        <a id="gateway-others-url-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Link
+                        </a>
+                        <button id="gateway-others-copy-btn" class="w-full py-3 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Copy Content
+                        </button>
+                    </div>
                 </div>
             </div>
             <div class="powered-footer">POWERED BY HASSAN FF</div>
@@ -351,7 +370,6 @@
                     <button onclick="toggleDrawer(false)" class="text-slate-400 hover:text-white p-1.5"><i class="fa-solid fa-xmark text-lg"></i></button>
                 </div>
 
-                <!-- Drawer Navigation Hub -->
                 <nav class="flex flex-col gap-1.5 mt-3 text-xs font-semibold overflow-y-auto no-scrollbar flex-1">
                     <button onclick="navigateTo('dashboard'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-slate-200 hover:bg-cyan-500/10 text-left">
                         <i class="fa-solid fa-gauge w-4 text-cyan-400"></i> Dashboard
@@ -365,7 +383,6 @@
                         <i class="fa-solid fa-gem w-4 text-amber-400"></i> SEE Plans
                     </button>
 
-                    <!-- JOIN CHANNEL OPTION (Added right above Reffer and Earn & below 3rd option) -->
                     <button onclick="window.open('https://whatsapp.com/channel/0029VbE1NH99Bb65S8oOnS47', '_blank'); toggleDrawer(false)" class="flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-emerald-300 hover:bg-emerald-500/10 text-left border border-emerald-500/20">
                         <i class="fa-brands fa-whatsapp w-4 text-emerald-400"></i> Join Channel
                     </button>
@@ -398,13 +415,11 @@
                         <i class="fa-solid fa-users w-4 text-cyan-400"></i> Total Users
                     </button>
 
-                    <!-- Admin Panel Button -->
                     <button onclick="navigateTo('admin'); toggleDrawer(false)" id="drawer-admin-btn" class="hidden flex items-center gap-3 px-3.5 py-3 rounded-xl bg-amber-500/15 text-amber-300 border border-amber-500/30 text-left mt-1">
                         <i class="fa-solid fa-shield-halved w-4 text-amber-400"></i> Admin Panel
                     </button>
                 </nav>
 
-                <!-- Sign Out button (Only shows when user is logged in) -->
                 <div id="drawer-signout-container" class="mt-auto pt-3 border-t border-slate-800 hidden">
                     <button onclick="logoutUser()" class="w-full py-2.5 rounded-xl bg-red-500/15 border border-red-500/30 text-red-400 font-bold text-xs flex items-center justify-center gap-2">
                         <i class="fa-solid fa-right-from-bracket"></i> Sign Out
@@ -439,7 +454,7 @@
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/30 space-y-3">
                     <h3 class="text-sm font-extrabold text-white clay-font">About Hassan X Files</h3>
                     <p class="text-xs text-slate-300 leading-relaxed">
-                        Hassan X Files is your ultimate cloud file hosting and secure link generator platform. Upload Python scripts, HTML files, or documents and generate instant secure download links.
+                        Hassan X Files is your cloud file hosting, source code link generator, and custom link/message gateway. Every generated link uses a unique numeric ID (?id=...) that opens the exact item.
                     </p>
                 </div>
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
@@ -448,30 +463,41 @@
             <!-- SECTION 2: FILE TO LINK -->
             <section id="view-filetolink" class="app-section hidden p-4 space-y-4">
                 <div class="glass-card rounded-3xl p-5 border border-cyan-500/25 space-y-4">
-                    <div class="flex items-center justify-between">
+                    <div class="flex items-center justify-between gap-2">
                         <h3 class="text-sm font-extrabold text-white flex items-center gap-2 clay-font">
-                            <i class="fa-solid fa-file-arrow-up text-cyan-400"></i> File To Link Generator
+                            <i class="fa-solid fa-file-arrow-up text-cyan-400"></i> Link Generator
                         </h3>
-                        <div class="flex clay-inset p-1 rounded-xl">
-                            <button id="gen-tab-file" onclick="switchGenMode('file')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300">File</button>
-                            <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white">Code</button>
+                        <div class="flex clay-inset p-1 rounded-xl shrink-0">
+                            <button id="gen-tab-file" onclick="switchGenMode('file')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-300">File</button>
+                            <button id="gen-tab-code" onclick="switchGenMode('code')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white">Code</button>
+                            <button id="gen-tab-others" onclick="switchGenMode('others')" class="px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white">Others</button>
                         </div>
                     </div>
 
+                    <!-- Mode 1: Drag & Drop / File Upload -->
                     <div id="gen-mode-file-section" class="space-y-3">
-                        <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 clay-inset rounded-2xl p-6 text-center cursor-pointer">
-                            <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0], 'file'); this.value='';">
+                        <div id="file-drop-area" onclick="document.getElementById('hidden-file-input').click()" class="border-2 border-dashed border-cyan-500/40 hover:border-cyan-400 clay-inset rounded-2xl p-6 text-center cursor-pointer transition">
+                            <input type="file" id="hidden-file-input" class="hidden" onchange="processFileUpload(this.files[0]); this.value='';">
                             <div class="w-12 h-12 rounded-2xl bg-cyan-500/15 text-cyan-400 flex items-center justify-center mx-auto mb-2 text-xl">
                                 <i class="fa-solid fa-cloud-arrow-up"></i>
                             </div>
-                            <p class="text-xs font-bold text-slate-200">Tap to Select or Drop File Here</p>
+                            <p id="file-drop-label" class="text-xs font-bold text-slate-200">Tap to Select or Drag & Drop File Here</p>
+                            <p class="text-[10px] text-slate-400 mt-1">Generates a direct numeric ?id= link</p>
                         </div>
                     </div>
 
+                    <!-- Mode 2: Source Code Only (No preview option) -->
                     <div id="gen-mode-code-section" class="space-y-3 hidden">
-                        <input type="text" id="manual-proj-name" placeholder="File name (e.g. script.py)" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
-                        <textarea id="manual-proj-content" rows="4" placeholder="Paste code here..." class="w-full clay-inset border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none"></textarea>
-                        <button onclick="submitManualCodeSnippet()" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Generate Link</button>
+                        <input type="text" id="manual-proj-name" placeholder="Source code file name (e.g. app.py, index.html)" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <textarea id="manual-proj-content" rows="5" placeholder="Write or paste source code only..." class="w-full clay-inset border border-slate-800 rounded-xl p-3 text-xs font-mono text-cyan-300 focus:outline-none"></textarea>
+                        <button onclick="submitManualCodeSnippet()" class="w-full py-3.5 rounded-2xl btn-cyan text-xs font-extrabold text-white uppercase">Generate Code Link</button>
+                    </div>
+
+                    <!-- Mode 3: Others (Website links, messages, anything) -->
+                    <div id="gen-mode-others-section" class="space-y-3 hidden">
+                        <input type="text" id="others-title-input" placeholder="Title or label (optional, e.g. My Link / Note)" class="w-full clay-inset border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none">
+                        <textarea id="others-content-input" rows="4" placeholder="Add any website URL (https://...), message, text, or link..." class="w-full clay-inset border border-slate-800 rounded-xl p-3 text-xs text-amber-200 focus:outline-none"></textarea>
+                        <button onclick="submitOthersEntry()" class="w-full py-3.5 rounded-2xl btn-gold text-xs font-extrabold uppercase">Generate Link</button>
                     </div>
 
                     <div id="latest-link-box" class="hidden p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 space-y-2">
@@ -484,9 +510,9 @@
                 </div>
 
                 <div class="glass-card rounded-3xl p-4 border border-cyan-500/20">
-                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase mb-3 clay-font"><i class="fa-solid fa-folder-open mr-1.5"></i> My Uploads</h3>
+                    <h3 class="text-xs font-extrabold text-cyan-300 uppercase mb-3 clay-font"><i class="fa-solid fa-folder-open mr-1.5"></i> My Generated Links</h3>
                     <div id="user-files-list" class="space-y-2.5">
-                        <p class="text-center py-4 text-slate-500 text-xs">No files uploaded yet.</p>
+                        <p class="text-center py-4 text-slate-500 text-xs">No items created yet.</p>
                     </div>
                 </div>
                 <div class="powered-footer">POWERED BY HASSAN FF</div>
@@ -604,7 +630,6 @@
                         <button id="tab-btn-signup" onclick="setAuthMode('signup')" class="py-2.5 rounded-xl text-xs font-bold text-slate-400 hover:text-white">Create Account</button>
                     </div>
 
-                    <!-- Google Sign-In -->
                     <button onclick="loginWithGoogle()" class="w-full py-3.5 rounded-2xl bg-white text-slate-950 font-bold text-xs flex items-center justify-center gap-2.5 shadow-lg active:scale-98 transition mb-4">
                         <svg class="w-4 h-4" viewBox="0 0 24 24">
                             <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
@@ -816,7 +841,6 @@
                     <i class="fa-solid fa-shield-halved text-2xl text-amber-400"></i>
                 </div>
 
-                <!-- Admin Give Plan directly to User Username -->
                 <div class="glass-card rounded-3xl p-4 border border-amber-500/30 space-y-3">
                     <h3 class="text-xs font-extrabold text-amber-300 uppercase clay-font"><i class="fa-solid fa-gem mr-1.5"></i> Assign Plan To User</h3>
                     <div>
@@ -863,18 +887,18 @@
             updatePassword, updateEmail, EmailAuthProvider, reauthenticateWithCredential
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
         import {
-            getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, getDocs, deleteDoc, serverTimestamp, onSnapshot, query, where
+            getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, getDocs, serverTimestamp, onSnapshot, query, where
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
         const firebaseConfig = {
-  apiKey: "AIzaSyBHKCWlRn_o88IqE_b2qIBCq_ddisZq6l0",
-  authDomain: "files-to-links-c6ef7.firebaseapp.com",
-  projectId: "files-to-links-c6ef7",
-  storageBucket: "files-to-links-c6ef7.firebasestorage.app",
-  messagingSenderId: "1074897389300",
-  appId: "1:1074897389300:web:176df4e63961079c8ac0a1"
-};
+            apiKey: "AIzaSyBHKCWlRn_o88IqE_b2qIBCq_ddisZq6l0",
+            authDomain: "files-to-links-c6ef7.firebaseapp.com",
+            projectId: "files-to-links-c6ef7",
+            storageBucket: "files-to-links-c6ef7.firebasestorage.app",
+            messagingSenderId: "1074897389300",
+            appId: "1:1074897389300:web:176df4e63961079c8ac0a1"
+        };
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
@@ -892,6 +916,7 @@
         let userFiles = [];
         let rawPlainPassword = "";
         let isPasswordShown = false;
+        let activeGatewayObjectUrl = null;
 
         const PLAN_LIMITS = {
             "Free Plan": 400 * 1024 * 1024,
@@ -900,6 +925,25 @@
             "Monthly": 1024 * 1024 * 1024,
             "Yearly": 2048 * 1024 * 1024
         };
+
+        // Generates a long 18-digit numeric ID (first digit 1-9)
+        function generateLongNumericId() {
+            let id = String(Math.floor(Math.random() * 9) + 1);
+            for (let i = 0; i < 17; i++) {
+                id += Math.floor(Math.random() * 10);
+            }
+            return id;
+        }
+
+        function getBaseShareUrl() {
+            const rawUrl = window.location.href.split("?")[0].split("#")[0];
+            return rawUrl.endsWith("/") ? rawUrl.slice(0, -1) : rawUrl;
+        }
+
+        function getGatewayIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return params.get("id");
+        }
 
         window.showAppModal = function(title, text, iconHtml = '<i class="fa-solid fa-circle-info"></i>') {
             document.getElementById("app-modal-title").innerText = title;
@@ -917,14 +961,22 @@
         };
 
         window.copyTextValue = function(text, msg = "Copied to clipboard!") {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
+            } else {
+                fallbackCopy(text);
+            }
+            showAppModal("Copied!", msg, '<i class="fa-solid fa-clipboard-check text-emerald-400"></i>');
+        };
+
+        function fallbackCopy(text) {
             const temp = document.createElement("textarea");
             temp.value = text;
             document.body.appendChild(temp);
             temp.select();
             document.execCommand("copy");
             document.body.removeChild(temp);
-            showAppModal("Copied!", msg, '<i class="fa-solid fa-clipboard-check text-emerald-400"></i>');
-        };
+        }
 
         function formatSize(bytes) {
             if (!bytes || bytes <= 0) return "0 KB";
@@ -948,9 +1000,7 @@
         }
 
         window.getPlanOnWhatsApp = async function(planName, planPrice, storageSize) {
-            const currentBase = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-            const formattedBase = currentBase.endsWith("/") ? currentBase.slice(0, -1) : currentBase;
-            
+            const formattedBase = getBaseShareUrl();
             const message = `*I WANT YOUR (${encodeURIComponent(formattedBase)}) WEBSITE LINK*%0A` +
                             `*USER: ${userProfile ? userProfile.username : 'Guest'}*%0A` +
                             `*PLAN: ${planName} (${storageSize})*%0A` +
@@ -962,22 +1012,182 @@
         };
 
         window.switchGenMode = function(mode) {
-            const fileBtn = document.getElementById("gen-tab-file");
-            const codeBtn = document.getElementById("gen-tab-code");
-            const fileSec = document.getElementById("gen-mode-file-section");
-            const codeSec = document.getElementById("gen-mode-code-section");
+            const tabs = {
+                file: document.getElementById("gen-tab-file"),
+                code: document.getElementById("gen-tab-code"),
+                others: document.getElementById("gen-tab-others")
+            };
+            const sections = {
+                file: document.getElementById("gen-mode-file-section"),
+                code: document.getElementById("gen-mode-code-section"),
+                others: document.getElementById("gen-mode-others-section")
+            };
 
-            if (mode === "file") {
-                fileBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300";
-                codeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white";
-                fileSec.classList.remove("hidden");
-                codeSec.classList.add("hidden");
-            } else {
-                codeBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-cyan-500/20 text-cyan-300";
-                fileBtn.className = "px-3 py-1.5 rounded-lg text-xs font-bold text-slate-400 hover:text-white";
-                codeSec.classList.remove("hidden");
-                fileSec.classList.add("hidden");
+            Object.keys(tabs).forEach(key => {
+                if (key === mode) {
+                    tabs[key].className = "px-2.5 py-1.5 rounded-lg text-[11px] font-bold bg-cyan-500/20 text-cyan-300";
+                    sections[key].classList.remove("hidden");
+                } else {
+                    tabs[key].className = "px-2.5 py-1.5 rounded-lg text-[11px] font-bold text-slate-400 hover:text-white";
+                    sections[key].classList.add("hidden");
+                }
+            });
+        };
+
+        // Drag & Drop handlers for file drop zone
+        function setupDragAndDrop() {
+            const dropArea = document.getElementById("file-drop-area");
+            const dropLabel = document.getElementById("file-drop-label");
+            if (!dropArea) return;
+
+            ["dragenter", "dragover"].forEach(evtName => {
+                dropArea.addEventListener(evtName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropArea.classList.add("border-cyan-300", "bg-cyan-500/10");
+                    if (dropLabel) dropLabel.innerText = "Release to Upload File";
+                });
+            });
+
+            ["dragleave", "dragend"].forEach(evtName => {
+                dropArea.addEventListener(evtName, (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropArea.classList.remove("border-cyan-300", "bg-cyan-500/10");
+                    if (dropLabel) dropLabel.innerText = "Tap to Select or Drag & Drop File Here";
+                });
+            });
+
+            dropArea.addEventListener("drop", (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dropArea.classList.remove("border-cyan-300", "bg-cyan-500/10");
+                if (dropLabel) dropLabel.innerText = "Tap to Select or Drag & Drop File Here";
+
+                const files = e.dataTransfer && e.dataTransfer.files;
+                if (files && files.length > 0) {
+                    processFileUpload(files[0]);
+                }
+            });
+        }
+        setupDragAndDrop();
+
+        // Public Gateway handler for ?id=<numeric_id>
+        async function openPublicGatewayIfNeeded() {
+            const itemId = getGatewayIdFromUrl();
+            if (!itemId) {
+                document.getElementById("public-file-view").classList.add("hidden");
+                document.getElementById("main-app-container").classList.remove("hidden");
+                return false;
             }
+
+            document.getElementById("whatsapp-popup-modal").classList.add("hidden");
+            document.getElementById("main-app-container").classList.add("hidden");
+            document.getElementById("public-file-view").classList.remove("hidden");
+
+            document.getElementById("gateway-loading-step").classList.remove("hidden");
+            document.getElementById("gateway-error-step").classList.add("hidden");
+            document.getElementById("gateway-ready-step").classList.add("hidden");
+
+            try {
+                const snap = await getDoc(doc(db, "files", String(itemId).trim()));
+                document.getElementById("gateway-loading-step").classList.add("hidden");
+
+                if (!snap.exists()) {
+                    document.getElementById("gateway-error-msg").innerText = `No item found for ID: ${itemId}`;
+                    document.getElementById("gateway-error-step").classList.remove("hidden");
+                    return true;
+                }
+
+                const data = snap.data();
+                renderGatewayItem(snap.id, data);
+                document.getElementById("gateway-ready-step").classList.remove("hidden");
+            } catch (err) {
+                document.getElementById("gateway-loading-step").classList.add("hidden");
+                document.getElementById("gateway-error-msg").innerText = "Unable to load item. Please check connection.";
+                document.getElementById("gateway-error-step").classList.remove("hidden");
+            }
+            return true;
+        }
+
+        function renderGatewayItem(docId, data) {
+            const badgeEl = document.getElementById("gateway-badge");
+            const iconEl = document.getElementById("gateway-item-icon");
+            const titleEl = document.getElementById("gateway-item-title");
+            const metaEl = document.getElementById("gateway-item-meta");
+            const downloadBox = document.getElementById("gateway-download-box");
+            const othersBox = document.getElementById("gateway-others-box");
+            const dlLink = document.getElementById("final-download-link");
+
+            if (activeGatewayObjectUrl) {
+                URL.revokeObjectURL(activeGatewayObjectUrl);
+                activeGatewayObjectUrl = null;
+            }
+
+            const kind = data.kind || (data.codeContent !== undefined ? "code" : "file");
+            titleEl.innerText = data.fileName || data.title || "Shared Item";
+            metaEl.innerText = `ID: ${docId}`;
+
+            if (kind === "others") {
+                badgeEl.innerText = "OTHERS GATEWAY";
+                iconEl.className = "fa-solid fa-link";
+                downloadBox.classList.add("hidden");
+                othersBox.classList.remove("hidden");
+
+                const rawText = data.content || "";
+                const msgBox = document.getElementById("gateway-others-message");
+                const urlBtn = document.getElementById("gateway-others-url-btn");
+                const copyBtn = document.getElementById("gateway-others-copy-btn");
+
+                msgBox.innerText = rawText || "(Empty)";
+
+                const trimmed = rawText.trim();
+                const urlMatch = trimmed.match(/https?:\/\/[^\s]+/i);
+                const extractedUrl = urlMatch ? urlMatch[0] : (/^www\.[^\s]+/i.test(trimmed) ? `https://${trimmed}` : "");
+
+                if (extractedUrl) {
+                    urlBtn.href = extractedUrl;
+                    urlBtn.classList.remove("hidden");
+                } else {
+                    urlBtn.classList.add("hidden");
+                }
+
+                copyBtn.onclick = () => copyTextValue(rawText, "Copied to clipboard!");
+                return;
+            }
+
+            // File or Source Code
+            downloadBox.classList.remove("hidden");
+            othersBox.classList.add("hidden");
+
+            if (kind === "code" && data.codeContent !== undefined) {
+                badgeEl.innerText = "SOURCE CODE GATEWAY";
+                iconEl.className = "fa-solid fa-file-code";
+                const blob = new Blob([data.codeContent], { type: "text/plain;charset=utf-8" });
+                activeGatewayObjectUrl = URL.createObjectURL(blob);
+                dlLink.href = activeGatewayObjectUrl;
+                dlLink.setAttribute("download", data.fileName || "source_code.txt");
+                dlLink.removeAttribute("target");
+            } else {
+                badgeEl.innerText = "FILE GATEWAY";
+                iconEl.className = "fa-solid fa-file-arrow-down";
+                dlLink.href = data.downloadURL || "#";
+                dlLink.setAttribute("download", data.fileName || "download");
+                dlLink.setAttribute("target", "_blank");
+                dlLink.setAttribute("rel", "noopener noreferrer");
+            }
+        }
+
+        window.exitPublicGateway = function() {
+            if (activeGatewayObjectUrl) {
+                URL.revokeObjectURL(activeGatewayObjectUrl);
+                activeGatewayObjectUrl = null;
+            }
+            const cleanUrl = getBaseShareUrl() + window.location.pathname.replace(/\/$/, "");
+            window.history.replaceState({}, document.title, getBaseShareUrl());
+            document.getElementById("public-file-view").classList.add("hidden");
+            document.getElementById("main-app-container").classList.remove("hidden");
+            navigateTo(currentUser ? "dashboard" : "login");
         };
 
         window.setAuthMode = function(mode) {
@@ -1101,14 +1311,15 @@
         }
 
         onAuthStateChanged(auth, async (user) => {
-            const currentBase = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-            updateWhatsAppRedeemLink(currentBase.endsWith("/") ? currentBase.slice(0, -1) : currentBase);
+            const baseUrl = getBaseShareUrl();
+            updateWhatsAppRedeemLink(baseUrl);
 
+            const isGateway = await openPublicGatewayIfNeeded();
             const signoutContainer = document.getElementById("drawer-signout-container");
 
             if (user) {
                 currentUser = user;
-                if (signoutContainer) signoutContainer.classList.remove("hidden"); // Show Sign Out when logged in
+                if (signoutContainer) signoutContainer.classList.remove("hidden");
 
                 const emailLower = (user.email || "").toLowerCase();
                 if (emailLower === ADMIN_EMAIL) {
@@ -1169,14 +1380,14 @@
                     }
                 });
 
-                navigateTo('dashboard');
+                if (!isGateway) navigateTo('dashboard');
             } else {
                 currentUser = null;
                 userProfile = null;
                 rawPlainPassword = "";
-                if (signoutContainer) signoutContainer.classList.add("hidden"); // Hide Sign Out when NOT logged in
+                if (signoutContainer) signoutContainer.classList.add("hidden");
                 syncDashboardUI();
-                navigateTo('login');
+                if (!isGateway) navigateTo('login');
             }
 
             loadTotalUsersList();
@@ -1202,8 +1413,7 @@
                 document.getElementById("prof-email").value = userProfile.email || "";
                 updatePasswordDisplayField();
 
-                const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-                const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+                const cleanBase = getBaseShareUrl();
                 document.getElementById("my-referral-link").value = `${cleanBase}/?register/?ref=${userProfile.referralCode}`;
 
                 const isAdminUser = userProfile.isAdmin || userProfile.email === ADMIN_EMAIL || userProfile.username === "hassan_admin";
@@ -1327,24 +1537,30 @@
             const listEl = document.getElementById("user-files-list");
             if (!listEl) return;
             if (userFiles.length === 0) {
-                listEl.innerHTML = `<div class="text-center py-4 text-slate-500 text-xs">No files generated yet.</div>`;
+                listEl.innerHTML = `<div class="text-center py-4 text-slate-500 text-xs">No items generated yet.</div>`;
                 return;
             }
-            const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-            const cleanBase = base.endsWith("/") ? base.slice(0, -1) : base;
+            const cleanBase = getBaseShareUrl();
 
             listEl.innerHTML = userFiles.map(f => {
                 const fullUrl = `${cleanBase}/?id=${encodeURIComponent(f.id)}`;
+                const tagLabel = f.kind === "others" ? "OTHERS" : (f.kind === "code" ? "CODE" : "FILE");
                 return `
                     <div class="p-3 rounded-2xl clay-inset border border-slate-800 flex items-center justify-between gap-2">
                         <div class="min-w-0 flex-1">
                             <p class="text-xs font-bold text-white truncate">${f.fileName}</p>
-                            <p class="text-[10px] text-cyan-400 truncate">${formatSize(f.size)}</p>
+                            <p class="text-[10px] text-cyan-400 truncate font-mono">${tagLabel} • ID: ${f.id}</p>
                         </div>
-                        <button onclick="copyTextValue('${fullUrl}', 'Link copied!')" class="px-3 py-1.5 rounded-xl btn-cyan text-xs font-bold text-white">Copy</button>
+                        <button onclick="copyTextValue('${fullUrl}', 'Link copied!')" class="px-3 py-1.5 rounded-xl btn-cyan text-xs font-bold text-white shrink-0">Copy</button>
                     </div>
                 `;
             }).join("");
+        }
+
+        function setLatestGeneratedLink(numericId) {
+            const link = `${getBaseShareUrl()}/?id=${numericId}`;
+            document.getElementById("latest-link-url").value = link;
+            document.getElementById("latest-link-box").classList.remove("hidden");
         }
 
         window.processFileUpload = async function(file) {
@@ -1354,12 +1570,16 @@
                 return;
             }
             if (!file) return;
+
+            const numericId = generateLongNumericId();
             try {
-                const fileRef = ref(storage, `files/${currentUser.uid}/${Date.now()}_${file.name}`);
+                const fileRef = ref(storage, `files/${currentUser.uid}/${numericId}_${file.name}`);
                 await uploadBytes(fileRef, file);
                 const downloadURL = await getDownloadURL(fileRef);
 
-                const added = await addDoc(collection(db, "files"), {
+                await setDoc(doc(db, "files", numericId), {
+                    id: numericId,
+                    kind: "file",
                     ownerId: currentUser.uid,
                     fileName: file.name,
                     size: file.size,
@@ -1367,12 +1587,8 @@
                     createdAt: serverTimestamp()
                 });
 
-                const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-                const link = `${base.endsWith("/") ? base.slice(0, -1) : base}/?id=${added.id}`;
-
-                document.getElementById("latest-link-url").value = link;
-                document.getElementById("latest-link-box").classList.remove("hidden");
-                showAppModal("Success!", "File uploaded and link generated!");
+                setLatestGeneratedLink(numericId);
+                showAppModal("Success!", "File uploaded and numeric link generated!");
             } catch (err) {
                 showAppModal("Error", err.message);
             }
@@ -1384,12 +1600,18 @@
                 navigateTo('login');
                 return;
             }
-            const name = document.getElementById("manual-proj-name").value.trim() || "script.py";
+            const name = document.getElementById("manual-proj-name").value.trim() || "source_code.txt";
             const content = document.getElementById("manual-proj-content").value;
-            if (!content) return;
+            if (!content.trim()) {
+                showAppModal("Empty Code", "Please enter source code first.");
+                return;
+            }
 
+            const numericId = generateLongNumericId();
             try {
-                const added = await addDoc(collection(db, "files"), {
+                await setDoc(doc(db, "files", numericId), {
+                    id: numericId,
+                    kind: "code",
                     ownerId: currentUser.uid,
                     fileName: name,
                     size: new Blob([content]).size,
@@ -1397,12 +1619,44 @@
                     createdAt: serverTimestamp()
                 });
 
-                const base = window.location.origin + window.location.pathname.replace(/\/index\.html$/, "");
-                const link = `${base.endsWith("/") ? base.slice(0, -1) : base}/?id=${added.id}`;
+                document.getElementById("manual-proj-name").value = "";
+                document.getElementById("manual-proj-content").value = "";
+                setLatestGeneratedLink(numericId);
+                showAppModal("Success!", "Source code link generated!");
+            } catch (err) {
+                showAppModal("Error", err.message);
+            }
+        };
 
-                document.getElementById("latest-link-url").value = link;
-                document.getElementById("latest-link-box").classList.remove("hidden");
-                showAppModal("Success!", "Code link generated!");
+        window.submitOthersEntry = async function() {
+            if (!currentUser || !userProfile) {
+                showAppModal("Login Required", "Please login first.", '<i class="fa-solid fa-triangle-exclamation text-amber-400"></i>');
+                navigateTo('login');
+                return;
+            }
+            const title = document.getElementById("others-title-input").value.trim() || "Shared Link / Message";
+            const content = document.getElementById("others-content-input").value.trim();
+            if (!content) {
+                showAppModal("Empty Input", "Please enter a link, message, or text.");
+                return;
+            }
+
+            const numericId = generateLongNumericId();
+            try {
+                await setDoc(doc(db, "files", numericId), {
+                    id: numericId,
+                    kind: "others",
+                    ownerId: currentUser.uid,
+                    fileName: title,
+                    size: new Blob([content]).size,
+                    content: content,
+                    createdAt: serverTimestamp()
+                });
+
+                document.getElementById("others-title-input").value = "";
+                document.getElementById("others-content-input").value = "";
+                setLatestGeneratedLink(numericId);
+                showAppModal("Success!", "Link generated for your entry!");
             } catch (err) {
                 showAppModal("Error", err.message);
             }
@@ -1460,6 +1714,8 @@
         };
 
         window.navigateTo = function(sectionName) {
+            document.getElementById("public-file-view").classList.add("hidden");
+            document.getElementById("main-app-container").classList.remove("hidden");
             document.querySelectorAll(".app-section").forEach(sec => sec.classList.add("hidden"));
             const target = document.getElementById(`view-${sectionName}`);
             if (target) target.classList.remove("hidden");
